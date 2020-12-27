@@ -1,4 +1,5 @@
-import React from "react";
+import React, { useContext } from "react";
+import HarvestContext from "../Context/HarvestContext";
 import styled from "styled-components";
 import { fonts } from "../styles/appStyles";
 import harvest from "../lib/index";
@@ -97,7 +98,10 @@ const WelcomeText = ({
   openModal,
   state,
 }) => {
+  const { setIsConnecting, setCheckingBalance } = useContext(HarvestContext);
   const connectMetamask = () => {
+    setIsConnecting(true);
+    setCheckingBalance(false);
     web3Modal
       .connect()
       .then((provider) => {
