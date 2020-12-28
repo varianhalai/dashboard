@@ -25,7 +25,8 @@ export const darkThemeColors = {
   purple: "#6D6875",
   lighterPurple: '#B5838D',
   pinkish: '#E5989B',
-  peach: '#FFB4A2'
+  peach: '#FFB4A2',
+  lightGreen: '#92d496'
 };
 
 export const darkTheme = {
@@ -41,7 +42,7 @@ export const darkTheme = {
     panelTabLinkColor: `${darkThemeColors.lightGrey}`,
     wikiTabBackground: `${darkThemeColors.peach}`,
     lightBackground: `${darkThemeColors.peach}`,
-    blueBackground: `${darkThemeColors.peach}`,
+    blueBackground: `${darkThemeColors.lightGreen}`,
     highlight: `${darkThemeColors.orange}`,
     bodyBackground: `${darkThemeColors.purple}`,
     primaryFontColor: "#333",

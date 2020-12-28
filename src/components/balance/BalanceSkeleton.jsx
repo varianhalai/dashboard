@@ -7,7 +7,7 @@ display: flex;
 flex-direction: column;
 align-items: center;
 width: 100%;
-height: 11.3rem;
+height: 10rem;
 background: none;
 border: ${(props) => props.theme.style.mainBorder};
 box-shadow: ${(props) => props.theme.style.panelBoxShadow};
@@ -43,7 +43,9 @@ overflow: hidden;
             left: 100%;
         }
     }
-
+    @media (max-width: 1107px) {
+      height: 16rem;
+    }
     &.stake-skeleton
 
 

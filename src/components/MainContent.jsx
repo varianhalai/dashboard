@@ -34,6 +34,15 @@ const MainContent = ({ state, setState, openModal, isConnecting }) => {
   };
   return (
     <Main>
+      <div className="farm-info">
+          <Balance state={state} />
+          <APY apy={state.apy} display={state.display} theme={state.theme} />
+          <FarmPrice
+            price={state.farmPrice}
+            display={state.display}
+            theme={state.theme}
+          />
+      </div>
       <Row>
         <Col>
           <FarmingTable state={state} setState={setState} />
@@ -48,11 +57,8 @@ const MainContent = ({ state, setState, openModal, isConnecting }) => {
           <Col lg="6">
             <Harvest state={state} setState={setState} openModal={openModal} />
           </Col>
-          <Col lg="4">
+          <Col lg="6">
             <StakePanel state={state} openModal={openModal} />
-          </Col>
-          <Col lg="2">
-            <Balance state={state} />
           </Col>
         </Row>
       )}
@@ -61,16 +67,8 @@ const MainContent = ({ state, setState, openModal, isConnecting }) => {
       ) : (
         <Row style={{ marginTop: "15px" }}>
           {/* Git hub pages would not recognize the margin from the bootstrap grid */}
-          <Col lg="10">
+          <Col lg="12">
             <AddTokens state={state} />
-          </Col>
-          <Col lg="2">
-            <APY apy={state.apy} display={state.display} theme={state.theme} />
-            <FarmPrice
-              price={state.farmPrice}
-              display={state.display}
-              theme={state.theme}
-            />
           </Col>
         </Row>
       )}
@@ -105,6 +103,17 @@ const MainContent = ({ state, setState, openModal, isConnecting }) => {
 export default MainContent;
 
 const Main = styled.div`
+
+  .farm-info {
+    display: flex
+  }
+
+  @media (max-width: 1107px) {
+    .farm-info {
+      display: block
+    }
+  }
+
   .button-div {
     display: flex;
     flex-direction: column;
@@ -124,5 +133,7 @@ const Main = styled.div`
       position: relative;
       z-index: 400;
     }
+    
   }
+  
 `;
