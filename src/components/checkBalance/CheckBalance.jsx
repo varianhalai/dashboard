@@ -231,7 +231,6 @@ const Panel = styled.div`
   
   @media(max-width: 1105px) {
     margin-bottom: 1.5rem;
-    height: 32rem;
   }
 
   .validation-message {
