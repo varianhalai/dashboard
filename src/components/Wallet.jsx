@@ -7,18 +7,18 @@ const WalletConnection = styled.div`
   border-radius: 0.5rem;
   border-top-right-radius: 0rem;
   display: flex;
-  justify-content: center;
+  justify-content: flex-end;
   padding: 0.5rem;
   width: 24rem;
   background-color: ${(props) => props.theme.style.lightBackground};
-  position: relative;
-  top: -0.6rem;
   font-size: 2rem;
   @media (max-width: 610px) {
+    width:100%;
     font-size: 1.8rem;
   }
   @media (max-width: 580px) {
     font-size: 1.7rem;
+    width: 
   }
 
   @media (max-width: 550px) {
@@ -68,20 +68,23 @@ const WalletContainer = styled.div`
   display: flex;
   flex-direction: column;
   align-items: flex-end;
+  justify-content: flex-end;
   padding-left: 1rem;
   color: ${(props) => props.theme.style.primaryFontColor};
   font-family: ${fonts.headerFont};
+  @media (max-width: 1107px) {
+    margin-bottom: 1rem;
+  }
 `;
 const WalletTab = styled.div`
   padding: 0.5rem 1rem;
   border-radius: 0.5rem;
+  margin-bottom: -1rem;
   background-color: ${(props) => props.theme.style.lightBackground};
   border: ${(props) => props.theme.style.mainBorder};
   padding-bottom: 1.5rem;
   font-family: ${fonts.headerFont};
   font-size: 2rem;
-  position: relative;
-  top: 0.6rem;
 
 `;
 const Wallet = ({ theme, address, provider }) => {
