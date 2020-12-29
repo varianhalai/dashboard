@@ -31,8 +31,7 @@ const BluePanel = styled.div`
   }
 
   @media (max-width: 1107px) {
-    padding: 3.65rem 0.7rem 6.9rem 1.5rem;
-    margin: 1rem 0rem 1rem;
+    padding: 2rem 0.7rem 4rem 1.5rem;
 
     h1 {
       font-size: 2.2rem;

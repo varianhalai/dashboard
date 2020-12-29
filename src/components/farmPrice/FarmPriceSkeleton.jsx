@@ -47,7 +47,7 @@ const SkeletonPanel = styled.div`
   }
 
   @media (max-width: 1107px) {
-    height: 16rem;
+    height: 10rem;
     margin-top: 1rem;
   }
 `;

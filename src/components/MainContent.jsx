@@ -11,7 +11,7 @@ import Balance from "../components/balance/Balance.jsx";
 import APY from "../components/apy/APY.jsx";
 import FarmPrice from "../components/farmPrice/FarmPrice";
 import AddTokens from "../components/addTokens/AddTokens";
-
+import Wallet from "../components/Wallet";
 import Loadable from "react-loadable";
 
 const MainContent = ({ state, setState, openModal, isConnecting }) => {
@@ -35,13 +35,19 @@ const MainContent = ({ state, setState, openModal, isConnecting }) => {
   return (
     <Main>
       <div className="farm-info">
-          <Balance state={state} />
-          <APY apy={state.apy} display={state.display} theme={state.theme} />
-          <FarmPrice
-            price={state.farmPrice}
-            display={state.display}
-            theme={state.theme}
-          />
+        <Balance state={state} />
+        <APY apy={state.apy} display={state.display} theme={state.theme} />
+        <FarmPrice
+          price={state.farmPrice}
+          display={state.display}
+          theme={state.theme}
+        />
+        <Wallet
+          theme={state.theme}
+          address={state.address}
+          provider={state.provider}
+        />
+
       </div>
       <Row>
         <Col>
@@ -103,14 +109,14 @@ const MainContent = ({ state, setState, openModal, isConnecting }) => {
 export default MainContent;
 
 const Main = styled.div`
-
   .farm-info {
-    display: flex
+    display: flex;
   }
 
   @media (max-width: 1107px) {
     .farm-info {
-      display: block
+      display: flex;
+      flex-direction: column-reverse;
     }
   }
 
@@ -133,7 +139,5 @@ const Main = styled.div`
       position: relative;
       z-index: 400;
     }
-    
   }
-  
 `;
