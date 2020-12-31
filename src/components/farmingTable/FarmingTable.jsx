@@ -263,6 +263,7 @@ const FarmingTable = () => {
       getTotalFarmEarned();
     }
   }, [state.summaries]);
+  
   useEffect(() => {
     const timer = setTimeout(() => {
       getTotalFarmEarned();
