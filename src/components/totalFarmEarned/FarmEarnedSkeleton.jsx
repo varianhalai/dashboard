@@ -8,6 +8,8 @@ const SkeletonPanel = styled.div`
   align-items: center;
   width: 100%;
   height: 10rem;
+  margin-right: 1rem;
+  margin-left: 1rem;
   background: none;
   border: ${(props) => props.theme.style.mainBorder};
   box-shadow: ${(props) => props.theme.style.panelBoxShadow};
@@ -48,11 +50,11 @@ const SkeletonPanel = styled.div`
 
   @media (max-width: 1107px) {
     height: 10rem;
-    margin-top: 1rem;
+    margin: 1rem 0 1rem;
   }
 `;
 
-const PriceSkeleton = ({ theme }) => {
+const FarmEarnedSkeleton = ({ theme }) => {
   return (
     <ThemeProvider theme={theme === "dark" ? darkTheme : lightTheme}>
       <SkeletonPanel></SkeletonPanel>
@@ -60,4 +62,4 @@ const PriceSkeleton = ({ theme }) => {
   );
 };
 
-export default PriceSkeleton;
+export default FarmEarnedSkeleton;

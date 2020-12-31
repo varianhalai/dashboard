@@ -1,8 +1,28 @@
-import React from "react";
+import React, { useContext } from "react";
+import HarvestContext from "../../Context/HarvestContext";
 import styled, { ThemeProvider } from "styled-components";
 import { darkTheme, lightTheme, fonts } from "../../styles/appStyles";
 
-import PriceSkeleton from "./FarmPriceSkeleton";
+//Components
+import FarmEarnedSkeleton from "./FarmEarnedSkeleton";
+const TotalFarmEarned = () => {
+  const { state } = useContext(HarvestContext);
+
+  return (
+    <ThemeProvider theme={state.theme === "dark" ? darkTheme : lightTheme}>
+      {state.display ? (
+        <BluePanel>
+          <h1>{state.totalFarmEarned.toFixed(6)}</h1>
+          <span>Farm Earned</span>
+        </BluePanel>
+      ) : (
+        <FarmEarnedSkeleton theme={state.theme} />
+      )}
+    </ThemeProvider>
+  );
+};
+
+export default TotalFarmEarned;
 
 const BluePanel = styled.div`
   position: relative;
@@ -10,6 +30,8 @@ const BluePanel = styled.div`
   color: ${(props) => props.theme.style.primaryFontColor};
   font-family: ${fonts.headerFont};
   padding: 2.5rem 0.7rem 2rem 0.7rem;
+  margin-right: 1rem;
+  margin-left: 1rem;
   border: ${(props) => props.theme.style.mainBorder};
   border-radius: 0.5rem;
   box-sizing: border-box;
@@ -22,8 +44,7 @@ const BluePanel = styled.div`
 
   h1 {
     font-size: 2.4rem;
-    text-align: center;
-    margin-right: 1rem;
+    margin-bottom: 0.5rem;
   }
 
   span {
@@ -31,8 +52,8 @@ const BluePanel = styled.div`
   }
 
   @media (max-width: 1107px) {
-    padding: 2rem 0.7rem 4rem 1.5rem;
-
+    padding: 1.5rem 0.7rem 4rem 1.5rem;
+    margin: 1rem 0rem 1rem;
     h1 {
       font-size: 2.2rem;
       position: relative;
@@ -45,20 +66,3 @@ const BluePanel = styled.div`
     }
   }
 `;
-
-const FarmPrice = ({ price, display, theme }) => {
-  return (
-    <ThemeProvider theme={theme === "dark" ? darkTheme : lightTheme}>
-      {display ? (
-        <BluePanel>
-          <h1>${price}</h1>
-          <span>FARM price</span>
-        </BluePanel>
-      ) : (
-        <PriceSkeleton theme={theme} />
-      )}
-    </ThemeProvider>
-  );
-};
-
-export default FarmPrice;

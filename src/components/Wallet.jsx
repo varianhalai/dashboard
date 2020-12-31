@@ -7,10 +7,9 @@ const WalletConnection = styled.div`
   border-radius: 0.5rem;
   border-top-right-radius: 0rem;
   display: flex;
+  justify-content: flex-end;
   padding: 0.5rem;
   background-color: ${(props) => props.theme.style.lightBackground};
-  position: relative;
-  top: -0.6rem;
   font-size: 2rem;
   @media (max-width: 610px) {
     width: 100%;
@@ -22,7 +21,6 @@ const WalletConnection = styled.div`
 
   @media (max-width: 550px) {
     font-size: 1.7rem;
-    width: 100%;
   }
   @media (max-width: 540px) {
     font-size: 1.6rem;
@@ -66,26 +64,31 @@ const WalletConnection = styled.div`
 `;
 const WalletContainer = styled.div`
   display: flex;
-  flex: 1;
   flex-direction: column;
   align-items: flex-end;
+  justify-content: flex-end;
+  padding-left: 1rem;
+  margin-bottom: 1rem;
   color: ${(props) => props.theme.style.primaryFontColor};
   font-family: ${fonts.headerFont};
+  @media (max-width: 1107px) {
+  }
 `;
 const WalletTab = styled.div`
   padding: 0.5rem 1rem;
   border-radius: 0.5rem;
+  margin-bottom: -1rem;
   background-color: ${(props) => props.theme.style.lightBackground};
   border: ${(props) => props.theme.style.mainBorder};
   padding-bottom: 1.5rem;
   font-family: ${fonts.headerFont};
   font-size: 2rem;
-  position: relative;
-  top: 0.6rem;
-`;
 
-const Wallet = ({ state }) => {
+`;
+const Wallet = ({ theme, address, provider }) => {
   const renderConnectStatus = (provider, address) => {
+    console.log(address)
+    const shortAddress =  address ? `${address.slice(0,10)}...${address.slice(-5)}` : "not connected"
     return (
       <p>
         <span id="address">
@@ -102,11 +105,11 @@ const Wallet = ({ state }) => {
   };
 
   return (
-    <ThemeProvider theme={state.theme === "dark" ? darkTheme : lightTheme}>
+    <ThemeProvider theme={theme === "dark" ? darkTheme : lightTheme}>
       <WalletContainer>
         <WalletTab>wallet</WalletTab>
         <WalletConnection>
-          {renderConnectStatus(state.provider, state.address)}
+          {renderConnectStatus(provider, address)}
         </WalletConnection>
       </WalletContainer>
     </ThemeProvider>
