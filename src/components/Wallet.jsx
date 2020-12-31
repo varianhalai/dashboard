@@ -68,10 +68,10 @@ const WalletContainer = styled.div`
   align-items: flex-end;
   justify-content: flex-end;
   padding-left: 1rem;
+  margin-bottom: 1rem;
   color: ${(props) => props.theme.style.primaryFontColor};
   font-family: ${fonts.headerFont};
   @media (max-width: 1107px) {
-    margin-bottom: 1rem;
   }
 `;
 const WalletTab = styled.div`

@@ -137,7 +137,7 @@ const Harvest = () => {
       <Panel>
         <div className="panel-text">
           <p>
-            Harvest all with at least
+            Harvest my pools with at least
             <input
               type="number"
               onChange={(event) =>
@@ -165,22 +165,22 @@ const Harvest = () => {
 
         <ButtonContainer>
           {isHarvesting ? (
-            <HarvestingButton>harvest all</HarvestingButton>
+            <HarvestingButton>harvest</HarvestingButton>
           ) : (
             <button className="buttons" onClick={harvest}>
-              harvest all
+              harvest
             </button>
           )}
           {isHarvesting ? (
             <HarvestingButton>
-              harvest all and stake in FARM pool
+              harvest and stake
             </HarvestingButton>
           ) : (
             <button
               className="buttons harvest-and-stake"
               onClick={harvestAllAndStake}
             >
-              harvest all and stake in FARM pool
+              harvest and stake
             </button>
           )}
         </ButtonContainer>
