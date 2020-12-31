@@ -516,13 +516,7 @@ function App() {
 
                       {state.address ? (
                         <Row>
-                          <Col>
-                            <Wallet
-                              theme={state.theme}
-                              address={state.address}
-                              provider={state.provider}
-                            />
-                          </Col>
+                        
                         </Row>
                       ) : null}
 
