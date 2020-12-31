@@ -14,7 +14,6 @@ box-shadow: ${(props) => props.theme.style.panelBoxShadow};
 border-radius: .5rem;
 overflow: hidden;
 
-
     .skeleton-header {
         margin: 0;
         height: 6rem;

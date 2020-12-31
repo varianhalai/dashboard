@@ -9,16 +9,14 @@ const WalletConnection = styled.div`
   display: flex;
   justify-content: flex-end;
   padding: 0.5rem;
-  width: 24rem;
   background-color: ${(props) => props.theme.style.lightBackground};
   font-size: 2rem;
   @media (max-width: 610px) {
-    width:100%;
+    width: 100%;
     font-size: 1.8rem;
   }
   @media (max-width: 580px) {
     font-size: 1.7rem;
-    width: 
   }
 
   @media (max-width: 550px) {
@@ -99,7 +97,7 @@ const Wallet = ({ theme, address, provider }) => {
             rel="noopener noreferrer"
             href={address ? "https://etherscan.io/address/" + address : "#"}
           >
-            {shortAddress || "not connected"}
+            {address || "not connected"}
           </a>
         </span>
       </p>

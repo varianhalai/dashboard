@@ -34,6 +34,15 @@ const MainContent = ({ state, setState, openModal, isConnecting }) => {
   };
   return (
     <Main>
+      <Row>
+        <Col>
+          <Wallet
+            theme={state.theme}
+            address={state.address}
+            provider={state.provider}
+          />
+        </Col>
+      </Row>
       <div className="farm-info">
         <Balance state={state} />
         <APY apy={state.apy} display={state.display} theme={state.theme} />
@@ -42,12 +51,7 @@ const MainContent = ({ state, setState, openModal, isConnecting }) => {
           display={state.display}
           theme={state.theme}
         />
-        <Wallet
-          theme={state.theme}
-          address={state.address}
-          provider={state.provider}
-        />
-
+        <TotalFarmEarned />
       </div>
       <Row>
         <Col>
@@ -60,11 +64,8 @@ const MainContent = ({ state, setState, openModal, isConnecting }) => {
       ) : (
         <Row style={{ marginTop: "15px" }}>
           {/* Git hub pages would not recognize the margin from the bootstrap grid */}
-          <Col lg="8">
+          <Col lg="12">
             <Harvest state={state} setState={setState} openModal={openModal} />
-          </Col>
-          <Col lg="6">
-            <StakePanel state={state} openModal={openModal} />
           </Col>
         </Row>
       )}

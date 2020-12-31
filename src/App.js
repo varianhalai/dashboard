@@ -514,12 +514,6 @@ function App() {
                     <Panel>
                       <Radio />
 
-                      {state.address ? (
-                        <Row>
-                        
-                        </Row>
-                      ) : null}
-
                       <TokenMessage />
                       <HarvestAndStakeMessage />
 
