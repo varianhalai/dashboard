@@ -340,7 +340,7 @@ function App() {
   const getPools = async () => {
     await axios
       .get(
-        `https://api-ui.harvest.finance/pools?key=41e90ced-d559-4433-b390-af424fdc76d6`,
+        `https://api-ui.harvest.finance/pools?key=${process.env.REACT_APP_HARVEST_KEY}`,
       )
       .then((res) => {
         let currentAPY = res.data[0].rewardAPY;
