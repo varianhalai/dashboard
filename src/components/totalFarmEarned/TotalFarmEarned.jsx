@@ -12,7 +12,7 @@ const TotalFarmEarned = () => {
     <ThemeProvider theme={state.theme === "dark" ? darkTheme : lightTheme}>
       {state.display ? (
         <BluePanel>
-          <h1>{state.totalFarmEarned.toFixed(6)}</h1>
+          <h1>{state.totalFarmEarned?.toFixed(6)}</h1>
           <span>Farm Earned</span>
         </BluePanel>
       ) : (

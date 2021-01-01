@@ -82,6 +82,7 @@ const CheckBalance = (props) => {
 
   const setCheck = (address) => {
     if (address && validateAddress(address)) {
+      setState({ ...state, address: addressToCheck });
       setCheckingBalance(true);
       checkBalances(address);
     } else {
