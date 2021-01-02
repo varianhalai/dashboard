@@ -34,15 +34,19 @@ const MainContent = ({ state, setState, openModal, isConnecting }) => {
   };
   return (
     <Main>
-      <Row>
-        <Col>
-          <Wallet
-            theme={state.theme}
-            address={state.address}
-            provider={state.provider}
-          />
-        </Col>
-      </Row>
+      {isCheckingBalance ? (
+        ""
+      ) : (
+        <Row>
+          <Col>
+            <Wallet
+              theme={state.theme}
+              address={state.address}
+              provider={state.provider}
+            />
+          </Col>
+        </Row>
+      )}
       <div className="farm-info">
         <Balance state={state} />
         <APY apy={state.apy} display={state.display} theme={state.theme} />
