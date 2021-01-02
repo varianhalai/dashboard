@@ -14,7 +14,7 @@ export default function FarmCard({summary_information}) {
                 <div className="card_property_section farm_earning">
                     <label className="card_property_title">Earning</label>
                     {/* TODO: Add icon here */}
-                    <p className="card_property_value">{String(summary_information.isActive)}</p>
+                    <p className="card_property_value">{summary_information.isActive ? "✅" : "❌"}</p>
                 </div>
                 <div className="card_property_section farm_staked">
                     <label className="card_property_title">Staked</label>

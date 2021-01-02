@@ -4,7 +4,7 @@ import HarvestContext from "../../Context/HarvestContext";
 import { ThemeProvider } from "styled-components";
 import { darkTheme, lightTheme } from "../../styles/appStyles";
 import FarmCard from "./FarmCard";
-import { FarmGroupContainerWrapper, StakedAssetsTitle } from "./FarmCardStyles";
+import { FarmGroupContainerWrapper, StakedAssetsTitle, NoFarmSummariesFound } from "./FarmCardStyles";
 const { utils } = harvest;
 
 function FarmCardGroupContainer() {
@@ -52,7 +52,7 @@ function FarmCardGroupContainer() {
                         return (<FarmCard key={summary.address} summary_information={summary} />)
                     })}
                 </FarmGroupContainerWrapper>
-            ) : (<p>Nothing to see here yet.</p>)}
+            ) : (<NoFarmSummariesFound>Nothing to see here yet. 🏜️</NoFarmSummariesFound>)}
         </ThemeProvider>
     )
 }

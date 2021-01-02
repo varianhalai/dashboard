@@ -143,7 +143,7 @@ export const FarmGroupContainerWrapper = styled.div`
 export const StakedAssetsTitle  = styled.h2`
     font-size: 18px;
     font-weight: bold;
-    margin: 25px 0;
+    margin-top: 25px;
     font-family: ${fonts.headerFont};
     border: ${(props) => props.theme.style.mainBorder};
     box-shadow: ${(props) => props.theme.style.panelBoxShadow};
@@ -152,3 +152,12 @@ export const StakedAssetsTitle  = styled.h2`
 
 `
 
+export const NoFarmSummariesFound = styled.div`
+    font-family: ${fonts.headerFont};
+    font-size: 18px;
+    border: ${(props) => props.theme.style.mainBorder};
+    padding: 10px;
+    text-align: center;
+
+
+`
