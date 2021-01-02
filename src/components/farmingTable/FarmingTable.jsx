@@ -158,6 +158,15 @@ const PanelTabContainerLeft = styled.div`
   display: flex;
   justify-content: flex-start;
 `;
+const PanelTabContainerRight = styled.div`
+  display: flex;
+  justify-content: flex-end;
+`;
+const Tabs = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+`;
 
 const PanelTab = styled.div`
   margin-right: 0.75rem;
@@ -184,6 +193,21 @@ const PanelTab = styled.div`
       top: 0.3rem;
     }
   }
+  &.refresh-button {
+    top: 1.7rem;
+    .fas {
+      font-size: 1.7rem;
+    }
+    &:hover {
+      top: 1.9rem;
+    }
+    &:active {
+      color: ${(props) => props.theme.style.blueBackground};
+      transform: scale(1.1);
+      transition: all 0.1s ease;
+    }
+  }
+
   @media (max-width: 605px) {
     font-size: 1.9rem;
     padding: 0.75rem 1rem 2.2rem 1rem;
@@ -232,14 +256,8 @@ const columns = [
   },
 ];
 
-const noAssetColumns = [
-  {
-    name: "Value",
-  },
-];
-
 const FarmingTable = () => {
-  const { state, setState } = useContext(HarvestContext);
+  const { state, setState, refresh } = useContext(HarvestContext);
   const getThisReward = (reward) => {
     console.log(reward);
     setState({ ...state, minimumHarvestAmount: reward });
@@ -273,11 +291,18 @@ const FarmingTable = () => {
   return (
     <ThemeProvider theme={state.theme === "dark" ? darkTheme : lightTheme}>
       {state.display ? (
-        <PanelTabContainerLeft>
-          <PanelTab>
-            <p>your staked assets</p>
-          </PanelTab>
-        </PanelTabContainerLeft>
+        <Tabs>
+          <PanelTabContainerLeft>
+            <PanelTab>
+              <p>your staked assets</p>
+            </PanelTab>
+          </PanelTabContainerLeft>
+          <PanelTabContainerRight>
+            <PanelTab className="refresh-button" onClick={refresh}>
+              <i className="fas fa-sync-alt"></i>
+            </PanelTab>
+          </PanelTabContainerRight>
+        </Tabs>
       ) : null}
       {state.display ? (
         <TableContainer>
