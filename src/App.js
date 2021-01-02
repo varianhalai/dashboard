@@ -425,7 +425,6 @@ function App() {
   };
 
   const refresh = () => {
-    console.log("refresh");
     state.manager
       .aggregateUnderlyings(state.address)
       .then((underlying) => {

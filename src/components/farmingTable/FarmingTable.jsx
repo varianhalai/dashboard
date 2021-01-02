@@ -259,7 +259,6 @@ const columns = [
 const FarmingTable = () => {
   const { state, setState, refresh } = useContext(HarvestContext);
   const getThisReward = (reward) => {
-    console.log(reward);
     setState({ ...state, minimumHarvestAmount: reward });
   };
 
