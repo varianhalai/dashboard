@@ -15,7 +15,7 @@ const web3Modal = new Web3Modal({
     walletconnect: {
       package: WalletConnectProvider, // required
       options: {
-        infuraId: "eccb6fa1fa2941bf82abe2b9c543bb14", // required
+        infuraId: `${process.env.REACT_APP_INFURA_KEY}`, // required
       },
     },
   },
