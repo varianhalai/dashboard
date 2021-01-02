@@ -4,7 +4,7 @@ import HarvestContext from "../../Context/HarvestContext";
 import { ThemeProvider } from "styled-components";
 import { darkTheme, lightTheme } from "../../styles/appStyles";
 import FarmCard from "./FarmCard";
-import { FarmGroupContainerWrapper } from "./FarmCardStyles";
+import { FarmGroupContainerWrapper, StakedAssetsTitle } from "./FarmCardStyles";
 const { utils } = harvest;
 
 function FarmCardGroupContainer() {
@@ -45,6 +45,7 @@ function FarmCardGroupContainer() {
 
     return (
         <ThemeProvider theme={state.theme == "dark" ? darkTheme : lightTheme}>
+            <StakedAssetsTitle>Your Staked Assets</StakedAssetsTitle>
             {state.summaries.length ? (
                 <FarmGroupContainerWrapper>
                     {state.summaries.map(utils.prettyPosition).map((summary) => {

@@ -13,6 +13,7 @@ import FarmPrice from "../components/farmPrice/FarmPrice";
 import AddTokens from "../components/addTokens/AddTokens";
 import Wallet from "../components/Wallet";
 import Loadable from "react-loadable";
+import FarmCardContainer from "../components/farmCards/FarmCardGroupContainer";
 
 const MainContent = ({ state, setState, openModal, isConnecting }) => {
   const {
@@ -55,7 +56,8 @@ const MainContent = ({ state, setState, openModal, isConnecting }) => {
       </div>
       <Row>
         <Col>
-          <FarmingTable state={state} setState={setState} />
+          <FarmCardContainer state={state} setState={setState}/>
+          {/* <FarmingTable state={state} setState={setState} /> */}
         </Col>
       </Row>
 

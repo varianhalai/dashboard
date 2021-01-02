@@ -44,7 +44,7 @@ export default function FarmCard({summary_information}) {
                 </CardInputContainer>
             </div>
             <UnderlayingBalanceContainer>
-                <label className="underlaying_balance_label">Underlaying Balance:</label> <span className="underlaying_balance_value">$69.00</span>
+                <label className="underlaying_balance_label">Underlaying Balance:</label> <span className="underlaying_balance_value">{summary_information.name === "FARM Profit Sharing" ? "N/A" : summary_information.usdValueOf}</span>
             </UnderlayingBalanceContainer>
             <FarmCardButtonsContainer>
                 <button className="farm_card_button">Harvest</button>

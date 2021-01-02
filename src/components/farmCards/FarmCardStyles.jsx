@@ -14,6 +14,10 @@ export const FarmCardContainer = styled.div`
     margin: 10px 0;
 
 
+    @media(max-width: ${screen.lg}px){
+        width: 50%;
+    }
+
     @media(max-width: ${screen.md}px){
         width: 100%;
     }
@@ -112,7 +116,7 @@ export const FarmCardButtonsContainer = styled.div`
 
 export const UnderlayingBalanceContainer = styled.div`
     text-align: left;
-    margin-top: 10px;
+    margin: 10px 0;
     .underlaying_balance_label {
         font-size: 16px;
         font-weight: bold;
@@ -130,8 +134,21 @@ export const FarmGroupContainerWrapper = styled.div`
     justify-content: space-between;    
     -ms-flex-pack: justify;
 
-
     @media(max-width: ${screen.md}px){
         flex-direction: column;
     }
 `
+
+
+export const StakedAssetsTitle  = styled.h2`
+    font-size: 18px;
+    font-weight: bold;
+    margin: 25px 0;
+    font-family: ${fonts.headerFont};
+    border: ${(props) => props.theme.style.mainBorder};
+    box-shadow: ${(props) => props.theme.style.panelBoxShadow};
+    padding: 10px;
+    background-color: ${(props) => props.theme.style.highlight};
+
+`
+
