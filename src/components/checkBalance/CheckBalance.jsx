@@ -163,7 +163,9 @@ const CheckBalance = (props) => {
             Check Balance
           </button>
         )}
-        {isCheckingBalance ? <MainContent state={state} /> : null}
+        {isCheckingBalance ? (
+          <MainContent state={state} checkBalances={checkBalances} />
+        ) : null}
       </Panel>
     </ThemeProvider>
   );

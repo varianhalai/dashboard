@@ -257,7 +257,13 @@ const columns = [
 ];
 
 const FarmingTable = () => {
-  const { state, setState, refresh } = useContext(HarvestContext);
+  const {
+    state,
+    setState,
+    refresh,
+    isCheckingBalance,
+    checkBalances,
+  } = useContext(HarvestContext);
   const getThisReward = (reward) => {
     setState({ ...state, minimumHarvestAmount: reward });
   };
@@ -296,11 +302,19 @@ const FarmingTable = () => {
               <p>your staked assets</p>
             </PanelTab>
           </PanelTabContainerLeft>
-          <PanelTabContainerRight>
-            <PanelTab className="refresh-button" onClick={refresh}>
-              <i className="fas fa-sync-alt"></i>
-            </PanelTab>
-          </PanelTabContainerRight>
+          {isCheckingBalance ? (
+            <PanelTabContainerRight>
+              <PanelTab className="refresh-button" onClick={checkBalances}>
+                <i className="fas fa-sync-alt"></i>
+              </PanelTab>
+            </PanelTabContainerRight>
+          ) : (
+            <PanelTabContainerRight>
+              <PanelTab className="refresh-button" onClick={refresh}>
+                <i className="fas fa-sync-alt"></i>
+              </PanelTab>
+            </PanelTabContainerRight>
+          )}
         </Tabs>
       ) : null}
       {state.display ? (

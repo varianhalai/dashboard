@@ -14,7 +14,7 @@ import AddTokens from "../components/addTokens/AddTokens";
 import Wallet from "../components/Wallet";
 import Loadable from "react-loadable";
 
-const MainContent = ({ state, setState, openModal, isConnecting }) => {
+const MainContent = ({ state, setState, openModal, checkBalances }) => {
   const {
     setRadio,
     isCheckingBalance,
@@ -59,7 +59,11 @@ const MainContent = ({ state, setState, openModal, isConnecting }) => {
       </div>
       <Row>
         <Col>
-          <FarmingTable state={state} setState={setState} />
+          <FarmingTable
+            state={state}
+            setState={setState}
+            checkBalances={checkBalances}
+          />
         </Col>
       </Row>
 
