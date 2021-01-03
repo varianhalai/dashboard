@@ -52,7 +52,11 @@ export default function FarmCard({summary_information}) {
                     <label className="card_property_title">Value</label>
                     <p className="card_property_value">{summary_information.usdValueOf}</p>
                 </div>
+           
             </div>
+            <UnderlayingBalanceContainer>
+                <label className="underlaying_balance_label">Underlaying Balance:</label> <span className="underlaying_balance_value">{summary_information.name === "FARM Profit Sharing" ? "N/A" : parseFloat(summary_information.underlyingBalance).toFixed(6) }</span>
+            </UnderlayingBalanceContainer>
             <div className="card_input_area">
                 {/* TODO: Add reward harvest/stake functions for this to be relevant*/}
                 {/* {isCheckingBalance ? (<></>) : 
@@ -62,9 +66,7 @@ export default function FarmCard({summary_information}) {
                 </CardInputContainer>)
                 } */}
             </div>
-            <UnderlayingBalanceContainer>
-                <label className="underlaying_balance_label">Underlaying Balance:</label> <span className="underlaying_balance_value">{summary_information.name === "FARM Profit Sharing" ? "N/A" : parseFloat(summary_information.underlyingBalance).toFixed(6) }</span>
-            </UnderlayingBalanceContainer>
+           
             {/* TODO: Add reward harvest/stake functions */}
             {/* {isCheckingBalance ? (<></>) : 
             (<FarmCardButtonsContainer>
