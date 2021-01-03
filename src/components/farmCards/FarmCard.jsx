@@ -2,11 +2,26 @@ import React, {useState, useContext} from "react";
 
 import {FarmCardContainer, CardInputContainer, FarmCardButtonsContainer, UnderlayingBalanceContainer} from "./FarmCardStyles";
 import HarvestContext from "../../Context/HarvestContext";
+import {HarvestRewardsPool} from "../../lib/pool";
+import {PoolManager} from "../../lib/manager"
 
 export default function FarmCard({summary_information}) {
 
     const [amount, setAmount] = useState(0)
-    const {isCheckingBalance} = useContext(HarvestContext);
+    const {isCheckingBalance, state} = useContext(HarvestContext);
+
+    function harvestRewards(summary_information){
+        const poolManager = new PoolManager([summary_information.pool], state.provider);
+        poolManager.getRewards(amount)
+        .then(async (values) =>{
+            for (let i = 0; i < values.length; i++){
+                await values[i].getReward.wait();
+            }
+        }).catch(err => {
+            console.log(err);
+        })
+        setAmount(0);
+    }
    
     return (
         <FarmCardContainer>
@@ -39,21 +54,23 @@ export default function FarmCard({summary_information}) {
                 </div>
             </div>
             <div className="card_input_area">
-                {isCheckingBalance ? (<></>) : 
+                {/* TODO: Add reward harvest/stake functions for this to be relevant*/}
+                {/* {isCheckingBalance ? (<></>) : 
                 (<CardInputContainer>
                     <input value={amount} onChange={(e)=>{setAmount(e.target.value)}} placeholder="Amount" type="number" min="1" className="card_amount_input" />
-                    <button className="card_max_button" onClick={() => setAmount(3)}>max</button>
+                    <button className="card_max_button" onClick={() => setAmount(summary_information.earnedRewards)}>max</button>
                 </CardInputContainer>)
-                }
+                } */}
             </div>
             <UnderlayingBalanceContainer>
                 <label className="underlaying_balance_label">Underlaying Balance:</label> <span className="underlaying_balance_value">{summary_information.name === "FARM Profit Sharing" ? "N/A" : parseFloat(summary_information.underlyingBalance).toFixed(6) }</span>
             </UnderlayingBalanceContainer>
-            {isCheckingBalance ? (<></>) : 
+            {/* TODO: Add reward harvest/stake functions */}
+            {/* {isCheckingBalance ? (<></>) : 
             (<FarmCardButtonsContainer>
-                <button className="farm_card_button">Harvest</button>
+                <button onClick={() => harvestRewards(summary_information)} className="farm_card_button">Harvest</button>
                 <button className="farm_card_button">Stake</button>
-            </FarmCardButtonsContainer>)}
+            </FarmCardButtonsContainer>)} */}
         </FarmCardContainer>
     )
 }

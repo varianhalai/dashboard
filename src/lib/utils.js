@@ -23,7 +23,7 @@ export function prettyPosition(sum) {
     summary: {
       pool: {asset: {decimals}},
       address, isActive, stakedBalance, unstakedBalance, earnedRewards,
-      percentageOwnership, usdValueOf, historicalRewards, underlyingBalanceOf
+      percentageOwnership, usdValueOf, historicalRewards, underlyingBalanceOf, pool
     },
   } = sum;
 
@@ -52,11 +52,11 @@ export function prettyPosition(sum) {
     stakedBalance: ethers.utils.formatUnits(stakedBalance, decimals),
     unstakedBalance: ethers.utils.formatUnits(unstakedBalance, decimals),
     earnedRewards: ethers.utils.formatUnits(truncatedClaimable, 8),
-    //earnedRewards: ethers.utils.formatUnits(earnedRewards, 8),
     percentOfPool: percentageOwnership,
     usdValueOf: prettyUsdValue,
     historicalRewards: ethers.utils.formatUnits(truncatedRewards, 8),
-    underlyingBalance: formatUnderlyingBalance()
+    underlyingBalance: formatUnderlyingBalance(),
+    pool: pool
   };
 }
 

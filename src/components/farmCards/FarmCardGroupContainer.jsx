@@ -50,6 +50,7 @@ function FarmCardGroupContainer() {
             {state.summaries.length ? (
                 <FarmGroupContainerWrapper>
                     {state.summaries.map(utils.prettyPosition).map((summary) => {
+                        console.log(summary)
                         return (<FarmCard key={summary.address} summary_information={summary} />)
                     })}
                 </FarmGroupContainerWrapper>
