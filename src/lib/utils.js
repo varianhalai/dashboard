@@ -1,4 +1,5 @@
 import ethers from 'ethers';
+import { formatUnits } from 'ethers/lib/utils';
 
 /**
  * Prettifies money
@@ -22,7 +23,7 @@ export function prettyPosition(sum) {
     summary: {
       pool: {asset: {decimals}},
       address, isActive, stakedBalance, unstakedBalance, earnedRewards,
-      percentageOwnership, usdValueOf, historicalRewards
+      percentageOwnership, usdValueOf, historicalRewards, underlyingBalanceOf
     },
   } = sum;
 
@@ -30,8 +31,19 @@ export function prettyPosition(sum) {
   // const prettyUsdValue = `$${ethers.utils.formatUnits(bnValueOf, 2)}`;
   const prettyUsdValue = prettyMoney(usdValueOf);
 
+  const formatUnderlyingBalance = function(){
+    if (underlyingBalanceOf){
+      if (underlyingBalanceOf.balances){
+        return formatUnits(underlyingBalanceOf.balances[name.substring(1)], decimals)
+      }
+    } 
+    return 0
+  }
+  
+
   const truncatedClaimable = earnedRewards.div((10 ** 10));
   const truncatedRewards = historicalRewards.div((10 ** 10));
+
 
   return {
     name,
@@ -44,6 +56,7 @@ export function prettyPosition(sum) {
     percentOfPool: percentageOwnership,
     usdValueOf: prettyUsdValue,
     historicalRewards: ethers.utils.formatUnits(truncatedRewards, 8),
+    underlyingBalance: formatUnderlyingBalance()
   };
 }
 

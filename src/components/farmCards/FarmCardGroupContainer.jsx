@@ -9,6 +9,7 @@ const { utils } = harvest;
 
 function FarmCardGroupContainer() {
     const { state, setState } = useContext(HarvestContext);
+
     const getThisReward = (reward) => {
         setState({
             ...state,
@@ -49,6 +50,7 @@ function FarmCardGroupContainer() {
             {state.summaries.length ? (
                 <FarmGroupContainerWrapper>
                     {state.summaries.map(utils.prettyPosition).map((summary) => {
+                        console.log(summary)
                         return (<FarmCard key={summary.address} summary_information={summary} />)
                     })}
                 </FarmGroupContainerWrapper>

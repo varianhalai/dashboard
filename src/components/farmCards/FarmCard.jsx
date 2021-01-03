@@ -6,6 +6,10 @@ import {FarmCardContainer, CardInputContainer, FarmCardButtonsContainer, Underla
 export default function FarmCard({summary_information}) {
 
     const [amount, setAmount] = useState(0)
+    
+    function setAmountToMax(){
+
+    }
 
     return (
         <FarmCardContainer>
@@ -44,7 +48,9 @@ export default function FarmCard({summary_information}) {
                 </CardInputContainer>
             </div>
             <UnderlayingBalanceContainer>
-                <label className="underlaying_balance_label">Underlaying Balance:</label> <span className="underlaying_balance_value">{summary_information.name === "FARM Profit Sharing" ? "N/A" : summary_information.usdValueOf}</span>
+           
+
+                <label className="underlaying_balance_label">Underlaying Balance:</label> <span className="underlaying_balance_value">{summary_information.name === "FARM Profit Sharing" ? "N/A" : parseFloat(summary_information.underlyingBalance).toFixed(6) }</span>
             </UnderlayingBalanceContainer>
             <FarmCardButtonsContainer>
                 <button className="farm_card_button">Harvest</button>
