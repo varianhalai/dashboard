@@ -58,13 +58,6 @@ const MainContent = ({ state, setState, openModal, isConnecting }) => {
         />
         <TotalFarmEarned />
       </div>
-      <Row>
-        <Col>
-          <FarmCardContainer state={state} setState={setState}/>
-          {/* <FarmingTable state={state} setState={setState} /> */}
-        </Col>
-      </Row>
-
       {isCheckingBalance ? (
         ""
       ) : (
@@ -75,6 +68,13 @@ const MainContent = ({ state, setState, openModal, isConnecting }) => {
           </Col>
         </Row>
       )}
+      <Row>
+        <Col>
+          <FarmCardContainer state={state} setState={setState}/>
+          {/* <FarmingTable state={state} setState={setState} /> */}
+        </Col>
+      </Row>
+
       {isCheckingBalance ? (
         ""
       ) : (
