@@ -71,7 +71,6 @@ const MainContent = ({ state, setState, openModal, isConnecting }) => {
       <Row>
         <Col>
           <FarmCardContainer state={state} setState={setState}/>
-          {/* <FarmingTable state={state} setState={setState} /> */}
         </Col>
       </Row>
 
