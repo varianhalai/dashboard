@@ -7,10 +7,7 @@ export default function FarmCard({summary_information}) {
 
     const [amount, setAmount] = useState(0)
     
-    function setAmountToMax(){
-
-    }
-
+   
     return (
         <FarmCardContainer>
             <div className="farm_card_title">{summary_information.name}</div>
@@ -44,7 +41,7 @@ export default function FarmCard({summary_information}) {
             <div className="card_input_area">
                 <CardInputContainer>
                     <input value={amount} onChange={(e)=>{setAmount(e.target.value)}} placeholder="Amount" type="number" min="1" className="card_amount_input" />
-                    <button className="card_max_button">max</button>
+                    <button className="card_max_button" onClick={() => setAmount(3)}>max</button>
                 </CardInputContainer>
             </div>
             <UnderlayingBalanceContainer>

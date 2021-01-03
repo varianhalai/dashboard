@@ -86,11 +86,6 @@ const MainContent = ({ state, setState, openModal, isConnecting }) => {
         </Row>
       )}
 
-      <Row style={{ marginTop: "15px" }}>
-        <Col lg="12">
-          <AssetTable state={state} />
-        </Col>
-      </Row>
       {!isCheckingBalance ? (
         <div className="button-div">
           <button onClick={disconnect} className="clear button">

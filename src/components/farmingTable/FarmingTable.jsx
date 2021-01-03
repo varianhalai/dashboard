@@ -12,7 +12,7 @@ const TableContainer = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  width: 90%:
+  width: 90%;
   padding-bottom: 3rem;
   border: ${(props) => props.theme.style.mainBorder};
   box-shadow: ${(props) => props.theme.style.panelBoxShadow};
@@ -28,8 +28,7 @@ const MainTableInner = styled.div`
   width: 100%;
   margin: 0 auto;
   overflow-x: scroll;
-  scrollbar-color: ${(props) => props.theme.style.scrollBarColor}
-    ${(props) => props.theme.style.lightBackground};
+  scrollbar-color: ${(props) => props.theme.style.scrollBarColor};
   scrollbar-width: thin;
   ::-webkit-scrollbar {
     width: 100%;
