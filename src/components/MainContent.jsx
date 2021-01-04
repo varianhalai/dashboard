@@ -14,7 +14,7 @@ import AddTokens from "../components/addTokens/AddTokens";
 import Wallet from "../components/Wallet";
 import Loadable from "react-loadable";
 
-const MainContent = ({ state, setState, openModal, checkBalances }) => {
+const MainContent = ({ state, setState, openModal, checkBalances,setAddressToCheck }) => {
   const {
     setRadio,
     isCheckingBalance,
@@ -31,6 +31,7 @@ const MainContent = ({ state, setState, openModal, checkBalances }) => {
   const clear = () => {
     setRadio(false);
     setCheckingBalance(false);
+    setAddressToCheck("")
     disconnect();
   };
   return (
