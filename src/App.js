@@ -243,7 +243,7 @@ const Panel = styled.div`
   //Radio Modal
   .flexible-modal {
     position: absolute;
-    z-index: 1;
+    z-index: 51;
     background-color: #ddd;
     height: 2rem;
     border: 1px solid black;
