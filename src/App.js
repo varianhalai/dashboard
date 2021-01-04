@@ -330,7 +330,7 @@ function App() {
     underlyings: [],
     usdValue: 0,
     error: { message: null, type: null, display: false },
-    theme: window.localStorage.getItem("HarvestFinance:Theme") || "light",
+    theme: window.localStorage.getItem("HarvestFinance:Theme") ,
     display: false,
     minimumHarvestAmount: "0",
     apy: 0,
@@ -396,6 +396,7 @@ function App() {
       usdValue: 0,
       apy: 0,
       error: { message: null, type: null, display: false },
+      theme: window.localStorage.getItem("HarvestFinance:Theme") ,
       
     });
     setIsConnecting(false);

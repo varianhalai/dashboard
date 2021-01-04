@@ -19,6 +19,7 @@ const CheckBalance = (props) => {
   const {
     state,
     setState,
+    disconnect,
     setConnection,
     isCheckingBalance,
     setCheckingBalance,
@@ -85,6 +86,7 @@ const CheckBalance = (props) => {
       setState({ ...state, address: addressToCheck });
       setCheckingBalance(true);
       checkBalances(address);
+      setAddressToCheck("");
     } else {
       setAddressToCheck("");
       setValidationMessage("You must enter a valid address");

@@ -31,6 +31,7 @@ const MainContent = ({ state, setState, openModal, checkBalances }) => {
   const clear = () => {
     setRadio(false);
     setCheckingBalance(false);
+    disconnect();
   };
   return (
     <Main>
