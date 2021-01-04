@@ -1,4 +1,4 @@
-import React, { useEffect, useContext } from "react";
+import React, { useState,useEffect, useContext } from "react";
 import HarvestContext from "../../Context/HarvestContext";
 import styled, { ThemeProvider } from "styled-components";
 import harvest from "../../lib/index";
@@ -64,19 +64,7 @@ const MainTableRow = styled.div`
   @media (max-width: 1280px) {
     width: 110%;
   }
-  // @media(max-width: 1100px) {
-  //   width: 160%;
-  // }
-  // @media(max-width: 800px) {
-  //   width: 175%;
-  // }
-  // @media(max-width: 710px) {
-  //   width: 250%;
-  // }
-  // @media(max-width:515px) {
-  //   width: 350%;
-  // }
-
+ 
   div {
     text-align: center;
     width: 100%;
@@ -126,31 +114,10 @@ const MainTableHeader = styled.div`
   @media (max-width: 1280px) {
     width: 110%;
   }
-  // @media(max-width: 1920px) {
-  //   width: 100%;
-  // }
-  // @media(max-width: 1800px) {
-  //   width: 120%;
-  // }
-  // @media(max-width: 1100px) {
-  //   width: 160%;
-  // }
-  // @media(max-width: 800px) {
-  //   width: 175%;
-  // }
-  // @media(max-width: 710px) {
-  //   width: 250%;
-  // }
-  // @media(max-width:515px) {
-  //   width: 350%;
-  // }
 
   p {
     text-align: center;
     width: 100%;
-
-    &:nth-child(8) {
-    }
   }
 `;
 
@@ -194,6 +161,7 @@ const PanelTab = styled.div`
     }
   }
   &.refresh-button {
+    cursor: pointer;
     top: 1.7rem;
     .fas {
       font-size: 1.7rem;
@@ -207,6 +175,17 @@ const PanelTab = styled.div`
       transition: all 0.1s ease;
     }
   }
+  &.refresh-disabled {
+    cursor: none;
+    pointer-events: none;
+    top: 1.7rem;
+    .fas {
+      font-size: 1.7rem;
+    }
+    
+  }
+
+  
 
   @media (max-width: 605px) {
     font-size: 1.9rem;
@@ -261,6 +240,7 @@ const FarmingTable = () => {
     state,
     setState,
     refresh,
+    isRefreshing,
     isCheckingBalance,
     checkBalances,
   } = useContext(HarvestContext);
@@ -293,6 +273,14 @@ const FarmingTable = () => {
     return () => clearTimeout(timer);
   });
 
+  
+
+  const handleRefresh = () => {
+
+  }
+  useEffect(() => {
+    console.log(isRefreshing)
+  }, [isRefreshing]);
   return (
     <ThemeProvider theme={state.theme === "dark" ? darkTheme : lightTheme}>
       {state.display ? (
@@ -303,14 +291,10 @@ const FarmingTable = () => {
             </PanelTab>
           </PanelTabContainerLeft>
           {isCheckingBalance ? (
-            <PanelTabContainerRight>
-              <PanelTab className="refresh-button" onClick={checkBalances}>
-                <i className="fas fa-sync-alt"></i>
-              </PanelTab>
-            </PanelTabContainerRight>
+            ""
           ) : (
             <PanelTabContainerRight>
-              <PanelTab className="refresh-button" onClick={refresh}>
+              <PanelTab className={isRefreshing ? "refresh-disabled" : "refresh-button"} onClick={refresh}>
                 <i className="fas fa-sync-alt"></i>
               </PanelTab>
             </PanelTabContainerRight>
