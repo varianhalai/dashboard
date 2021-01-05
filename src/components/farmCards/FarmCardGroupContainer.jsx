@@ -19,6 +19,7 @@ function FarmCardGroupContainer() {
                     ...state,
                     totalFarmEarned: (state.totalFarmEarned = total)
                 });
+                return;
             });
         }
     }
@@ -28,6 +29,7 @@ function FarmCardGroupContainer() {
         if (!state.totalFarmEarned) {
             getTotalFarmEarned();
         }
+        return;
     }, [state.summaries]);
 
     useEffect(() => {
@@ -38,7 +40,7 @@ function FarmCardGroupContainer() {
     });
 
     return (
-        <ThemeProvider theme={state.theme == "dark" ? darkTheme : lightTheme}>
+        <ThemeProvider theme={state.theme === "dark" ? darkTheme : lightTheme}>
             <StakedAssetsTitle>Your Staked Assets</StakedAssetsTitle>
             {state.summaries.length ? (
                 <FarmGroupContainerWrapper>

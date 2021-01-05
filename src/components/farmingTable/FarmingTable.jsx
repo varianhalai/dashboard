@@ -1,4 +1,4 @@
-import React, { useState,useEffect, useContext } from "react";
+import React, { useEffect, useContext } from "react";
 import HarvestContext from "../../Context/HarvestContext";
 import styled, { ThemeProvider } from "styled-components";
 import harvest from "../../lib/index";
@@ -6,7 +6,7 @@ import { darkTheme, lightTheme, fonts } from "../../styles/appStyles";
 
 import FarmTableSkeleton from "./FarmTableSkeleton";
 
-const { utils, ethers } = harvest;
+const { utils } = harvest;
 
 const TableContainer = styled.div`
   display: flex;
@@ -241,7 +241,6 @@ const FarmingTable = () => {
     refresh,
     isRefreshing,
     isCheckingBalance,
-    checkBalances,
   } = useContext(HarvestContext);
   const getThisReward = (reward) => {
     setState({ ...state, minimumHarvestAmount: reward });

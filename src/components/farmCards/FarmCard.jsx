@@ -11,7 +11,7 @@ export default function FarmCard({ summary_information }) {
                 <div className="card_property_section farm_earning">
                     <label className="card_property_title">Earning</label>
                     {/* TODO: Add icon here */}
-                    <p className="card_property_value">{summary_information.isActive ? <span aria-label="green checkmark">✅</span> : <span aria-label="red x">❌</span>}</p>
+                    <p className="card_property_value">{summary_information.isActive ? <span role="img" aria-label="green checkmark">✅</span> : <span role="img" aria-label="red x">❌</span>}</p>
                 </div>
                 <div className="card_property_section farm_staked">
                     <label className="card_property_title">Staked</label>
