@@ -10,14 +10,7 @@ const { utils } = harvest;
 function FarmCardGroupContainer() {
     const { state, setState } = useContext(HarvestContext);
 
-    const getThisReward = (reward) => {
-        setState({
-            ...state,
-            minimumHarversAmount: reward
-        });
-    }
-
-    const getTotalFarmEarned = () => {
+    function getTotalFarmEarned() {
         let total = 0;
         if (state.summaries.length) {
             state.summaries.map(utils.prettyPosition).map((summary) => {
