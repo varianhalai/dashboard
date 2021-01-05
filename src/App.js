@@ -243,7 +243,7 @@ const Panel = styled.div`
   //Radio Modal
   .flexible-modal {
     position: absolute;
-    z-index: 1;
+    z-index: 51;
     background-color: #ddd;
     height: 2rem;
     border: 1px solid black;
@@ -315,6 +315,7 @@ const ErrorModal = Loadable({
 
 function App() {
   const [isConnecting, setIsConnecting] = useState(false);
+  const [isRefreshing,setRefreshing]=useState(false);
   const [isCheckingBalance, setCheckingBalance] = useState(false);
   const [tokenAddedMessage, setTokenAddedMessage] = useState("");
   const [harvestAndStakeMessage, setHarvestAndStakeMessage] = useState({
@@ -330,7 +331,7 @@ function App() {
     underlyings: [],
     usdValue: 0,
     error: { message: null, type: null, display: false },
-    theme: window.localStorage.getItem("HarvestFinance:Theme") || "light",
+    theme: window.localStorage.getItem("HarvestFinance:Theme") ,
     display: false,
     minimumHarvestAmount: "0",
     apy: 0,
@@ -382,6 +383,9 @@ function App() {
     }
   }, [state.usdValue]);
 
+
+  
+
   const disconnect = () => {
     setState({
       provider: undefined,
@@ -393,7 +397,8 @@ function App() {
       usdValue: 0,
       apy: 0,
       error: { message: null, type: null, display: false },
-      theme: window.localStorage.getItem("HarvestFinance:Theme") || "light",
+      theme: window.localStorage.getItem("HarvestFinance:Theme") ,
+      
     });
     setIsConnecting(false);
   };
@@ -426,9 +431,12 @@ function App() {
   };
 
   const refresh = () => {
+    
+    setRefreshing(true)
     state.manager
       .aggregateUnderlyings(state.address)
       .then((underlying) => {
+        
         return underlying.toList().filter((u) => !u.balance.isZero());
       })
       .then((underlyings) => {
@@ -458,12 +466,15 @@ function App() {
           summaries: summaries,
           usdValue: total,
         }));
-
+        setRefreshing(false)
+        
         return summaries;
       })
       .catch((err) => {
         refresh();
       });
+     
+      
   };
 
   //Radio Modal
@@ -483,11 +494,13 @@ function App() {
         toggleRadio,
         tokenAddedMessage,
         setTokenAddedMessage,
+        isRefreshing,
         setIsConnecting,
         isCheckingBalance,
         setCheckingBalance,
         setConnection,
         disconnect,
+        refresh,
         harvestAndStakeMessage,
         setHarvestAndStakeMessage,
       }}

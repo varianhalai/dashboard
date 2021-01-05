@@ -15,7 +15,7 @@ export const FarmCardContainer = styled.div`
 
 
     @media(max-width: ${screen.lg}px){
-        width: 50%;
+        width: 49%;
     }
 
     @media(max-width: ${screen.md}px){

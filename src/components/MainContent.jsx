@@ -15,7 +15,7 @@ import Wallet from "../components/Wallet";
 import Loadable from "react-loadable";
 import FarmCardContainer from "../components/farmCards/FarmCardGroupContainer";
 
-const MainContent = ({ state, setState, openModal, isConnecting }) => {
+const MainContent = ({ state, setState, openModal, checkBalances,setAddressToCheck }) => {
   const {
     setRadio,
     isCheckingBalance,
@@ -32,6 +32,8 @@ const MainContent = ({ state, setState, openModal, isConnecting }) => {
   const clear = () => {
     setRadio(false);
     setCheckingBalance(false);
+    setAddressToCheck("")
+    disconnect();
   };
   return (
     <Main>
