@@ -46,7 +46,7 @@ function FarmCardGroupContainer() {
                         return (<FarmCard key={summary.address} summary_information={summary} />)
                     })}
                 </FarmGroupContainerWrapper>
-            ) : (<NoFarmSummariesFound>Nothing to see here yet. 🏜️</NoFarmSummariesFound>)}
+            ) : (<NoFarmSummariesFound>You currently are not staking any assets 🏜️</NoFarmSummariesFound>)}
         </ThemeProvider>
     )
 }
