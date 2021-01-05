@@ -3,8 +3,6 @@ import HarvestContext from "../Context/HarvestContext";
 import { Row, Col } from "styled-bootstrap-grid";
 import styled from "styled-components";
 import { fonts } from "../styles/appStyles";
-import FarmTableSkeleton from "../components/farmingTable/FarmTableSkeleton.jsx";
-import AssetTable from "../components/assetTable/AssetTable.jsx";
 import Harvest from "../components/harvest/Harvest.jsx";
 import TotalFarmEarned from "../components/totalFarmEarned/TotalFarmEarned.jsx";
 import Balance from "../components/balance/Balance.jsx";
@@ -12,7 +10,6 @@ import APY from "../components/apy/APY.jsx";
 import FarmPrice from "../components/farmPrice/FarmPrice";
 import AddTokens from "../components/addTokens/AddTokens";
 import Wallet from "../components/Wallet";
-import Loadable from "react-loadable";
 import FarmCardContainer from "../components/farmCards/FarmCardGroupContainer";
 
 const MainContent = ({ state, setState, openModal, checkBalances,setAddressToCheck }) => {
@@ -22,12 +19,7 @@ const MainContent = ({ state, setState, openModal, checkBalances,setAddressToChe
     setCheckingBalance,
     disconnect,
   } = useContext(HarvestContext);
-  const FarmingTable = Loadable({
-    loader: () => import("./farmingTable/FarmingTable"),
-    loading() {
-      return <FarmTableSkeleton state={state} />;
-    },
-  });
+ 
 
   const clear = () => {
     setRadio(false);
