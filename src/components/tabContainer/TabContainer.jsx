@@ -1,7 +1,9 @@
-import React, { useContext } from "react";
+import React, { useState, useContext } from "react";
 import HarvestContext from "../../Context/HarvestContext";
 import styled from "styled-components";
 import { fonts } from "../../styles/appStyles";
+
+import AnalyticsModal from "./analyticsModal/AnalyticsModal";
 
 const TabContainer = () => {
   const { state, setState, toggleRadio } = useContext(HarvestContext);
@@ -10,6 +12,8 @@ const TabContainer = () => {
     setState({ ...state, theme: theme });
     window.localStorage.setItem("HarvestFinance:Theme", theme);
   };
+
+  const [showAnalytics, setShowAnalytics] = useState(false);
   return (
     <PanelTabContainer>
       <PanelTabContainerLeft>
@@ -32,14 +36,22 @@ const TabContainer = () => {
           </a>
         </PanelTab>
 
-        <PanelTab className="analytics-tab">
-          <a
-            href="https://farmdashboard.xyz/"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            analytics
-          </a>
+        <PanelTab
+          className="analytics-tab"
+          onMouseEnter={() => {
+            setShowAnalytics(true);
+          }}
+          onMouseLeave={() => {
+            setShowAnalytics(false);
+          }}
+        >
+          <p>analytics</p>
+          {showAnalytics ? (
+            <AnalyticsModal
+              showAnalytics={showAnalytics}
+              setShowAnalytics={setShowAnalytics}
+            />
+          ) : null}
         </PanelTab>
 
         <PanelTab className="radio-tab" onClick={toggleRadio}>
@@ -178,15 +190,18 @@ const PanelTab = styled.div`
       top: 0rem;
     }
 
-    a {
+    p {
       color: ${(props) => props.theme.style.primaryFontColor};
+      font-family: ${fonts.contentFont};
       font-size: 1.9rem;
       position: relative;
-      top: .1rem;
+      top: -.1rem;
+      
     }
     @media(max-width: 675px) {
       
       margin-left: .5rem;
+      
      
       
     }
@@ -194,15 +209,15 @@ const PanelTab = styled.div`
     @media(max-width: 500px) {
       top: 1.3rem;
       margin-left: .5rem;
-      a {
+      p {
         font-size: 1.5rem;
-        top: -.1rem;;
+        
       }
       
     }
     @media(max-width: 380px) {
       margin-left: 0;
-      a {
+       {
         font-size: 1.4rem;
       }
       
