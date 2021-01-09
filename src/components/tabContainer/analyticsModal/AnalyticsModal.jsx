@@ -28,7 +28,7 @@ const AnalyticsModal = ({ showAnalytics, setShowAnalytics }) => {
       </a>
 
       <a
-        className="analyti-link address-history"
+        className="analyti-link"
         href="https://farmdashboard.xyz/history/0x"
         target="_blank"
         rel="noopener noreferrer"

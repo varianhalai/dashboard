@@ -25,14 +25,14 @@ export const Modal = styled.div`
       margin: 1.5rem 0;
       padding: 1rem;
       transition: all 0.25s ease;
-      &.first {
+      
         @media (max-width: 768px) {
           top: 2rem;
         }
       }
+      
 
       &:hover {
-        transform: scale(1.05);
         border: ${(state) => state.theme.style.mainBorder};
       }
     }
