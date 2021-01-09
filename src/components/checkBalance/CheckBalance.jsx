@@ -82,8 +82,10 @@ const CheckBalance = (props) => {
 
   const setCheck = (address) => {
     if (address && validateAddress(address)) {
+      setState({ ...state, address: addressToCheck });
       setCheckingBalance(true);
       checkBalances(address);
+      
     } else {
       setAddressToCheck("");
       setValidationMessage("You must enter a valid address");
@@ -162,14 +164,12 @@ const CheckBalance = (props) => {
             Check Balance
           </button>
         )}
-        {isCheckingBalance ? <MainContent state={state} /> : null}
+        {isCheckingBalance ? <MainContent setAddressToCheck={setAddressToCheck} state={state} /> : null}
       </Panel>
     </ThemeProvider>
   );
 };
-
 export default CheckBalance;
-
 const Panel = styled.div`
   
   display: flex;
@@ -207,7 +207,6 @@ const Panel = styled.div`
         font-family: ${fonts.contentFont}
       }
   }
-
   .button {
     width: max-content;
     margin: 2rem auto 2rem auto;
@@ -218,7 +217,6 @@ const Panel = styled.div`
       top: 1.5px;
     }
   }
-
   .check-all {
     position: relative;
     &:hover {
@@ -231,18 +229,15 @@ const Panel = styled.div`
   }
   
   
-
   
   
   @media(max-width: 1105px) {
     margin-bottom: 1.5rem;
   }
-
   
  
   
 `;
-
 const ValidationMessage = styled.div`
   display: flex;
   justify-content: center;
@@ -264,7 +259,6 @@ const ValidationMessage = styled.div`
     left: 30%;
     right: 30%;
   }
-
   p {
     text-align: center;
   }

@@ -1,4 +1,4 @@
-import React, { useEffect, useContext } from "react";
+import React, { useState,useEffect, useContext } from "react";
 import HarvestContext from "../../Context/HarvestContext";
 import styled, { ThemeProvider } from "styled-components";
 import harvest from "../../lib/index";
@@ -64,19 +64,7 @@ const MainTableRow = styled.div`
   @media (max-width: 1280px) {
     width: 110%;
   }
-  // @media(max-width: 1100px) {
-  //   width: 160%;
-  // }
-  // @media(max-width: 800px) {
-  //   width: 175%;
-  // }
-  // @media(max-width: 710px) {
-  //   width: 250%;
-  // }
-  // @media(max-width:515px) {
-  //   width: 350%;
-  // }
-
+ 
   div {
     text-align: center;
     width: 100%;
@@ -126,37 +114,25 @@ const MainTableHeader = styled.div`
   @media (max-width: 1280px) {
     width: 110%;
   }
-  // @media(max-width: 1920px) {
-  //   width: 100%;
-  // }
-  // @media(max-width: 1800px) {
-  //   width: 120%;
-  // }
-  // @media(max-width: 1100px) {
-  //   width: 160%;
-  // }
-  // @media(max-width: 800px) {
-  //   width: 175%;
-  // }
-  // @media(max-width: 710px) {
-  //   width: 250%;
-  // }
-  // @media(max-width:515px) {
-  //   width: 350%;
-  // }
 
   p {
     text-align: center;
     width: 100%;
-
-    &:nth-child(8) {
-    }
   }
 `;
 
 const PanelTabContainerLeft = styled.div`
   display: flex;
   justify-content: flex-start;
+`;
+const PanelTabContainerRight = styled.div`
+  display: flex;
+  justify-content: flex-end;
+`;
+const Tabs = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
 `;
 
 const PanelTab = styled.div`
@@ -184,6 +160,33 @@ const PanelTab = styled.div`
       top: 0.3rem;
     }
   }
+  &.refresh-button {
+    cursor: pointer;
+    top: 1.7rem;
+    .fas {
+      font-size: 1.7rem;
+    }
+    &:hover {
+      top: 1.9rem;
+    }
+    &:active {
+      color: ${(props) => props.theme.style.blueBackground};
+      transform: scale(1.1);
+      transition: all 0.1s ease;
+    }
+  }
+  &.refresh-disabled {
+    cursor: none;
+    pointer-events: none;
+    top: 1.7rem;
+    .fas {
+      font-size: 1.7rem;
+    }
+    
+  }
+
+  
+
   @media (max-width: 605px) {
     font-size: 1.9rem;
     padding: 0.75rem 1rem 2.2rem 1rem;
@@ -232,16 +235,16 @@ const columns = [
   },
 ];
 
-const noAssetColumns = [
-  {
-    name: "Value",
-  },
-];
-
 const FarmingTable = () => {
-  const { state, setState } = useContext(HarvestContext);
+  const {
+    state,
+    setState,
+    refresh,
+    isRefreshing,
+    isCheckingBalance,
+    checkBalances,
+  } = useContext(HarvestContext);
   const getThisReward = (reward) => {
-    console.log(reward);
     setState({ ...state, minimumHarvestAmount: reward });
   };
 
@@ -270,14 +273,33 @@ const FarmingTable = () => {
     return () => clearTimeout(timer);
   });
 
+  
+
+  const handleRefresh = () => {
+
+  }
+  useEffect(() => {
+    console.log(isRefreshing)
+  }, [isRefreshing]);
   return (
     <ThemeProvider theme={state.theme === "dark" ? darkTheme : lightTheme}>
       {state.display ? (
-        <PanelTabContainerLeft>
-          <PanelTab>
-            <p>your staked assets</p>
-          </PanelTab>
-        </PanelTabContainerLeft>
+        <Tabs>
+          <PanelTabContainerLeft>
+            <PanelTab>
+              <p>your staked assets</p>
+            </PanelTab>
+          </PanelTabContainerLeft>
+          {isCheckingBalance ? (
+            ""
+          ) : (
+            <PanelTabContainerRight>
+              <PanelTab className={isRefreshing ? "refresh-disabled" : "refresh-button"} onClick={refresh}>
+                <i className="fas fa-sync-alt"></i>
+              </PanelTab>
+            </PanelTabContainerRight>
+          )}
+        </Tabs>
       ) : null}
       {state.display ? (
         <TableContainer>

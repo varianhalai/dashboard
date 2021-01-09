@@ -14,7 +14,7 @@ import AddTokens from "../components/addTokens/AddTokens";
 import Wallet from "../components/Wallet";
 import Loadable from "react-loadable";
 
-const MainContent = ({ state, setState, openModal, isConnecting }) => {
+const MainContent = ({ state, setState, openModal, checkBalances,setAddressToCheck }) => {
   const {
     setRadio,
     isCheckingBalance,
@@ -31,18 +31,24 @@ const MainContent = ({ state, setState, openModal, isConnecting }) => {
   const clear = () => {
     setRadio(false);
     setCheckingBalance(false);
+    setAddressToCheck("")
+    disconnect();
   };
   return (
     <Main>
-      <Row>
-        <Col>
-          <Wallet
-            theme={state.theme}
-            address={state.address}
-            provider={state.provider}
-          />
-        </Col>
-      </Row>
+      {isCheckingBalance ? (
+        ""
+      ) : (
+        <Row>
+          <Col>
+            <Wallet
+              theme={state.theme}
+              address={state.address}
+              provider={state.provider}
+            />
+          </Col>
+        </Row>
+      )}
       <div className="farm-info">
         <Balance state={state} />
         <APY apy={state.apy} display={state.display} theme={state.theme} />
@@ -55,7 +61,11 @@ const MainContent = ({ state, setState, openModal, isConnecting }) => {
       </div>
       <Row>
         <Col>
-          <FarmingTable state={state} setState={setState} />
+          <FarmingTable
+            state={state}
+            setState={setState}
+            checkBalances={checkBalances}
+          />
         </Col>
       </Row>
 
