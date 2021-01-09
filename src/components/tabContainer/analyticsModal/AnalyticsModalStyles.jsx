@@ -24,16 +24,14 @@ export const Modal = styled.div`
       border-radius: 0.8rem;
       margin: 1.5rem 0;
       padding: 1rem;
-      transition: all 0.25s ease;
-      
-        @media (max-width: 768px) {
-          top: 2rem;
-        }
-      }
-      
+      transition: all 0.2s ease;
+      width: max-content;
 
       &:hover {
         border: ${(state) => state.theme.style.mainBorder};
+      }
+      @media (max-width: 768px) {
+        top: 2rem;
       }
     }
 
