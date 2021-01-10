@@ -298,7 +298,8 @@ const Panel = styled.div`
 `;
 
 const Container = styled.div`
-  width: 85%;
+  width: 100%;
+  max-width: 1200px;
   margin: 0 auto;
   @media (max-width: 1140px) {
     width: 95%;

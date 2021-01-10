@@ -1,4 +1,7 @@
 import ethers from 'ethers';
+import {
+  formatUnits
+} from 'ethers/lib/utils';
 
 /**
  * Prettifies money
@@ -7,7 +10,10 @@ import ethers from 'ethers';
  */
 export function prettyMoney(microdollars) {
   return Intl
-    .NumberFormat('en-US', {style: 'currency', currency: 'USD'})
+    .NumberFormat('en-US', {
+      style: 'currency',
+      currency: 'USD'
+    })
     .format(microdollars / 1000000);
 }
 
@@ -20,9 +26,21 @@ export function prettyPosition(sum) {
   const {
     name,
     summary: {
-      pool: {asset: {decimals}},
-      address, isActive, stakedBalance, unstakedBalance, earnedRewards,
-      percentageOwnership, usdValueOf, historicalRewards
+      pool: {
+        asset: {
+          decimals
+        }
+      },
+      address,
+      isActive,
+      stakedBalance,
+      unstakedBalance,
+      earnedRewards,
+      percentageOwnership,
+      usdValueOf,
+      historicalRewards,
+      underlyingBalanceOf,
+      pool
     },
   } = sum;
 
@@ -30,8 +48,21 @@ export function prettyPosition(sum) {
   // const prettyUsdValue = `$${ethers.utils.formatUnits(bnValueOf, 2)}`;
   const prettyUsdValue = prettyMoney(usdValueOf);
 
+  const formatUnderlyingBalance = function () {
+    if (underlyingBalanceOf) {
+      if (underlyingBalanceOf.balances) {
+        for (let balance in underlyingBalanceOf.balances) {
+          return formatUnits(underlyingBalanceOf.balances[balance], decimals)
+        }
+      }
+    }
+    return 0
+  }
+
+
   const truncatedClaimable = earnedRewards.div((10 ** 10));
   const truncatedRewards = historicalRewards.div((10 ** 10));
+
 
   return {
     name,
@@ -40,10 +71,11 @@ export function prettyPosition(sum) {
     stakedBalance: ethers.utils.formatUnits(stakedBalance, decimals),
     unstakedBalance: ethers.utils.formatUnits(unstakedBalance, decimals),
     earnedRewards: ethers.utils.formatUnits(truncatedClaimable, 8),
-    //earnedRewards: ethers.utils.formatUnits(earnedRewards, 8),
     percentOfPool: percentageOwnership,
     usdValueOf: prettyUsdValue,
     historicalRewards: ethers.utils.formatUnits(truncatedRewards, 8),
+    underlyingBalance: formatUnderlyingBalance(),
+    pool: pool
   };
 }
 
@@ -64,7 +96,10 @@ export function prettyUnderlying(u) {
    * @return {Object} transformed
    */
   function transformUnderlying(underlying) {
-    const {name, decimals} = underlying.asset;
+    const {
+      name,
+      decimals
+    } = underlying.asset;
     return {
       name,
       balance: ethers.utils.formatUnits(underlying.balance, decimals),
