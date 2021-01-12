@@ -27,14 +27,14 @@ const AnalyticsModal = ({ showAnalytics, setShowAnalytics }) => {
         GRAIN analytics
       </a>
 
-      <a
+      {state.address ? <a
         className="analyti-link"
-        href="https://farmdashboard.xyz/history/0x"
+        href={`https://farmdashboard.xyz/history/${state.address}`}
         target="_blank"
         rel="noopener noreferrer"
       >
         Address history
-      </a>
+      </a> : null}
     </Modal>
   );
 };
