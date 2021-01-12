@@ -10,7 +10,7 @@ const TableContainer = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  width: 90%;
+  width: 100%;
   padding-bottom: 3rem;
   border: ${(props) => props.theme.style.mainBorder};
   box-shadow: ${(props) => props.theme.style.panelBoxShadow};

@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useState, useContext } from "react";
 import HarvestContext from "../Context/HarvestContext";
 import { Row, Col } from "styled-bootstrap-grid";
 import styled from "styled-components";
@@ -11,22 +11,35 @@ import FarmPrice from "../components/farmPrice/FarmPrice";
 import AddTokens from "../components/addTokens/AddTokens";
 import Wallet from "../components/Wallet";
 import FarmCardContainer from "../components/farmCards/FarmCardGroupContainer";
+import FarmingTable from '../components/farmingTable/FarmingTable';
+import AssetTable from './assetTable/AssetTable'
 
-const MainContent = ({ state, setState, openModal, checkBalances,setAddressToCheck }) => {
+const MainContent = ({
+  state,
+  setState,
+  openModal,
+  checkBalances,
+  setAddressToCheck,
+}) => {
   const {
     setRadio,
     isCheckingBalance,
     setCheckingBalance,
     disconnect,
   } = useContext(HarvestContext);
- 
 
   const clear = () => {
     setRadio(false);
     setCheckingBalance(false);
-    setAddressToCheck("")
+    setAddressToCheck("");
     disconnect();
   };
+
+  const [showTables, setShowTables] = useState(true);
+  const toggleTables = () => {
+    setShowTables(!showTables)
+  }
+
   return (
     <Main>
       {isCheckingBalance ? (
@@ -63,9 +76,15 @@ const MainContent = ({ state, setState, openModal, checkBalances,setAddressToChe
         </Row>
       )}
       <Row>
-        <Col>
-          <FarmCardContainer state={state} setState={setState}/>
-        </Col>
+        {showTables ? (
+          <Col>
+            <FarmingTable state={state} setState={setState} toggleTables={toggleTables} />
+          </Col>
+        ) : (
+          <Col>
+            <FarmCardContainer state={state} setState={setState} toggleTables={toggleTables} />
+          </Col>
+        )}
       </Row>
 
       {isCheckingBalance ? (
@@ -78,6 +97,8 @@ const MainContent = ({ state, setState, openModal, checkBalances,setAddressToChe
           </Col>
         </Row>
       )}
+
+      {showTables ? <AssetTable state={state} /> : ""}
 
       {!isCheckingBalance ? (
         <div className="button-div">
