@@ -27,6 +27,15 @@ const AnalyticsModal = ({ showAnalytics, setShowAnalytics }) => {
         GRAIN analytics
       </a>
 
+      <a
+        className="analyti-link"
+        href="https://cultivator.finance/"
+        target="_blank"
+        rel="noopener noreferrer"
+      >
+        Profit calulator
+      </a>
+
       {state.address ? <a
         className="analyti-link"
         href={`https://farmdashboard.xyz/history/${state.address}`}
