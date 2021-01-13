@@ -46,7 +46,7 @@ function FarmCardGroupContainer({toggleTables}) {
     <ThemeProvider theme={state.theme === "dark" ? darkTheme : lightTheme}>
       <StakedAssetsTitle>
         <h2>Your Staked Assets</h2>
-        <i class="fas fa-table" onClick={toggleTables}></i>
+        <i className="fas fa-table" onClick={toggleTables}></i>
       </StakedAssetsTitle>
       {state.summaries.length ? (
         <FarmGroupContainerWrapper>

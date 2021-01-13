@@ -35,7 +35,7 @@ const MainContent = ({
     disconnect();
   };
 
-  const [showTables, setShowTables] = useState(true);
+  const [showTables, setShowTables] = useState(false);
   const toggleTables = () => {
     setShowTables(!showTables)
   }
