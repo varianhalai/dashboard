@@ -15,7 +15,7 @@ export const Modal = styled.div`
     top: -0.8rem;
     border-radius: 0.8rem;
     padding: 1.5rem;
-    transition: all 0.3s ease-out;
+    transition: all 0.2s ease;
 
     .analyti-link {
       font-size: 1.9rem;
@@ -28,7 +28,7 @@ export const Modal = styled.div`
       width: max-content;
 
       &:hover {
-        border: ${(state) => state.theme.style.mainBorder};
+        top: .5rem;
       }
       @media (max-width: 768px) {
         top: 2rem;
