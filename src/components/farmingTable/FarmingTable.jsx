@@ -35,7 +35,7 @@ const columns = [
   },
 ];
 
-const FarmingTable = ({toggleTables}) => {
+const FarmingTable = ({showAsCards}) => {
   const {
     state,
     setState,
@@ -90,18 +90,17 @@ const FarmingTable = ({toggleTables}) => {
               <p>your staked assets</p>
             </PanelTab>
           </PanelTabContainerLeft>
-          {isCheckingBalance ? (
-            ""
-          ) : (
+          
             <PanelTabContainerRight>
-              <PanelTab className={isRefreshing ? "refresh-disabled" : "refresh-button"} onClick={toggleTables}>
+              <PanelTab className={isRefreshing ? "refresh-disabled" : "refresh-button"} onClick={showAsCards}>
               <i className="fas fa-table"></i>
               </PanelTab>
-              <PanelTab className={isRefreshing ? "refresh-disabled" : "refresh-button"} onClick={refresh}>
+              {isCheckingBalance ? "" : <PanelTab className={isRefreshing ? "refresh-disabled" : "refresh-button"} onClick={refresh}>
                 <i className="fas fa-sync-alt"></i>
-              </PanelTab>
+              </PanelTab> }
+              
             </PanelTabContainerRight>
-          )}
+          
         </Tabs>
       ) : null}
       {state.display ? (

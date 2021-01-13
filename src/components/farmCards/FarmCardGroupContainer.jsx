@@ -11,7 +11,7 @@ import {
 } from "./FarmCardStyles";
 const { utils } = harvest;
 
-function FarmCardGroupContainer({toggleTables}) {
+function FarmCardGroupContainer({showAsTables}) {
   const { state, setState } = useContext(HarvestContext);
 
   function getTotalFarmEarned() {
@@ -46,7 +46,7 @@ function FarmCardGroupContainer({toggleTables}) {
     <ThemeProvider theme={state.theme === "dark" ? darkTheme : lightTheme}>
       <StakedAssetsTitle>
         <h2>Your Staked Assets</h2>
-        <i className="fas fa-table" onClick={toggleTables}></i>
+        <i className="fas fa-table" onClick={showAsTables}></i>
       </StakedAssetsTitle>
       {state.summaries.length ? (
         <FarmGroupContainerWrapper>

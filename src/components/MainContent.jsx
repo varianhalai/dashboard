@@ -1,4 +1,4 @@
-import React, { useState, useContext } from "react";
+import React, { useState, useContext,useEffect } from "react";
 import HarvestContext from "../Context/HarvestContext";
 import { Row, Col } from "styled-bootstrap-grid";
 import styled from "styled-components";
@@ -36,9 +36,25 @@ const MainContent = ({
   };
 
   const [showTables, setShowTables] = useState(false);
-  const toggleTables = () => {
-    setShowTables(!showTables)
+  const showAsTables = () => {
+    setShowTables(true);
+    window.localStorage.setItem('HarvestFinance:Layout','tables');
   }
+  const showAsCards = () => {
+    setShowTables(false);
+    window.localStorage.setItem('HarvestFinance:Layout','cards');
+  }
+
+  useEffect(() => {
+    if(window.localStorage.getItem('HarvestFinance:Layout') === 'cards') {
+      setShowTables(false);
+    }
+    if(window.localStorage.getItem('HarvestFinance:Layout') === 'tables') {
+      setShowTables(true);
+    }
+
+  },[])
+ 
 
   return (
     <Main>
@@ -78,11 +94,11 @@ const MainContent = ({
       <Row>
         {showTables ? (
           <Col>
-            <FarmingTable state={state} setState={setState} toggleTables={toggleTables} />
+            <FarmingTable state={state} setState={setState} showAsCards={showAsCards} />
           </Col>
         ) : (
           <Col>
-            <FarmCardContainer state={state} setState={setState} toggleTables={toggleTables} />
+            <FarmCardContainer state={state} setState={setState} showAsTables={showAsTables} />
           </Col>
         )}
       </Row>
