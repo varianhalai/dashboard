@@ -60,6 +60,11 @@ const assets = [
     address: "0x845838DF265Dcd2c412A1Dc9e959c7d08537f8a2",
   },
   {
+    name: "CRV-OBTC",
+    decimals: 18,
+    address: "0x2fE94ea3d5d4a175184081439753DE15AeF9d614",
+  },
+  {
     name: "CRV-USDN",
     decimals: 18,
     address: "0x4f3E8F405CF5aFC05D68142F3783bDfE13811522",
@@ -879,6 +884,13 @@ assets.push({
   underlyingAsset: assetByName("CRV-HBTC"),
   decimals: 18,
   address: "0xCC775989e76ab386E9253df5B0c0b473E22102E2",
+});
+assets.push({
+  name: "fCRV-OBTC",
+  type: "ftoken",
+  underlyingAsset: assetByName("CRV-OBTC"),
+  decimals: 18,
+  address: "0x966A70A4d3719A6De6a94236532A0167d5246c72",
 });
 
 // name overrides asset.name for display
@@ -2448,6 +2460,11 @@ const weekTwentyPools = [
     name: "fSUSHI-MIS:USDT",
     asset: assetByName("fSLP_MIS_USDT"),
     address: "0xf4784d07136b5b10c6223134E8B36E1DC190725b",
+    rewardAsset: assetByName("FARM"),
+  },
+  {
+    asset: assetByName("fCRV-OBTC"),
+    address: "0x91B5cD52fDE8dbAC37C95ECafEF0a70bA4c182fC",
     rewardAsset: assetByName("FARM"),
   },
 ];
