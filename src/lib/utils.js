@@ -72,7 +72,7 @@ export function prettyPosition(sum) {
     unstakedBalance: ethers.utils.formatUnits(unstakedBalance, decimals),
     earnedRewards: ethers.utils.formatUnits(truncatedClaimable, 8),
     percentOfPool: percentageOwnership,
-    usdValueOf: prettyUsdValue,
+    usdValueOf: usdValueOf,
     historicalRewards: ethers.utils.formatUnits(truncatedRewards, 8),
     underlyingBalance: formatUnderlyingBalance(),
     pool: pool

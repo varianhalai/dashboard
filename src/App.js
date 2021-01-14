@@ -14,7 +14,7 @@ import logo from "./assets/gif_tractor.gif";
 
 // components
 import TabContainer from "./components/tabContainer/TabContainer";
-import Wallet from "./components/Wallet";
+import SettingsModal from "./components/userSettings/SettingsModal";
 import Radio from "./components/radio/Radio";
 import MainContent from "./components/MainContent";
 import WelcomeText from "./components/WelcomeText";
@@ -220,6 +220,24 @@ const Brand = styled.div`
   }
 `;
 
+const Topbar = styled.div`
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  .fa-user-cog {
+    color: ${(props) => props.theme.style.brandTextColor};
+    font-size: 2.5rem;
+    padding-top: 2rem;
+    padding-right: 1rem;
+    position: relative;
+
+    &:hover {
+      cursor: pointer;
+      top: 0.2rem;
+    }
+  }
+`;
+
 const Panel = styled.div`
   position: relative;
   padding: 2.5rem 2.5rem;
@@ -314,8 +332,14 @@ const ErrorModal = Loadable({
 });
 
 function App() {
+  //for currency conversion
+  const [baseCurrency, setBaseCurrency] = useState(window.localStorage.getItem("HarvestFinance:currency") || "USD");
+  const [exchangeRates, setExchangeRates] = useState({});
+  const [currentExchangeRate, setCurrentExchangeRate] = useState(1);
+  //for currency conversion
+  const [settingsOpen, setSettingsOpen] =useState(false);
   const [isConnecting, setIsConnecting] = useState(false);
-  const [isRefreshing,setRefreshing]=useState(false);
+  const [isRefreshing, setRefreshing] = useState(false);
   const [isCheckingBalance, setCheckingBalance] = useState(false);
   const [tokenAddedMessage, setTokenAddedMessage] = useState("");
   const [harvestAndStakeMessage, setHarvestAndStakeMessage] = useState({
@@ -331,7 +355,7 @@ function App() {
     underlyings: [],
     usdValue: 0,
     error: { message: null, type: null, display: false },
-    theme: window.localStorage.getItem("HarvestFinance:Theme") ,
+    theme: window.localStorage.getItem("HarvestFinance:Theme"),
     display: false,
     minimumHarvestAmount: "0",
     apy: 0,
@@ -364,13 +388,20 @@ function App() {
 
   useEffect(() => {
     const timer = setTimeout(() => {
-      state.manager && getPools();
+      getPools();
     }, 60000);
     return () => clearTimeout(timer);
   });
   useEffect(() => {
     getPools();
+    memoizeExchangeRates();
   }, []);
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      memoizeExchangeRates();
+    }, 600000);
+    return () => clearTimeout(timer);
+  });
 
   useEffect(() => {
     if (state.address !== "") {
@@ -383,8 +414,16 @@ function App() {
     }
   }, [state.usdValue]);
 
-
-  
+  const memoizeExchangeRates = () => {
+    axios
+      .get("https://api.ratesapi.io/api/latest?base=USD")
+      .then((res) => {
+        setExchangeRates(res.data.rates);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
 
   const disconnect = () => {
     setState({
@@ -397,8 +436,7 @@ function App() {
       usdValue: 0,
       apy: 0,
       error: { message: null, type: null, display: false },
-      theme: window.localStorage.getItem("HarvestFinance:Theme") ,
-      
+      theme: window.localStorage.getItem("HarvestFinance:Theme"),
     });
     setIsConnecting(false);
   };
@@ -417,6 +455,10 @@ function App() {
     });
   };
 
+  const toggleUserSettings = () => {
+    setSettingsOpen(!settingsOpen)
+  }
+
   const setConnection = (provider, signer, manager) => {
     setState({
       ...state,
@@ -431,12 +473,10 @@ function App() {
   };
 
   const refresh = () => {
-    
-    setRefreshing(true)
+    setRefreshing(true);
     state.manager
       .aggregateUnderlyings(state.address)
       .then((underlying) => {
-        
         return underlying.toList().filter((u) => !u.balance.isZero());
       })
       .then((underlyings) => {
@@ -466,15 +506,13 @@ function App() {
           summaries: summaries,
           usdValue: total,
         }));
-        setRefreshing(false)
-        
+        setRefreshing(false);
+
         return summaries;
       })
       .catch((err) => {
         refresh();
       });
-     
-      
   };
 
   //Radio Modal
@@ -483,6 +521,19 @@ function App() {
   const toggleRadio = () => {
     setRadio(!radio);
   };
+
+  //currency conversion helpers
+  const currencyFormatter = new Intl.NumberFormat("en-US", {
+    style: "currency",
+    currency: baseCurrency,
+  });
+
+  const prettyBalance = (balance) => {
+    return currencyFormatter.format(balance / 1000000);
+  };
+  const convertStandardNumber = (num) => {
+    return currencyFormatter.format(num)
+  }
 
   return (
     <HarvestContext.Provider
@@ -503,6 +554,16 @@ function App() {
         refresh,
         harvestAndStakeMessage,
         setHarvestAndStakeMessage,
+        exchangeRates,
+        baseCurrency,
+        setBaseCurrency,
+        currentExchangeRate,
+        setCurrentExchangeRate,
+        currencyFormatter,
+        prettyBalance,
+        convertStandardNumber,
+        settingsOpen,
+        toggleUserSettings
       }}
     >
       <ThemeProvider theme={state.theme === "dark" ? darkTheme : lightTheme}>
@@ -510,10 +571,15 @@ function App() {
         <Container>
           <Row>
             <Col col>
-              <Brand>
-                <img src={logo} alt="harvest finance logo" />{" "}
-                <span>harvest.dashboard</span>
-              </Brand>
+              <Topbar>
+                <Brand>
+                  <img src={logo} alt="harvest finance logo" />{" "}
+                  <span>harvest.dashboard</span>
+                </Brand>
+                <i onClick={toggleUserSettings} className="fas fa-user-cog"></i>
+                {settingsOpen ? <SettingsModal /> : ''}
+                
+              </Topbar>
             </Col>
           </Row>
 

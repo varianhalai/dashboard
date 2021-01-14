@@ -1,4 +1,5 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useContext } from "react";
+import HarvestContext from "../../Context/HarvestContext";
 import styled, { ThemeProvider } from "styled-components";
 import { darkTheme, lightTheme, fonts } from "../../styles/appStyles";
 import harvest from "../../lib/index.js";
@@ -41,6 +42,10 @@ const BluePanel = styled.div`
 `;
 
 const Balance = ({ state }) => {
+  const {
+    currentExchangeRate,
+    prettyBalance,
+  } = useContext(HarvestContext);
   const [userBalance, setUserBalance] = useState(ethers.BigNumber.from(0));
 
   useEffect(() => {
@@ -58,11 +63,13 @@ const Balance = ({ state }) => {
     }
   };
 
+  
+
   return (
     <ThemeProvider theme={state.theme === "dark" ? darkTheme : lightTheme}>
       {state.display ? (
         <BluePanel>
-          <h1>{utils.prettyMoney(userBalance)}</h1>
+          <h1>{prettyBalance(userBalance * currentExchangeRate)}</h1>
           <span>Staked Balance</span>
         </BluePanel>
       ) : (

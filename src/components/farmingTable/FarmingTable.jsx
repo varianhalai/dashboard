@@ -42,6 +42,8 @@ const FarmingTable = ({showAsCards}) => {
     refresh,
     isRefreshing,
     isCheckingBalance,
+    prettyBalance,
+    currentExchangeRate
   } = useContext(HarvestContext);
   const getThisReward = (reward) => {
     setState({ ...state, minimumHarvestAmount: reward });
@@ -144,7 +146,7 @@ const FarmingTable = ({showAsCards}) => {
                       {parseFloat(summary.stakedBalance).toFixed(6)}
                     </div>
                     <div className="pool">{summary.percentOfPool}</div>
-                    <div className="value">{summary.usdValueOf}</div>
+                    <div className="value">{prettyBalance(summary.usdValueOf * currentExchangeRate)}</div>
                     <div className="unstaked">
                       {parseFloat(summary.unstakedBalance).toFixed(6)}
                     </div>
