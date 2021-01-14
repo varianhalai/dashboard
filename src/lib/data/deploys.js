@@ -465,25 +465,21 @@ const assets = [
   },
   {
     name: "1INCH_ETH-DAI_LP",
-    type: "uniswap",
     decimals: 18,
     address: "0x7566126f2fD0f2Dddae01Bb8A6EA49b760383D5A",
   },
   {
     name: "1INCH_ETH-WBTC_LP",
-    type: "uniswap",
     decimals: 18,
     address: "0x6a11F3E5a01D129e566d783A7b6E8862bFD66CcA",
   },
   {
     name: "1INCH_ETH-USDT_LP",
-    type: "uniswap",
     decimals: 18,
     address: "0xbBa17b81aB4193455Be10741512d0E71520F43cB",
   },
   {
     name: "1INCH_ETH-USDC_LP",
-    type: "uniswap",
     decimals: 18,
     address: "0xb4dB55a20E0624eDD82A0Cf356e3488B4669BD27",
   },
@@ -2524,21 +2520,25 @@ const weekTwentyPools = [
     rewardAsset: assetByName("FARM"),
   },
   {
+    name: "f1INCH-ETH:DAI",
     asset: assetByName("f1INCH_ETH-DAI_LP"),
     address: "0xDa5E9706274D88bbf1bD1877a9b462fC40cDcfAd",
     rewardAsset: assetByName("FARM"),
   },
   {
+    name: "f1INCH-ETH:WBTC",
     asset: assetByName("f1INCH_ETH-WBTC_LP"),
     address: "0x747318Cf3171D4E2a1A52bBD3Fcc9f9c690448B4",
     rewardAsset: assetByName("FARM"),
   },
   {
+    name: "f1INCH-ETH:USDT",
     asset: assetByName("f1INCH_ETH-USDT_LP"),
     address: "0x2A80e0B572e7EF61Ef81EF05eC024e1e52Bd70BD",
     rewardAsset: assetByName("FARM"),
   },
   {
+    name: "f1INCH-ETH:USDC",
     asset: assetByName("f1INCH_ETH-USDC_LP"),
     address: "0x9a9A6148f7b0A9767AC1fdC67343D1e3E219FdDf",
     rewardAsset: assetByName("FARM"),
