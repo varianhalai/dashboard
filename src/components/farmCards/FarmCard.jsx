@@ -1,8 +1,10 @@
-import React from "react";
+import React,{useContext} from "react";
+import HarvestContext from '../../Context/HarvestContext';
 
 import { FarmCardContainer, UnderlyingBalanceContainer } from "./FarmCardStyles";
 
 export default function FarmCard({ summary_information }) {
+    const {prettyBalance,currentExchangeRate} =useContext(HarvestContext)
 
     return (
         <FarmCardContainer>
@@ -31,7 +33,7 @@ export default function FarmCard({ summary_information }) {
                 </div>
                 <div className="card_property_section farm_value">
                     <label className="card_property_title">Value</label>
-                    <p className="card_property_value">{summary_information.usdValueOf}</p>
+                    <p className="card_property_value">{prettyBalance(summary_information.usdValueOf * currentExchangeRate)}</p>
                 </div>
 
             </div>
