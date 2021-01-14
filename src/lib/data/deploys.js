@@ -2358,12 +2358,6 @@ const weekTwentyPools = [
     type: "autocompounding",
   },
   {
-    name: "FARM:USDC Uniswap",
-    asset: assetByName("FARM_USDC_LP"),
-    address: "0x99b0d6641A63Ce173E6EB063b3d3AED9A35Cf9bf",
-    rewardAsset: assetByName("FARM"),
-  },
-  {
     asset: assetByName("fWETH"),
     address: "0x3DA9D911301f8144bdF5c3c67886e5373DCdff8e",
     rewardAsset: assetByName("FARM"),
@@ -2552,12 +2546,6 @@ const weekTwentyOnePools = [
     address: "0x25550Cccbd68533Fa04bFD3e3AC4D09f9e00Fc50",
     rewardAsset: assetByName("FARM"),
     type: "autocompounding",
-  },
-  {
-    name: "FARM:USDC Uniswap",
-    asset: assetByName("FARM_USDC_LP"),
-    address: "0x99b0d6641A63Ce173E6EB063b3d3AED9A35Cf9bf",
-    rewardAsset: assetByName("FARM"),
   },
   {
     asset: assetByName("fWETH"),
