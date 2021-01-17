@@ -180,7 +180,7 @@ const Panel = styled.div`
   color: ${(props) => props.theme.style.primaryFontColor};
   font-size: 1.7rem;
   font-family: ${fonts.contentFont};
-  padding:  1rem 1.5rem 0rem; 1.5rem;
+  padding:  1rem 1.5rem 0rem;
   border: ${(props) => props.theme.style.mainBorder};
   border-radius: 0.5rem;
   box-sizing: border-box;
