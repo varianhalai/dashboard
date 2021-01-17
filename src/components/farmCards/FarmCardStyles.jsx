@@ -73,25 +73,27 @@ export const FarmCardContainer = styled.div`
 `;
 
 export const CardInputContainer = styled.div`
-  position: relative;
+  display: flex;
+  gap: 10px;
   width: 100%;
   .card_amount_input {
     width: 100%;
-    height: 40px;
+    height: 30px;
     border-radius: 6px;
     font-size: 16px;
     font-weight: bold;
     padding: 10px;
   }
-  .card_max_button {
-    position: absolute;
-    top: 7px;
-    right: 10px;
-    height: 25px;
-    width: 50px;
-    font-size: 14px;
-    -webkit-box-sizing: border-box;
-    box-sizing: border-box;
+  button {
+    font-family: 'Open Sans' !important;
+    position: relative;
+    &:hover:enabled {
+      top: 1.5px;
+    }
+    &:disabled {
+      background-color: ${({ theme }) => theme.style.buttonDisabledBackground};
+      color: ${({ theme }) => theme.style.buttonDisabledFontColor};
+    }
   }
 `;
 
