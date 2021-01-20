@@ -36,8 +36,10 @@ export default function FarmCard({ summary_information }) {
                     <p className="card_property_value">{prettyBalance(summary_information.usdValueOf * currentExchangeRate)}</p>
                 </div>
 
-            </div>
+            </div>'
+            <div>{summary_information.profits}</div>
             <UnderlyingBalanceContainer>
+
                 <label className="underlying_balance_label">Underlying Balance:</label> <span className="underlying_balance_value">{summary_information.name === "FARM Profit Sharing" ? "N/A" : parseFloat(summary_information.underlyingBalance).toFixed(6)}</span>
             </UnderlyingBalanceContainer>
             <div className="card_input_area">

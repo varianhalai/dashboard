@@ -9,6 +9,8 @@ export class RewardsPool extends ethers.Contract {
     this.name = pool.name ? pool.name : pool.asset.name;
     this._pool = pool
 
+    
+
     this.lptoken = Token.fromAsset(pool.asset, provider);
     this.reward = Token.fromAsset(pool.rewardAsset, provider);
 
@@ -21,6 +23,17 @@ export class RewardsPool extends ethers.Contract {
         const balance = await this.balanceOf(address);
         return this.lptoken.calcShare(balance, passthrough);
       };
+    }
+  }
+
+   getPricePerFullShare(){
+    let pps = null
+    if(this._pool.asset.type == "ftoken"){
+      this.lptoken.getPricePerFullShare().then(res =>{
+      this.test = res;
+       pps = ethers.utils.formatUnits(res, this._pool.asset.decimals);
+      })
+      return pps
     }
   }
 
@@ -107,7 +120,6 @@ export class RewardsPool extends ethers.Contract {
       this.lptoken.usdValueOf(stakedBalance),
       this.reward.usdValueOf(rewardBalance),
     ]);
-
     return stakedValue.add(rewardValue);
   }
 
@@ -149,12 +161,14 @@ export class RewardsPool extends ethers.Contract {
    * @return {Object} summary
    */
   async summary(address) {
+    const pricePerFullShare= this.getPricePerFullShare()
     const underlying = async (address) => {
       if (this.underlyingBalanceOf) {
         return await this.underlyingBalanceOf(address);
       }
       return {};
     };
+
     const [
       stakedBalance,
       unstakedBalance,
@@ -173,6 +187,7 @@ export class RewardsPool extends ethers.Contract {
       this.historicalRewards(address),
     ]);
 
+
     const output = {
       address: this.address,
       user: address,
@@ -184,6 +199,7 @@ export class RewardsPool extends ethers.Contract {
       percentageOwnership,
       usdValueOf,
       historicalRewards,
+      pricePerFullShare: this.test
     };
     if (underlyingBalanceOf) output.underlyingBalanceOf = underlyingBalanceOf;
     return output;

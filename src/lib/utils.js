@@ -40,10 +40,10 @@ export function prettyPosition(sum) {
       usdValueOf,
       historicalRewards,
       underlyingBalanceOf,
-      pool
+      pool,
+      pricePerFullShare
     },
   } = sum;
-
   // const bnValueOf = ethers.BigNumber.from(usdValueOf);
   // const prettyUsdValue = `$${ethers.utils.formatUnits(bnValueOf, 2)}`;
   const prettyUsdValue = prettyMoney(usdValueOf);
@@ -60,6 +60,15 @@ export function prettyPosition(sum) {
   }
 
 
+  function formatProfits(){
+    if(pricePerFullShare){
+      const sharePrice = formatUnits(pricePerFullShare, decimals);
+      return (sharePrice * formatUnderlyingBalance());
+    }
+    return 0;
+  }
+
+
   const truncatedClaimable = earnedRewards.div((10 ** 10));
   const truncatedRewards = historicalRewards.div((10 ** 10));
 
@@ -67,6 +76,7 @@ export function prettyPosition(sum) {
   return {
     name,
     isActive,
+    pricePerFullShare,
     address: address,
     stakedBalance: ethers.utils.formatUnits(stakedBalance, decimals),
     unstakedBalance: ethers.utils.formatUnits(unstakedBalance, decimals),
@@ -75,7 +85,8 @@ export function prettyPosition(sum) {
     usdValueOf: usdValueOf,
     historicalRewards: ethers.utils.formatUnits(truncatedRewards, 8),
     underlyingBalance: formatUnderlyingBalance(),
-    pool: pool
+    pool: pool,
+    profits: formatProfits()
   };
 }
 
