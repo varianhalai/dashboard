@@ -30,9 +30,9 @@ export class RewardsPool extends ethers.Contract {
     let pricePerShare = null
     if(this._pool.asset.type == "ftoken"){
       this.lptoken.getPricePerFullShare().then(res =>{
-      this.test = res;
+      this.pricePerFullShare = res;
        pricePerShare = ethers.utils.formatUnits(res, this._pool.asset.decimals);
-      })
+      });
       return pricePerShare
     }
   }
@@ -199,7 +199,7 @@ export class RewardsPool extends ethers.Contract {
       percentageOwnership,
       usdValueOf,
       historicalRewards,
-      pricePerFullShare: this.test
+      pricePerFullShare: this.pricePerFullShare
     };
     if (underlyingBalanceOf) output.underlyingBalanceOf = underlyingBalanceOf;
     return output;

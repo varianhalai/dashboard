@@ -61,10 +61,10 @@ export function prettyPosition(sum) {
   function formatProfits(){
     if(pricePerFullShare){
       const sharePrice = formatUnits(pricePerFullShare, decimals);
-      const difference = (sharePrice * formattedUnderlyingBalance) - formattedUnderlyingBalance;
-      const usdValuePerShare = formatUnits(usdValueOf.toNumber(), 6) / formattedUnderlyingBalance;
+      const underlyingPricedifference = (sharePrice * formattedUnderlyingBalance) - formattedUnderlyingBalance;
+      const usdValuePerShare = (formatUnits(usdValueOf.toNumber(), 6) / formattedUnderlyingBalance);
       
-      return difference * usdValuePerShare;
+      return (underlyingPricedifference * usdValuePerShare);
     }
     return 0;
   }
@@ -77,7 +77,6 @@ export function prettyPosition(sum) {
   return {
     name,
     isActive,
-    pricePerFullShare,
     address: address,
     stakedBalance: ethers.utils.formatUnits(stakedBalance, decimals),
     unstakedBalance: ethers.utils.formatUnits(unstakedBalance, decimals),

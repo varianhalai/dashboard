@@ -5,7 +5,6 @@ import { FarmCardContainer, UnderlyingBalanceContainer } from "./FarmCardStyles"
 
 export default function FarmCard({ summary_information }) {
     const {prettyBalance,currentExchangeRate, convertStandardNumber} =useContext(HarvestContext)
-    console.log(summary_information);
     return (
         <FarmCardContainer>
             <div className="farm_card_title">{summary_information.name}</div>
@@ -42,7 +41,6 @@ export default function FarmCard({ summary_information }) {
 
             </div>
             <UnderlyingBalanceContainer>
-
                 <label className="underlying_balance_label">Underlying Balance:</label> <span className="underlying_balance_value">{summary_information.name === "FARM Profit Sharing" ? "N/A" : parseFloat(summary_information.underlyingBalance).toFixed(6)}</span>
             </UnderlyingBalanceContainer>
             <div className="card_input_area">
