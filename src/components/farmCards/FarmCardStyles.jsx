@@ -111,14 +111,22 @@ export const FarmCardButtonsContainer = styled.div`
 `;
 
 export const UnderlyingBalanceContainer = styled.div`
-  text-align: left;
+  text-align: center;
   margin: 10px 0;
   .underlying_balance_label {
     font-size: 16px;
     font-weight: bold;
+    margin: 10px 0;
+
   }
   .underlying_balance_value {
     font-size: 16px;
+
+    .underlying_profits{
+      color: green;
+      font-weight: bold;
+      margin-top: 10px;
+    }
   }
 `;
 
@@ -127,7 +135,7 @@ export const FarmGroupContainerWrapper = styled.div`
   display: flex;
   flex-wrap: wrap;
   -webkit-box-pack: justify;
-  justify-content: space-between;
+  justify-content: space-evenly;
   -ms-flex-pack: justify;
 
   @media (max-width: ${screen.md}px) {

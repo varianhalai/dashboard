@@ -1,10 +1,13 @@
-import React,{useContext} from "react";
+import React, { useContext } from "react";
 import HarvestContext from '../../Context/HarvestContext';
 
 import { FarmCardContainer, UnderlyingBalanceContainer } from "./FarmCardStyles";
 
 export default function FarmCard({ summary_information }) {
-    const {prettyBalance,currentExchangeRate, convertStandardNumber} =useContext(HarvestContext)
+    const { prettyBalance, currentExchangeRate, convertStandardNumber } = useContext(HarvestContext);
+
+    const isProfitShareCard = summary_information.name === "FARM Profit Sharing";
+
     return (
         <FarmCardContainer>
             <div className="farm_card_title">{summary_information.name}</div>
@@ -34,14 +37,21 @@ export default function FarmCard({ summary_information }) {
                     <label className="card_property_title">Value</label>
                     <p className="card_property_value">{prettyBalance(summary_information.usdValueOf * currentExchangeRate)}</p>
                 </div>
-                <div className="card_property_section profits">
-                    <label className="card_property_title">Profits</label>
-                    <p className="card_property_value" style={{color: Math.sign(parseFloat(summary_information.profits).toFixed(6)) <= 0 ? "red" : "green"}}>{convertStandardNumber(parseFloat(summary_information.profits).toFixed(6))}</p>
-                </div>
-
             </div>
             <UnderlyingBalanceContainer>
-                <label className="underlying_balance_label">Underlying Balance:</label> <span className="underlying_balance_value">{summary_information.name === "FARM Profit Sharing" ? "N/A" : parseFloat(summary_information.underlyingBalance).toFixed(6)}</span>
+                <div className="underlying_balance_label">
+                    <h4>Underlying Balance:</h4>
+                </div>
+                <span className="underlying_balance_value">{
+                    isProfitShareCard
+                        ? "N/A"
+                        : <span>
+                            {parseFloat(summary_information.underlyingBalance).toFixed(6)} 
+                            <div className="underlying_profits">
+                                (+{convertStandardNumber(parseFloat(summary_information.profits).toFixed(6))} 📈)
+                            </div>
+                         </span>}
+                </span>
             </UnderlyingBalanceContainer>
             <div className="card_input_area">
                 {/* TODO: Add reward harvest/stake functions for this to be relevant*/}
