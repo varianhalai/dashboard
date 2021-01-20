@@ -2,6 +2,8 @@ import React, { useContext } from "react";
 import HarvestContext from "../../Context/HarvestContext";
 import { UserSettings, CloseIcon } from "./SettingsModalStyles";
 
+import ThemeSwitch from '../tabContainer/themeSwitch/ThemeSwitch';
+
 const SettingsModal = () => {
   const {
     exchangeRates,
@@ -40,6 +42,8 @@ const SettingsModal = () => {
             : ""}
         </select>
       </div>
+
+      <ThemeSwitch />
     </UserSettings>
   );
 };

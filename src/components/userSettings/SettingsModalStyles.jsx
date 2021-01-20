@@ -26,7 +26,7 @@ export const UserSettings = styled.div`
       font-family: ${fonts.headerFont};
       background-color: ${(props) => props.theme.style.blueBackground};
       display: flex;
-      width: max-content;
+      width: 6rem;
       scrollbar-color: ${(props) => props.theme.style.scrollBarColor};
       scrollbar-width: thin;
       ::-webkit-scrollbar {
