@@ -44,26 +44,24 @@ export function prettyPosition(sum) {
       pricePerFullShare
     },
   } = sum;
-  // const bnValueOf = ethers.BigNumber.from(usdValueOf);
-  // const prettyUsdValue = `$${ethers.utils.formatUnits(bnValueOf, 2)}`;
-  const prettyUsdValue = prettyMoney(usdValueOf);
 
-  const formatUnderlyingBalance = function () {
+
+  const formattedUnderlyingBalance = function () {
     if (underlyingBalanceOf) {
       if (underlyingBalanceOf.balances) {
         for (let balance in underlyingBalanceOf.balances) {
-          return formatUnits(underlyingBalanceOf.balances[balance], decimals)
+          return formatUnits(underlyingBalanceOf.balances[balance], decimals);
         }
       }
     }
     return 0
-  }
+  }()
 
 
   function formatProfits(){
     if(pricePerFullShare){
       const sharePrice = formatUnits(pricePerFullShare, decimals);
-      return (sharePrice * formatUnderlyingBalance());
+      return (sharePrice * formattedUnderlyingBalance)
     }
     return 0;
   }
@@ -84,7 +82,7 @@ export function prettyPosition(sum) {
     percentOfPool: percentageOwnership,
     usdValueOf: usdValueOf,
     historicalRewards: ethers.utils.formatUnits(truncatedRewards, 8),
-    underlyingBalance: formatUnderlyingBalance(),
+    underlyingBalance: formattedUnderlyingBalance,
     pool: pool,
     profits: formatProfits()
   };
