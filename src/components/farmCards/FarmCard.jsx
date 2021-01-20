@@ -4,7 +4,7 @@ import HarvestContext from '../../Context/HarvestContext';
 import { FarmCardContainer, UnderlyingBalanceContainer } from "./FarmCardStyles";
 
 export default function FarmCard({ summary_information }) {
-    const {prettyBalance,currentExchangeRate} =useContext(HarvestContext)
+    const {prettyBalance,currentExchangeRate, convertStandardNumber} =useContext(HarvestContext)
     console.log(summary_information);
     return (
         <FarmCardContainer>
@@ -37,7 +37,7 @@ export default function FarmCard({ summary_information }) {
                 </div>
                 <div className="card_property_section profits">
                     <label className="card_property_title">Profits</label>
-                    <p className="card_property_value">{parseFloat(summary_information.profits).toFixed(6)}</p>
+                    <p className="card_property_value">{convertStandardNumber(parseFloat(summary_information.profits).toFixed(6))}</p>
                 </div>
 
             </div>
