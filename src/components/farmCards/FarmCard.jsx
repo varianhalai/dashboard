@@ -48,7 +48,7 @@ export default function FarmCard({ summary_information }) {
                         : <span>
                             {parseFloat(summary_information.underlyingBalance).toFixed(6)} 
                             <div className="underlying_profits">
-                                (+{convertStandardNumber(parseFloat(summary_information.profits).toFixed(6))} 📈)
+                                (+{convertStandardNumber(parseFloat(summary_information.profits).toFixed(6) * currentExchangeRate)} 📈)
                             </div>
                          </span>}
                 </span>
