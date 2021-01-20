@@ -68,7 +68,7 @@ const WelcomeTextPanel = styled.div`
     
   }
   .foot-note {
-    font-family: font-family: ${fonts.contentFont};
+    font-family: ${fonts.contentFont};
     width: 25%;
     margin: 1rem auto;
     line-height: 1.8rem;
@@ -85,10 +85,6 @@ const WelcomeTextPanel = styled.div`
       width: 50%;
     }
   }
-}
-
-  
-  
 `;
 
 const WelcomeText = ({

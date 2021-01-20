@@ -11,7 +11,7 @@ import {
 } from "./FarmCardStyles";
 const { utils } = harvest;
 
-function FarmCardGroupContainer({showAsTables}) {
+function FarmCardGroupContainer({ showAsTables }) {
   const { state, setState } = useContext(HarvestContext);
 
   function getTotalFarmEarned() {
@@ -57,10 +57,10 @@ function FarmCardGroupContainer({showAsTables}) {
           })}
         </FarmGroupContainerWrapper>
       ) : (
-        <NoFarmSummariesFound>
-          You currently are not staking any assets 🏜️
-        </NoFarmSummariesFound>
-      )}
+          <NoFarmSummariesFound>
+            You currently are not staking any assets 🏜️
+          </NoFarmSummariesFound>
+        )}
     </ThemeProvider>
   );
 }
