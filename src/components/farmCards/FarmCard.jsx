@@ -22,7 +22,7 @@ export default function FarmCard({ summary_information }) {
     const doStake = async (stakeAmount) => {
       await pool
         .stake(stakeAmount)
-        .then(async (res) => {D
+        .then(async (res) => {
           setHarvestAndStakeMessage({
             ...harvestAndStakeMessage,
             first: `Staking your ${pool.name} tokens`,
