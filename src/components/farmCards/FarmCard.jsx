@@ -11,7 +11,7 @@ export default function FarmCard({ summary_information }) {
   const [isWithdrawing, setWithdrawing] = useState(false);
   const pool = () =>{
     if(!isCheckingBalance){
-      state.manager.pools.find((pool) => {
+      return state.manager.pools.find((pool) => {
         return pool.address === summary_information.address;
       });
     }
@@ -22,7 +22,7 @@ export default function FarmCard({ summary_information }) {
     const doStake = async (stakeAmount) => {
       await pool
         .stake(stakeAmount)
-        .then(async (res) => {
+        .then(async (res) => {D
           setHarvestAndStakeMessage({
             ...harvestAndStakeMessage,
             first: `Staking your ${pool.name} tokens`,
