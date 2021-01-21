@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useContext } from "react";
+import React, { useState, useEffect } from "react";
 import HarvestContext from "./Context/HarvestContext";
 import styled, { ThemeProvider } from "styled-components";
 import { Row, Col } from "styled-bootstrap-grid";
@@ -395,6 +395,7 @@ function App() {
   useEffect(() => {
     getPools();
     memoizeExchangeRates();
+    // eslint-disable-next-line
   }, []);
   useEffect(() => {
     const timer = setTimeout(() => {
@@ -407,11 +408,13 @@ function App() {
     if (state.address !== "") {
       refresh();
     }
+    // eslint-disable-next-line
   }, [state.address]);
   useEffect(() => {
     if (state.usdValue) {
       setState({ ...state, display: true });
     }
+    // eslint-disable-next-line
   }, [state.usdValue]);
 
   const memoizeExchangeRates = () => {

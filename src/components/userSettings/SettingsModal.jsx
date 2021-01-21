@@ -8,7 +8,6 @@ const SettingsModal = () => {
     baseCurrency,
     setBaseCurrency,
     setCurrentExchangeRate,
-    settingsOpen,
     toggleUserSettings
   } = useContext(HarvestContext);
 
