@@ -115,7 +115,5 @@ export const PanelTabContainerRight = styled.div`
     -webkit-appearance: none;
     appearance: none;
   }
-  @media (max-width: 969px) {
-    display: none;
-  }
+ 
 `;

@@ -76,4 +76,7 @@ export const AnalyticsContainer = styled.div`
     z-index: 7;
     
   }
+  @media(max-width: 1160px) {
+    display: none;
+  }
 `;

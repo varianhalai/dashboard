@@ -19,6 +19,7 @@ const web3Modal = new Web3Modal({
       },
     },
   },
+  
 });
 
 const WelcomeTextPanel = styled.div`
@@ -38,6 +39,8 @@ const WelcomeTextPanel = styled.div`
   text-align: center;
   margin-top: 1.6rem;
   color: ${(props) => props.theme.style.primaryFontColor};
+
+  
   
   h1 {
     font-size: 2.8rem;

@@ -8,7 +8,6 @@ import {
 
 import AnalyticsModal from "./analyticsModal/AnalyticsModal";
 import AnalyticsTabs from './analyticsTabs/AnalyticsTabs';
-import ThemeSwitch from "./themeSwitch/ThemeSwitch";
 
 const TabContainer = () => {
   const { toggleRadio } = useContext(HarvestContext);
@@ -49,7 +48,9 @@ const TabContainer = () => {
         >
           <p>analytics</p>
         </PanelTab>
+        
        <AnalyticsTabs setShowAnalytics={setShowAnalytics} showAnalytics={showAnalytics}  /> 
+       
         
 
         
