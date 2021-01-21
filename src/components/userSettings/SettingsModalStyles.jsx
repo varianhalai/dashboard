@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { fonts, screen } from "../../styles/appStyles";
+import { fonts } from "../../styles/appStyles";
 
 export const UserSettings = styled.div`
   z-index: 200;

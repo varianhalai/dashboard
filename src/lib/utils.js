@@ -44,9 +44,7 @@ export function prettyPosition(sum) {
     },
   } = sum;
 
-  // const bnValueOf = ethers.BigNumber.from(usdValueOf);
-  // const prettyUsdValue = `$${ethers.utils.formatUnits(bnValueOf, 2)}`;
-  const prettyUsdValue = prettyMoney(usdValueOf);
+
 
   const formatUnderlyingBalance = function () {
     if (underlyingBalanceOf) {
