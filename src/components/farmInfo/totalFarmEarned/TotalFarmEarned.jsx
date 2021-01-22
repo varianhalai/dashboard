@@ -1,9 +1,28 @@
-import React,{useContext} from "react";
-import HarvestContext from '../../Context/HarvestContext';
+import React, { useContext } from "react";
+import HarvestContext from "../../../Context/HarvestContext";
 import styled, { ThemeProvider } from "styled-components";
-import { darkTheme, lightTheme, fonts } from "../../styles/appStyles";
+import { darkTheme, lightTheme, fonts } from "../../../styles/appStyles";
 
-import PriceSkeleton from "./FarmPriceSkeleton";
+//Components
+import FarmEarnedSkeleton from "./FarmEarnedSkeleton";
+const TotalFarmEarned = () => {
+  const { state } = useContext(HarvestContext);
+
+  return (
+    <ThemeProvider theme={state.theme === "dark" ? darkTheme : lightTheme}>
+      {state.totalFarmEarned ? (
+        <BluePanel>
+          <h1>{state.totalFarmEarned?.toFixed(6)}</h1>
+          <span>Farm Earned</span>
+        </BluePanel>
+      ) : (
+        <FarmEarnedSkeleton theme={state.theme} />
+      )}
+    </ThemeProvider>
+  );
+};
+
+export default TotalFarmEarned;
 
 const BluePanel = styled.div`
   position: relative;
@@ -16,15 +35,15 @@ const BluePanel = styled.div`
   box-sizing: border-box;
   box-shadow: ${(props) => props.theme.style.panelBoxShadow};
   display: flex;
-  flex-grow: 1;
   align-items: center;
   justify-content: center;
   flex-direction: column;
+  width: 100%;
+  
 
   h1 {
     font-size: 2.4rem;
-    text-align: center;
-    margin-right: 1rem;
+    margin-bottom: 0.5rem;
   }
 
   span {
@@ -32,8 +51,8 @@ const BluePanel = styled.div`
   }
 
   @media (max-width: 1107px) {
-    padding: 2rem 0.7rem 4rem 1.5rem;
-
+    padding: 1.5rem 0.7rem 4rem 1.5rem;
+    margin: 1rem 0rem;
     h1 {
       font-size: 2.2rem;
       position: relative;
@@ -46,21 +65,3 @@ const BluePanel = styled.div`
     }
   }
 `;
-
-const FarmPrice = ({ price, display, theme }) => {
-  const {convertStandardNumber, currentExchangeRate} = useContext(HarvestContext)
-  return (
-    <ThemeProvider theme={theme === "dark" ? darkTheme : lightTheme}>
-      {display ? (
-        <BluePanel>
-          <h1>{convertStandardNumber(price * currentExchangeRate)}</h1>
-          <span>FARM price</span>
-        </BluePanel>
-      ) : (
-        <PriceSkeleton theme={theme} />
-      )}
-    </ThemeProvider>
-  );
-};
-
-export default FarmPrice;
