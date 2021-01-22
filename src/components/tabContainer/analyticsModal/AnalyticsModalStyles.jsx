@@ -1,5 +1,4 @@
 import styled from "styled-components";
-import { } from "../../../styles/appStyles";
 
 export const Modal = styled.div`
   &.show {

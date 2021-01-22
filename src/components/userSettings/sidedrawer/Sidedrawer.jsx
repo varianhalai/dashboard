@@ -41,7 +41,6 @@ const Sidedrawer = () => {
         <div className="drawer-analytics">
           <h3 className="analytics-header">analytics</h3>
           <DrawerLink
-            href=""
             className="drawer-link"
             href="https://farmdashboard.xyz/"
             target="_blank"
@@ -50,7 +49,6 @@ const Sidedrawer = () => {
             FARM statistics
           </DrawerLink>
           <DrawerLink
-            href=""
             className="drawer-link"
             href="https://duneanalytics.com/0xBoxer/-grain"
             target="_blank"
@@ -59,7 +57,6 @@ const Sidedrawer = () => {
             GRAIN statistics
           </DrawerLink>
           <DrawerLink
-            href=""
             className="drawer-link"
             href="https://cultivator.finance/"
             target="_blank"
