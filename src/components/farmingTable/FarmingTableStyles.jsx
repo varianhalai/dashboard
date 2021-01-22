@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { darkTheme, lightTheme, fonts} from '../../styles/appStyles';
+import { darkTheme, lightTheme, fonts } from '../../styles/appStyles';
 
 
 export const TableContainer = styled.div`
@@ -45,8 +45,9 @@ export const MainTableInner = styled.div`
 `;
 export const MainTableRow = styled.div`
   display: grid;
-  grid-template-columns: 0.75fr 0.5fr 0.75fr 0.75fr 0.5fr 0.75fr 0.75fr;
+  grid-template-columns: 0.75fr 0.3fr 0.5fr 0.5fr 0.5fr 0.5fr 0.5fr 0.25fr 0.25fr 0.25fr;
   font-size: 1.7rem;
+  align-items: center;
   font-family: ${fonts.contentFont};
   padding: 1.5rem 1rem;
   width: 100%;
@@ -92,14 +93,31 @@ export const MainTableRow = styled.div`
       margin-left: 1.5rem;
     }
   }
-  .rewards-to-date {
+  .stake-but {
+    margin-right: 10px;
+  }
+  
+  input {
+    height: 30px;
+    font-weight: bold;
+  }
+  button {
+    font-family: 'Open Sans' !important;
+    position: relative;
+    &:hover:enabled {
+      top: 1.5px;
+    }
+    &:disabled {
+      background-color: ${({ theme }) => theme.style.buttonDisabledBackground};
+      color: ${({ theme }) => theme.style.buttonDisabledFontColor};
+    }
   }
 `;
 export const MainTableHeader = styled.div`
   display: grid;
-  grid-template-columns: 0.75fr 0.5fr 0.75fr 0.75fr 0.5fr 0.75fr 0.75fr;
-  grid-gap: 20px;
-  font-size: 2rem;
+  grid-template-columns: 0.75fr 0.3fr 0.5fr 0.5fr 0.5fr 0.5fr 0.5fr 0.8fr;
+  //grid-gap: 20px;
+  font-size: 1.7rem;
   font-family: ${fonts.headerFont};
   padding: 1.5rem 1rem;
   border-bottom: 2px black solid;

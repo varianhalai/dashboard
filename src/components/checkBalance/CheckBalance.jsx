@@ -85,7 +85,7 @@ const CheckBalance = (props) => {
       setState({ ...state, address: addressToCheck });
       setCheckingBalance(true);
       checkBalances(address);
-      
+
     } else {
       setAddressToCheck("");
       setValidationMessage("You must enter a valid address");
@@ -140,30 +140,30 @@ const CheckBalance = (props) => {
         {isCheckingBalance ? (
           ""
         ) : (
-          <div className="read-only-header">
-            <h1>Or enter a wallet address for read-only mode</h1>
-            <div className="address-input">
-              <input
-                type="text"
-                value={addressToCheck}
-                placeholder="Enter address"
-                onChange={changeHandler}
-              />
+            <div className="read-only-header">
+              <h1>Or enter a wallet address for read-only mode</h1>
+              <div className="address-input">
+                <input
+                  type="text"
+                  value={addressToCheck}
+                  placeholder="Enter address"
+                  onChange={changeHandler}
+                />
+              </div>
+              {/* //address-input */}
             </div>
-            {/* //address-input */}
-          </div>
-        )}
+          )}
 
         {isCheckingBalance ? (
           ""
         ) : (
-          <button
-            onClick={() => setCheck(addressToCheck)}
-            className="check-all button"
-          >
-            Check Balance
-          </button>
-        )}
+            <button
+              onClick={() => setCheck(addressToCheck)}
+              className="check-all button"
+            >
+              Check Balance
+            </button>
+          )}
         {isCheckingBalance ? <MainContent setAddressToCheck={setAddressToCheck} state={state} /> : null}
       </Panel>
     </ThemeProvider>
@@ -180,7 +180,7 @@ const Panel = styled.div`
   color: ${(props) => props.theme.style.primaryFontColor};
   font-size: 1.7rem;
   font-family: ${fonts.contentFont};
-  padding:  1rem 1.5rem 0rem; 1.5rem;
+  padding:  1rem 1.5rem 0rem 1.5rem;
   border: ${(props) => props.theme.style.mainBorder};
   border-radius: 0.5rem;
   box-sizing: border-box;
@@ -227,16 +227,9 @@ const Panel = styled.div`
     position: relative;
     z-index: 400;
   }
-  
-  
-  
-  
   @media(max-width: 1105px) {
     margin-bottom: 1.5rem;
   }
-  
- 
-  
 `;
 const ValidationMessage = styled.div`
   display: flex;

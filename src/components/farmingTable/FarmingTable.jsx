@@ -1,9 +1,10 @@
-import React, { useEffect, useContext } from "react";
+import React, { useEffect, useContext, useState } from "react";
 import HarvestContext from "../../Context/HarvestContext";
 import styled, { ThemeProvider } from "styled-components";
 import harvest from "../../lib/index";
+import ethers from 'ethers';
 import { darkTheme, lightTheme, fonts } from "../../styles/appStyles";
-import  {TableContainer, MainTableInner, MainTableRow, MainTableHeader, PanelTabContainerLeft, PanelTabContainerRight, PanelTab, Tabs} from './FarmingTableStyles';
+import { TableContainer, MainTableInner, MainTableRow, MainTableHeader, PanelTabContainerLeft, PanelTabContainerRight, PanelTab, Tabs } from './FarmingTableStyles';
 
 import FarmTableSkeleton from "./FarmTableSkeleton";
 
@@ -35,7 +36,127 @@ const columns = [
   },
 ];
 
-const FarmingTable = ({showAsCards}) => {
+const StakeContainer = ({ data }) => {
+  const [amount, setAmount] = useState(0);
+  const [isStaking, setStaking] = useState(false);
+  const [isWithdrawing, setWithdrawing] = useState(false);
+
+  const { state, harvestAndStakeMessage, setHarvestAndStakeMessage } = useContext(HarvestContext)
+  const pool = state.manager.pools.find((pool) => {
+    return pool.address === data.address;
+  });
+  const stake = async () => {
+    const doStake = async (stakeAmount) => {
+      await pool
+        .stake(stakeAmount)
+        .then(async (res) => {
+          setHarvestAndStakeMessage({
+            ...harvestAndStakeMessage,
+            first: `Staking your ${data.pool.name} tokens`,
+            second: "",
+          });
+          await res.wait().then(() => {
+            setStaking(false);
+            setAmount(0);
+            setHarvestAndStakeMessage({
+              ...harvestAndStakeMessage,
+              first: `Success!`,
+              second: `${amount} tokens has been staked on ${data.pool.name} pool!`,
+            });
+            const timer = setTimeout(() => {
+              setHarvestAndStakeMessage({
+                ...harvestAndStakeMessage,
+                first: ``,
+                second: "",
+              });
+            }, 3000);
+            return () => clearTimeout(timer);
+          });
+        })
+        .catch((e) => {
+          setStaking(false);
+          if (e.code !== 4001 || e.code !== -32603) {
+            setHarvestAndStakeMessage({
+              ...harvestAndStakeMessage,
+              first: ``,
+              second: "",
+            });
+            console.log(
+              `You don't have enough ${amount} token to stake on ${data.pool.name} pool`,
+            );
+          }
+        });
+    };
+    setStaking(true);
+    const allowance = await pool.lptoken.allowance(
+      state.address,
+      pool.address,
+    );
+    const stakeAmount = ethers.utils.parseUnits(amount.toString(), 18);
+    if (allowance.lt(stakeAmount))
+      await pool.lptoken.approve(pool.address, ethers.constants.MaxUint256).then(async (res) => {
+        await doStake(stakeAmount);
+      }).catch(err => {
+        console.error(err);
+        setStaking(false);
+      });
+    else {
+      await doStake(stakeAmount);
+    }
+  };
+  const withDraw = async () => {
+    const doWithdraw = async (withdrawAmount) => {
+      await pool
+        .withdraw(withdrawAmount)
+        .then(async (res) => {
+          setHarvestAndStakeMessage({
+            ...harvestAndStakeMessage,
+            first: `Withdrawing your ${data.pool.name} tokens`,
+            second: "",
+          });
+          await res.wait().then(() => {
+            setWithdrawing(false);
+            setAmount(0);
+            setHarvestAndStakeMessage({
+              ...harvestAndStakeMessage,
+              first: `Success!`,
+              second: `${amount} tokens has been withdrawn on ${data.pool.name} pool!`,
+            });
+            const timer = setTimeout(() => {
+              setHarvestAndStakeMessage({
+                ...harvestAndStakeMessage,
+                first: ``,
+                second: "",
+              });
+            }, 3000);
+            return () => clearTimeout(timer);
+          });
+        })
+        .catch((e) => {
+          setWithdrawing(false);
+          if (e.code !== 4001 || e.code !== -32603) {
+            setHarvestAndStakeMessage({
+              ...harvestAndStakeMessage,
+              first: ``,
+              second: "",
+            });
+            console.log(
+              `You do not have enough ${amount} tokens to withdraw on ${data.pool.name} pool`,
+            );
+          }
+        });
+    };
+    setWithdrawing(true);
+    const withdrawAmount = ethers.utils.parseUnits(amount.toString(), 18);
+    await doWithdraw(withdrawAmount);
+  };
+  return <>
+    <input value={amount} onChange={(e) => { setAmount(e.target.value) }} type="number" />
+    <button className="button stake-but" onClick={() => stake()} disabled={parseFloat(amount) && !isStaking ? false : true}>Stake</button>
+    <button className="button withdraw-but" onClick={() => withDraw()} disabled={parseFloat(amount) && !isWithdrawing ? false : true}>Withdraw</button>
+  </>
+}
+const FarmingTable = ({ showAsCards }) => {
   const {
     state,
     setState,
@@ -67,7 +188,7 @@ const FarmingTable = ({showAsCards}) => {
       getTotalFarmEarned();
     }
   }, [state.summaries]);
-  
+
   useEffect(() => {
     const timer = setTimeout(() => {
       getTotalFarmEarned();
@@ -75,7 +196,7 @@ const FarmingTable = ({showAsCards}) => {
     return () => clearTimeout(timer);
   });
 
-  
+
 
   const handleRefresh = () => {
 
@@ -92,17 +213,17 @@ const FarmingTable = ({showAsCards}) => {
               <p>your staked assets</p>
             </PanelTab>
           </PanelTabContainerLeft>
-          
-            <PanelTabContainerRight>
-              <PanelTab className={isRefreshing ? "refresh-disabled" : "refresh-button"} onClick={showAsCards}>
+
+          <PanelTabContainerRight>
+            <PanelTab className={isRefreshing ? "refresh-disabled" : "refresh-button"} onClick={showAsCards}>
               <i className="fas fa-table"></i>
-              </PanelTab>
-              {isCheckingBalance ? "" : <PanelTab className={isRefreshing ? "refresh-disabled" : "refresh-button"} onClick={refresh}>
-                <i className="fas fa-sync-alt"></i>
-              </PanelTab> }
-              
-            </PanelTabContainerRight>
-          
+            </PanelTab>
+            {isCheckingBalance ? "" : <PanelTab className={isRefreshing ? "refresh-disabled" : "refresh-button"} onClick={refresh}>
+              <i className="fas fa-sync-alt"></i>
+            </PanelTab>}
+
+          </PanelTabContainerRight>
+
         </Tabs>
       ) : null}
       {state.display ? (
@@ -120,44 +241,45 @@ const FarmingTable = ({showAsCards}) => {
               </div>
             </NoAssetTable>
           ) : (
-            <MainTableInner>
-              <MainTableHeader>
-                {columns.map((col, i) => {
-                  return (
-                    <p className={col.name} key={i}>
-                      {col.name}
-                    </p>
-                  );
-                })}
-              </MainTableHeader>
-              {state.summaries
-                .map(utils.prettyPosition)
-                .map((summary, index) => (
-                  <MainTableRow key={summary.address}>
-                    <div className="name">{summary.name}</div>
-                    <div className="active">{String(summary.isActive)}</div>
-                    <div
-                      className="earned-rewards"
-                      onClick={() => getThisReward(summary.earnedRewards)}
-                    >
-                      {parseFloat(summary.earnedRewards).toFixed(6)}
-                    </div>
-                    <div className="staked">
-                      {parseFloat(summary.stakedBalance).toFixed(6)}
-                    </div>
-                    <div className="pool">{summary.percentOfPool}</div>
-                    <div className="value">{prettyBalance(summary.usdValueOf * currentExchangeRate)}</div>
-                    <div className="unstaked">
-                      {parseFloat(summary.unstakedBalance).toFixed(6)}
-                    </div>
-                  </MainTableRow>
-                ))}
-            </MainTableInner>
-          )}
+              <MainTableInner>
+                <MainTableHeader>
+                  {columns.map((col, i) => {
+                    return (
+                      <p className={col.name} key={i}>
+                        {col.name}
+                      </p>
+                    );
+                  })}
+                </MainTableHeader>
+                {state.summaries
+                  .map(utils.prettyPosition)
+                  .map((summary, index) => (
+                    <MainTableRow key={summary.address}>
+                      <div className="name">{summary.name}</div>
+                      <div className="active">{String(summary.isActive)}</div>
+                      <div
+                        className="earned-rewards"
+                        onClick={() => getThisReward(summary.earnedRewards)}
+                      >
+                        {parseFloat(summary.earnedRewards).toFixed(6)}
+                      </div>
+                      <div className="staked">
+                        {parseFloat(summary.stakedBalance).toFixed(6)}
+                      </div>
+                      <div className="pool">{summary.percentOfPool}</div>
+                      <div className="value">{prettyBalance(summary.usdValueOf * currentExchangeRate)}</div>
+                      <div className="unstaked">
+                        {parseFloat(summary.unstakedBalance).toFixed(6)}
+                      </div>
+                      <StakeContainer data={summary} />
+                    </MainTableRow>
+                  ))}
+              </MainTableInner>
+            )}
         </TableContainer>
       ) : (
-        <FarmTableSkeleton state={state} />
-      )}
+          <FarmTableSkeleton state={state} />
+        )}
     </ThemeProvider>
   );
 };
