@@ -5,10 +5,12 @@ import ethers from 'ethers';
 import { FarmCardContainer, UnderlyingBalanceContainer, CardInputContainer } from "./FarmCardStyles";
 
 export default function FarmCard({ summary_information }) {
-  const { state, prettyBalance, currentExchangeRate, isCheckingBalance, harvestAndStakeMessage, setHarvestAndStakeMessage } = useContext(HarvestContext)
+  const { state, prettyBalance, currentExchangeRate, isCheckingBalance, harvestAndStakeMessage, setHarvestAndStakeMessage, convertStandardNumber} = useContext(HarvestContext)
   const [amount, setAmount] = useState(summary_information.unstakedBalance);
   const [isStaking, setStaking] = useState(false);
   const [isWithdrawing, setWithdrawing] = useState(false);
+  const isProfitShareCard = summary_information.name === "FARM Profit Sharing";
+
   const pool = () =>{
     if(!isCheckingBalance){
       return state.manager.pools.find((pool) => {
@@ -155,7 +157,19 @@ export default function FarmCard({ summary_information }) {
 
       </div>
       <UnderlyingBalanceContainer>
-        <label className="underlying_balance_label">Underlying Balance:</label> <span className="underlying_balance_value">{summary_information.name === "FARM Profit Sharing" ? "N/A" : parseFloat(summary_information.underlyingBalance).toFixed(6)}</span>
+        <div className="underlying_balance_label">
+          <h4>Underlying Balance:</h4>
+        </div>
+        <span className="underlying_balance_value">{
+          isProfitShareCard
+            ? "N/A"
+            : <span>
+              {parseFloat(summary_information.underlyingBalance).toFixed(6)}
+              <div className="underlying_profits">
+                (+{convertStandardNumber(parseFloat(summary_information.profits).toFixed(6) * currentExchangeRate)} 📈)
+                            </div>
+            </span>}
+        </span>
       </UnderlyingBalanceContainer>
       {summary_information.name !== "FARM Profit Sharing" &&
         <div className="card_input_area">
