@@ -78,6 +78,8 @@ const FarmingTable = ({ showAsCards }) => {
   });
 
 
+
+  
   return (
     <ThemeProvider theme={state.theme === "dark" ? darkTheme : lightTheme}>
       {state.display ? (
