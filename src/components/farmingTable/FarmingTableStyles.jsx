@@ -1,7 +1,6 @@
 import styled from 'styled-components';
 import { darkTheme, lightTheme, fonts } from '../../styles/appStyles';
 
-
 export const TableContainer = styled.div`
   display: flex;
   justify-content: center;
@@ -197,12 +196,12 @@ export const PanelTab = styled.div`
   }
 
   
-
+ 
   @media (max-width: 605px) {
     font-size: 1.9rem;
     padding: 0.75rem 1rem 2.2rem 1rem;
     position: relative;
-    top: 0.1rem;
+    top: 1rem;
   }
   @media (max-width: 550px) {
     margin-right: 0.5rem;

@@ -5,13 +5,20 @@ import ethers from 'ethers';
 import { FarmCardContainer, UnderlyingBalanceContainer, CardInputContainer } from "./FarmCardStyles";
 
 export default function FarmCard({ summary_information }) {
-  const { state, prettyBalance, currentExchangeRate, isCheckingBalance, harvestAndStakeMessage, setHarvestAndStakeMessage } = useContext(HarvestContext)
+  const { state, prettyBalance, currentExchangeRate, isCheckingBalance, harvestAndStakeMessage, setHarvestAndStakeMessage, convertStandardNumber} = useContext(HarvestContext)
   const [amount, setAmount] = useState(summary_information.unstakedBalance);
   const [isStaking, setStaking] = useState(false);
   const [isWithdrawing, setWithdrawing] = useState(false);
-  const pool = state.manager.pools.find((pool) => {
-    return pool.address === summary_information.address;
-  });
+  const isProfitShareCard = summary_information.name === "FARM Profit Sharing";
+
+  const pool = () =>{
+    if(!isCheckingBalance){
+      return state.manager.pools.find((pool) => {
+        return pool.address === summary_information.address;
+      });
+    }
+
+  }
 
   const stake = async () => {
     const doStake = async (stakeAmount) => {
@@ -20,7 +27,7 @@ export default function FarmCard({ summary_information }) {
         .then(async (res) => {
           setHarvestAndStakeMessage({
             ...harvestAndStakeMessage,
-            first: `Staking your ${summary_information.pool.name} tokens`,
+            first: `Staking your ${pool.name} tokens`,
             second: "",
           });
           await res.wait().then(() => {
@@ -29,7 +36,7 @@ export default function FarmCard({ summary_information }) {
             setHarvestAndStakeMessage({
               ...harvestAndStakeMessage,
               first: `Success!`,
-              second: `${amount} tokens has been staked on ${summary_information.pool.name} pool!`,
+              second: `${amount} tokens has been staked on ${pool.name} pool!`,
             });
             const timer = setTimeout(() => {
               setHarvestAndStakeMessage({
@@ -50,7 +57,7 @@ export default function FarmCard({ summary_information }) {
               second: "",
             });
             console.log(
-              `You don't have enough ${amount} token to stake on ${summary_information.pool.name} pool`,
+              `You don't have enough ${amount} token to stake on ${pool.name} pool`,
             );
           }
         });
@@ -150,7 +157,19 @@ export default function FarmCard({ summary_information }) {
 
       </div>
       <UnderlyingBalanceContainer>
-        <label className="underlying_balance_label">Underlying Balance:</label> <span className="underlying_balance_value">{summary_information.name === "FARM Profit Sharing" ? "N/A" : parseFloat(summary_information.underlyingBalance).toFixed(6)}</span>
+        <div className="underlying_balance_label">
+          <h4>Underlying Balance:</h4>
+        </div>
+        <span className="underlying_balance_value">{
+          isProfitShareCard
+            ? "N/A"
+            : <span>
+              {parseFloat(summary_information.underlyingBalance).toFixed(6)}
+              <div className="underlying_profits">
+                (+{convertStandardNumber(parseFloat(summary_information.profits).toFixed(6) * currentExchangeRate)} 📈)
+                            </div>
+            </span>}
+        </span>
       </UnderlyingBalanceContainer>
       {summary_information.name !== "FARM Profit Sharing" &&
         <div className="card_input_area">
