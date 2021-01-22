@@ -28,6 +28,26 @@ code {
 #WEB3_CONNECT_MODAL_ID {
     position: relative;
     z-index: 1200;
+
+    .web3modal-modal-card {
+      background-color: ${(props) => props.theme.style.lightBackground};
+      font-family: ${fonts.headerFont};
+      border: ${(props) => props.theme.style.mainBorder};
+
+      .web3modal-provider-container {
+        background-color: ${(props) => props.theme.style.highlight};
+
+        .web3modal-provider-description {
+          color: ${(props) => props.theme.style.primaryFontColor};
+          font-family: ${fonts.contentFont};
+        }
+        &:hover {
+          border: ${(props) => props.theme.style.smallBorder};
+        }
+      }
+
+      
+    }
   }
 
 
