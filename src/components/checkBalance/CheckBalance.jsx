@@ -227,7 +227,6 @@ const Panel = styled.div`
     position: relative;
     z-index: 400;
   }
-    
 `;
 const ValidationMessage = styled.div`
   display: flex;
