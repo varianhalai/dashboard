@@ -161,6 +161,7 @@ export class RewardsPool extends ethers.Contract {
    * @return {Object} summary
    */
   async summary(address) {
+    this.getPricePerFullShare()
     const underlying = async (address) => {
       if (this.underlyingBalanceOf) {
         return await this.underlyingBalanceOf(address);
