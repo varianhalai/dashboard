@@ -18,7 +18,6 @@ const Sidedrawer = () => {
       <Drawer>
         <Brand>
           <img src={logo} alt="harvest finance logo" />{" "}
-          <span>harvest.dashboard</span>
         </Brand>
         <DrawerLink
             href="https://farm.chainwiki.dev/en/home"

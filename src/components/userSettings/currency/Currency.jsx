@@ -29,7 +29,7 @@ const Currency = () => {
 
           {exchangeRates
             ? Object.entries(exchangeRates).map(([key, value]) => {
-                return <option value={key}>{key}</option>;
+                return <option key={key} value={key}>{key}</option>;
               })
             : ""}
         </select>

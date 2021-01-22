@@ -288,7 +288,7 @@ function App() {
               <Topbar>
                 <Brand>
                   <img src={logo} alt="harvest finance logo" />{" "}
-                  <span>harvest.dashboard</span>
+                  {openDrawer ? "" : <span>harvest.dashboard</span>}
                 </Brand>
                 <i onClick={toggleUserSettings} className="fas fa-user-cog"></i>
                 {settingsOpen ? <SettingsModal /> : ''}

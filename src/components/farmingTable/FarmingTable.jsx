@@ -80,9 +80,7 @@ const FarmingTable = ({showAsCards}) => {
   const handleRefresh = () => {
 
   }
-  useEffect(() => {
-    console.log(isRefreshing)
-  }, [isRefreshing]);
+  
   return (
     <ThemeProvider theme={state.theme === "dark" ? darkTheme : lightTheme}>
       {state.display ? (

@@ -56,7 +56,7 @@ const PanelTab = styled.div`
     font-size: 1.9rem;
     padding: 0.75rem 1rem 2.2rem 1rem;
     position: relative;
-    top: 0.1rem;
+    top: 1rem;
   }
   @media (max-width: 550px) {
     margin-right: 0.5rem;

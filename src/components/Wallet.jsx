@@ -87,7 +87,7 @@ const WalletTab = styled.div`
 `;
 const Wallet = ({ theme, address, provider }) => {
   const renderConnectStatus = (provider, address) => {
-    console.log(address)
+  
     const shortAddress =  address ? `${address.slice(0,10)}...${address.slice(-5)}` : "not connected"
     return (
       <p>

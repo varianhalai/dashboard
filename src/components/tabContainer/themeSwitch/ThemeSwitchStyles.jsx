@@ -35,17 +35,14 @@ export const PanelTabContainerRight = styled.div`
   .switch {
     border: ${(props) => props.theme.style.mainBorder};
     position: relative;
-    display: inline-block;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
     width: 6rem;
     height: 2.6rem;
-    @media (max-width: 500px) {
-      height: 2.4rem;
-      width: 5.5rem;
-    }
-    @media (max-width: 380px) {
-      height: 2rem;
-      width: 5rem;
-    }
+    pointer-events: none;
+
+    
   }
   /* Hide default HTML checkbox */
   .switch input {
@@ -55,8 +52,10 @@ export const PanelTabContainerRight = styled.div`
   }
   /* The slider */
   .slider {
+    width: 100%;
     position: absolute;
     cursor: pointer;
+    pointer-events: auto;
     top: 0;
     left: 0;
     right: 0;
@@ -68,25 +67,18 @@ export const PanelTabContainerRight = styled.div`
   .slider:before {
     position: absolute;
     content: "";
-    height: 1.6rem;
-    width: 1.6rem;
-    left: 0.4rem;
-    right: 0.4rem;
-    top: 0.4rem;
+    height: 2rem;
+    width: 2rem;
+    left: .2rem;
+    right: .5rem;
+    top: 0.1rem;
+    bottom: 0;
+    
     background-color: white;
     -webkit-transition: 0.4s;
     transition: 0.4s;
-    @media (max-width: 500px) {
-      height: 1.7rem;
-      width: 1.7rem;
-    }
-    @media (max-width: 380px) {
-      height: 1.5rem;
-      width: 1.5rem;
-      top: 0.22rem;
-      right: 0.1rem;
-      left: 0.1rem;
-    }
+   
+    
   }
   input:checked + .slider {
     background-color: ${(props) => props.theme.style.blueBackground};

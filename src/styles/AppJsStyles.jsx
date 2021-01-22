@@ -98,7 +98,7 @@ export const Topbar = styled.div`
   .fa-user-cog {
     color: ${(props) => props.theme.style.brandTextColor};
     font-size: 2.5rem;
-    padding-top: 2rem;
+    padding-top: 3rem;
     padding-right: 1rem;
     position: relative;
 
@@ -113,7 +113,7 @@ export const Topbar = styled.div`
   .fa-bars {
     color: ${(props) => props.theme.style.brandTextColor};
     font-size: 2.5rem;
-    padding-top: 2rem;
+    
     padding-right: 1rem;
     position: relative;
 

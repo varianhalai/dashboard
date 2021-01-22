@@ -11,13 +11,10 @@ export const Drawer = styled.div`
     position: fixed;
     z-index: 600;
     background-color: ${(props) => props.theme.style.lightBackground};
+    border-right: ${(props) => props.theme.style.mainBorder};
     padding: 0 2%;
 
-    .harvest {
-      font-size: 3rem;
-      width: 100%;
-      text-align: center;
-    }
+    
 
     .wiki-radio {
       padding: 2%;
@@ -32,6 +29,7 @@ export const Drawer = styled.div`
     .analytics-header {
       font-size: 3rem;
       text-decoration: underline;
+      font-family: ${fonts.headerFont};
     }
 
     
@@ -49,9 +47,11 @@ export const Drawer = styled.div`
 `;
 
 export const DrawerLink = styled.a`
-font-size: 2.2rem;
+font-size: 1.9rem;
 position: relative;
 background-color: ${(state) => state.theme.style.highlight};
+box-shadow: ${(props) => props.theme.style.panelBoxShadow};
+border: ${(props) => props.theme.style.mainBorder};
 color: ${(props) => props.theme.style.primaryFontColor};
 font-family: ${fonts.contentFont};
 border-radius: 0.8rem;
@@ -61,7 +61,12 @@ transition: all 0.2s ease;
 width: max-content;
 text-decoration: none;
 &.harvest {
-  font-size: 3rem;
+  font-size: 2rem;
+  width: 100%;
+  text-align: center;
+  @media(max-width: 320px) {
+    font-size: 1.7rem;
+  }
 }
 
 
@@ -69,12 +74,19 @@ text-decoration: none;
 @media (max-width: 768px) {
   top: 2rem;
 }
+@media(max-width: 320px) {
+  font-size: 1.6rem;
+  margin: .5rem 0;
+}
 `;
 
 export const Radio = styled.p`
-font-size: 2.2rem;
+font-size: 1.9rem;
 position: relative;
+cursor: pointer;
 background-color: ${(state) => state.theme.style.highlight};
+box-shadow: ${(props) => props.theme.style.panelBoxShadow};
+border: ${(props) => props.theme.style.mainBorder};
 color: ${(props) => props.theme.style.primaryFontColor};
 font-family: ${fonts.contentFont};
 border-radius: 0.8rem;
@@ -83,9 +95,7 @@ padding: 1rem;
 transition: all 0.2s ease;
 width: max-content;
 text-decoration: none;
-&.harvest {
-  font-size: 3rem;
-}
+
 
 
 
@@ -100,12 +110,13 @@ export const Brand = styled.div`
   display: flex;
   align-items: center;
   justify-content: flex-start;
-  margin-bottom: 4rem;
+  margin-bottom: 2rem;
   height: 2.5rem;
 
   img {
-    width: 3rem;
-    height: 3rem;
+    width: 4rem;
+    height: 4rem;
+    margin-top: 1rem;
     margin-right: 1rem;
     margin-left: 0.5rem;
   }
