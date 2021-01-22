@@ -4,7 +4,7 @@ import styled, { ThemeProvider } from "styled-components";
 import { darkTheme, lightTheme, fonts } from "../../styles/appStyles";
 import harvest from "../../lib/index.js";
 import BalanceSkeleton from "./BalanceSkeleton";
-const { ethers, utils } = harvest;
+const { ethers } = harvest;
 
 const BluePanel = styled.div`
   position: relative;

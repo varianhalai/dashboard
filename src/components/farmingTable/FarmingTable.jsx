@@ -3,13 +3,11 @@ import HarvestContext from "../../Context/HarvestContext";
 import styled, { ThemeProvider } from "styled-components";
 import harvest from "../../lib/index";
 import { darkTheme, lightTheme, fonts } from "../../styles/appStyles";
-import  {TableContainer, MainTableInner, MainTableRow, MainTableHeader, PanelTabContainerLeft, PanelTabContainerRight, PanelTab, Tabs} from './FarmingTableStyles';
+import { TableContainer, MainTableInner, MainTableRow, MainTableHeader, PanelTabContainerLeft, PanelTabContainerRight, PanelTab, Tabs } from './FarmingTableStyles';
 
 import FarmTableSkeleton from "./FarmTableSkeleton";
 
 const { utils } = harvest;
-
-
 
 const columns = [
   {
@@ -35,7 +33,7 @@ const columns = [
   },
 ];
 
-const FarmingTable = ({showAsCards}) => {
+const FarmingTable = ({ showAsCards }) => {
   const {
     state,
     setState,
@@ -52,12 +50,14 @@ const FarmingTable = ({showAsCards}) => {
   const getTotalFarmEarned = () => {
     let total = 0;
     if (state.summaries.length !== 0) {
+      // eslint-disable-next-line 
       state.summaries.map(utils.prettyPosition).map((summary, index) => {
         total += parseFloat(summary.historicalRewards);
         setState({
           ...state,
           totalFarmEarned: (state.totalFarmEarned = total),
         });
+
       });
     }
   };
@@ -66,23 +66,20 @@ const FarmingTable = ({showAsCards}) => {
     if (state.totalFarmEarned === 0) {
       getTotalFarmEarned();
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [state.summaries]);
-  
+
   useEffect(() => {
     const timer = setTimeout(() => {
       getTotalFarmEarned();
+
     }, 60000);
     return () => clearTimeout(timer);
   });
 
+
+
   
-
-  const handleRefresh = () => {
-
-  }
-  useEffect(() => {
-    console.log(isRefreshing)
-  }, [isRefreshing]);
   return (
     <ThemeProvider theme={state.theme === "dark" ? darkTheme : lightTheme}>
       {state.display ? (
@@ -92,17 +89,17 @@ const FarmingTable = ({showAsCards}) => {
               <p>your staked assets</p>
             </PanelTab>
           </PanelTabContainerLeft>
-          
-            <PanelTabContainerRight>
-              <PanelTab className={isRefreshing ? "refresh-disabled" : "refresh-button"} onClick={showAsCards}>
+
+          <PanelTabContainerRight>
+            <PanelTab className={isRefreshing ? "refresh-disabled" : "refresh-button"} onClick={showAsCards}>
               <i className="fas fa-table"></i>
-              </PanelTab>
-              {isCheckingBalance ? "" : <PanelTab className={isRefreshing ? "refresh-disabled" : "refresh-button"} onClick={refresh}>
-                <i className="fas fa-sync-alt"></i>
-              </PanelTab> }
-              
-            </PanelTabContainerRight>
-          
+            </PanelTab>
+            {isCheckingBalance ? "" : <PanelTab className={isRefreshing ? "refresh-disabled" : "refresh-button"} onClick={refresh}>
+              <i className="fas fa-sync-alt"></i>
+            </PanelTab>}
+
+          </PanelTabContainerRight>
+
         </Tabs>
       ) : null}
       {state.display ? (
@@ -120,44 +117,44 @@ const FarmingTable = ({showAsCards}) => {
               </div>
             </NoAssetTable>
           ) : (
-            <MainTableInner>
-              <MainTableHeader>
-                {columns.map((col, i) => {
-                  return (
-                    <p className={col.name} key={i}>
-                      {col.name}
-                    </p>
-                  );
-                })}
-              </MainTableHeader>
-              {state.summaries
-                .map(utils.prettyPosition)
-                .map((summary, index) => (
-                  <MainTableRow key={summary.address}>
-                    <div className="name">{summary.name}</div>
-                    <div className="active">{String(summary.isActive)}</div>
-                    <div
-                      className="earned-rewards"
-                      onClick={() => getThisReward(summary.earnedRewards)}
-                    >
-                      {parseFloat(summary.earnedRewards).toFixed(6)}
-                    </div>
-                    <div className="staked">
-                      {parseFloat(summary.stakedBalance).toFixed(6)}
-                    </div>
-                    <div className="pool">{summary.percentOfPool}</div>
-                    <div className="value">{prettyBalance(summary.usdValueOf * currentExchangeRate)}</div>
-                    <div className="unstaked">
-                      {parseFloat(summary.unstakedBalance).toFixed(6)}
-                    </div>
-                  </MainTableRow>
-                ))}
-            </MainTableInner>
-          )}
+              <MainTableInner>
+                <MainTableHeader>
+                  {columns.map((col, i) => {
+                    return (
+                      <p className={col.name} key={i}>
+                        {col.name}
+                      </p>
+                    );
+                  })}
+                </MainTableHeader>
+                {state.summaries
+                  .map(utils.prettyPosition)
+                  .map((summary, index) => (
+                    <MainTableRow key={summary.address}>
+                      <div className="name">{summary.name}</div>
+                      <div className="active">{String(summary.isActive)}</div>
+                      <div
+                        className="earned-rewards"
+                        onClick={() => getThisReward(summary.earnedRewards)}
+                      >
+                        {parseFloat(summary.earnedRewards).toFixed(6)}
+                      </div>
+                      <div className="staked">
+                        {parseFloat(summary.stakedBalance).toFixed(6)}
+                      </div>
+                      <div className="pool">{summary.percentOfPool}</div>
+                      <div className="value">{prettyBalance(summary.usdValueOf * currentExchangeRate)}</div>
+                      <div className="unstaked">
+                        {parseFloat(summary.unstakedBalance).toFixed(6)}
+                      </div>
+                    </MainTableRow>
+                  ))}
+              </MainTableInner>
+            )}
         </TableContainer>
       ) : (
-        <FarmTableSkeleton state={state} />
-      )}
+          <FarmTableSkeleton state={state} />
+        )}
     </ThemeProvider>
   );
 };

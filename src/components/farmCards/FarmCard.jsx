@@ -10,9 +10,15 @@ export default function FarmCard({ summary_information }) {
   const [isStaking, setStaking] = useState(false);
   const [isWithdrawing, setWithdrawing] = useState(false);
   const isProfitShareCard = summary_information.name === "FARM Profit Sharing";
-  const pool = state.manager.pools.find((pool) => {
-    return pool.address === summary_information.address;
-  });
+
+  const pool = () =>{
+    if(!isCheckingBalance){
+      return state.manager.pools.find((pool) => {
+        return pool.address === summary_information.address;
+      });
+    }
+
+  }
 
   const stake = async () => {
     const doStake = async (stakeAmount) => {
@@ -21,7 +27,7 @@ export default function FarmCard({ summary_information }) {
         .then(async (res) => {
           setHarvestAndStakeMessage({
             ...harvestAndStakeMessage,
-            first: `Staking your ${summary_information.pool.name} tokens`,
+            first: `Staking your ${pool.name} tokens`,
             second: "",
           });
           await res.wait().then(() => {
@@ -30,7 +36,7 @@ export default function FarmCard({ summary_information }) {
             setHarvestAndStakeMessage({
               ...harvestAndStakeMessage,
               first: `Success!`,
-              second: `${amount} tokens has been staked on ${summary_information.pool.name} pool!`,
+              second: `${amount} tokens has been staked on ${pool.name} pool!`,
             });
             const timer = setTimeout(() => {
               setHarvestAndStakeMessage({
@@ -51,7 +57,7 @@ export default function FarmCard({ summary_information }) {
               second: "",
             });
             console.log(
-              `You don't have enough ${amount} token to stake on ${summary_information.pool.name} pool`,
+              `You don't have enough ${amount} token to stake on ${pool.name} pool`,
             );
           }
         });

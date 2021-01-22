@@ -28,7 +28,7 @@ export class RewardsPool extends ethers.Contract {
 
    getPricePerFullShare(){
     let pricePerShare = null
-    if(this._pool.asset.type == "ftoken"){
+    if(this._pool.asset.type === "ftoken"){
       this.lptoken.getPricePerFullShare().then(res =>{
       this.pricePerFullShare = res;
        pricePerShare = ethers.utils.formatUnits(res, this._pool.asset.decimals);
@@ -161,7 +161,6 @@ export class RewardsPool extends ethers.Contract {
    * @return {Object} summary
    */
   async summary(address) {
-    const pricePerFullShare= this.getPricePerFullShare()
     const underlying = async (address) => {
       if (this.underlyingBalanceOf) {
         return await this.underlyingBalanceOf(address);

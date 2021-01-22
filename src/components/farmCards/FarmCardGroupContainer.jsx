@@ -17,13 +17,13 @@ function FarmCardGroupContainer({ showAsTables }) {
   function getTotalFarmEarned() {
     let total = 0;
     if (state.summaries.length) {
+      // eslint-disable-next-line 
       state.summaries.map(utils.prettyPosition).map((summary) => {
         total += parseFloat(summary.historicalRewards);
         setState({
           ...state,
           totalFarmEarned: (state.totalFarmEarned = total),
         });
-        return;
       });
     }
   }
@@ -33,6 +33,7 @@ function FarmCardGroupContainer({ showAsTables }) {
       getTotalFarmEarned();
     }
     return;
+    // eslint-disable-next-line 
   }, [state.summaries]);
 
   useEffect(() => {
@@ -58,7 +59,7 @@ function FarmCardGroupContainer({ showAsTables }) {
         </FarmGroupContainerWrapper>
       ) : (
           <NoFarmSummariesFound>
-            You currently are not staking any assets 🏜️
+            You currently are not staking any assets <span role="img" aria-label="desert emoji">🏜️</span>
           </NoFarmSummariesFound>
         )}
     </ThemeProvider>
