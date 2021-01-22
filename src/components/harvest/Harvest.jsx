@@ -152,37 +152,37 @@ const Harvest = () => {
           {state.minimumHarvestAmount === "0" ? (
             ""
           ) : (
-            <button
-              className="button clear"
-              onClick={(event) =>
-                setState({ ...state, minimumHarvestAmount: "0" })
-              }
-            >
-              clear
-            </button>
-          )}
+              <button
+                className="button clear"
+                onClick={(event) =>
+                  setState({ ...state, minimumHarvestAmount: "0" })
+                }
+              >
+                clear
+              </button>
+            )}
         </div>
 
         <ButtonContainer>
           {isHarvesting ? (
             <HarvestingButton>harvest</HarvestingButton>
           ) : (
-            <button className="buttons" onClick={harvest}>
-              harvest
-            </button>
-          )}
+              <button className="buttons" onClick={harvest}>
+                harvest
+              </button>
+            )}
           {isHarvesting ? (
             <HarvestingButton>
               harvest and stake
             </HarvestingButton>
           ) : (
-            <button
-              className="buttons harvest-and-stake"
-              onClick={harvestAllAndStake}
-            >
-              harvest and stake
-            </button>
-          )}
+              <button
+                className="buttons harvest-and-stake"
+                onClick={harvestAllAndStake}
+              >
+                harvest and stake
+              </button>
+            )}
         </ButtonContainer>
       </Panel>
     </ThemeProvider>
@@ -246,10 +246,7 @@ const Panel = styled.div`
     @media(max-width:1340px) {
       font-size: 1.6rem
     }
-    @media(1340px) {
-      font-size: 1.6rem
-    }
-   
+  }
 `;
 
 const ButtonContainer = styled.div`
@@ -284,12 +281,7 @@ const ButtonContainer = styled.div`
     }
     .button.clear {
       margin-left: 1rem;
-    }
-    
-    
-  }
-  
-    
+    } 
   }
 `;
 

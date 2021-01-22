@@ -26,7 +26,9 @@ export const darkThemeColors = {
   lighterPurple: '#B5838D',
   pinkish: '#E5989B',
   peach: '#FFB4A2',
-  darkModePanel: '#f29d8a'
+  darkModePanel: '#f29d8a',
+  lightOrange: "#ffb9a7",
+  darkOrange: "#ce988a",
 };
 
 export const darkTheme = {
@@ -34,6 +36,8 @@ export const darkTheme = {
     mainBorder: `0.2rem solid ${darkThemeColors.lightGrey}`,
     smallBorder: `0.1rem solid ${darkThemeColors.lightGrey}`,
     buttonBoxShadow: `.35rem 0.35rem 0px ${darkThemeColors.lightGrey}`,
+    buttonDisabledBackground: `${darkThemeColors.lightOrange}`,
+    buttonDisabledFontColor: `${darkThemeColors.darkOrange}`,
     buttonFontColor: `${darkThemeColors.black}`,
     panelBackground: `${darkThemeColors.lighterPurple}`,
     panelBoxShadow: `0.35rem 0.2rem 0px ${darkThemeColors.lightGrey}`,
@@ -68,6 +72,8 @@ export const lightThemeColors = {
   blue: "#ABE4E2",
   darkBlue: "#A2E7DB",
   orange: "#FFCD8D",
+  lightOrange: "#dcd4bc",
+  darkOrange: "#a29583",
   black: "#000",
 };
 
@@ -76,6 +82,8 @@ export const lightTheme = {
     mainBorder: `0.2rem solid ${lightThemeColors.black}`,
     smallBorder: `0.1rem solid ${lightThemeColors.black}`,
     buttonBoxShadow: `.35rem 0.35rem 0px ${lightThemeColors.black}`,
+    buttonDisabledBackground: `${lightThemeColors.lightOrange}`,
+    buttonDisabledFontColor: `${lightThemeColors.darkOrange}`,
     buttonFontColor: `${lightThemeColors.black}`,
     panelBackground: `${lightThemeColors.offwhite}`,
     panelBoxShadow: `0.35rem 0.35rem 0px ${lightThemeColors.black}`,
