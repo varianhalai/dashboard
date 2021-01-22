@@ -83,12 +83,12 @@ const WalletTab = styled.div`
   padding-bottom: 1.5rem;
   font-family: ${fonts.headerFont};
   font-size: 2rem;
-
 `;
 const Wallet = ({ theme, address, provider }) => {
   const renderConnectStatus = (provider, address) => {
-  
-    const shortAddress =  address ? `${address.slice(0,10)}...${address.slice(-5)}` : "not connected"
+    const shortAddress = address
+      ? `${address.slice(0, 10)}...${address.slice(-5)}`
+      : "not connected";
     return (
       <p>
         <span id="address">

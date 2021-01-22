@@ -1,6 +1,6 @@
 import React, { useContext } from "react";
 import HarvestContext from "../../../Context/HarvestContext";
-import { Brand, Drawer, DrawerLink,Radio } from "./SidedrawerStyles";
+import { Brand, Drawer, DrawerLink, Radio } from "./SidedrawerStyles";
 import logo from "../../../assets/gif_tractor.gif";
 
 //components
@@ -9,9 +9,7 @@ import Backdrop from "./backdrop/Backdrop";
 import ThemeSwitch from "../../tabContainer/themeSwitch/ThemeSwitch";
 
 const Sidedrawer = () => {
-  const { state, openDrawer, toggleRadio } = useContext(
-    HarvestContext,
-  );
+  const { state, openDrawer, toggleRadio } = useContext(HarvestContext);
 
   return (
     <>
@@ -20,13 +18,13 @@ const Sidedrawer = () => {
           <img src={logo} alt="harvest finance logo" />{" "}
         </Brand>
         <DrawerLink
-            href="https://farm.chainwiki.dev/en/home"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="drawer-link harvest"
-          >
-            harvest.finance
-          </DrawerLink>
+          href="https://farm.chainwiki.dev/en/home"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="drawer-link harvest"
+        >
+          harvest.finance
+        </DrawerLink>
         <div className="wiki-radio">
           <DrawerLink
             href="https://farm.chainwiki.dev/en/home"
@@ -41,7 +39,7 @@ const Sidedrawer = () => {
           </Radio>
         </div>
         <div className="drawer-analytics">
-          <h3 className='analytics-header'>analytics</h3>
+          <h3 className="analytics-header">analytics</h3>
           <DrawerLink
             href=""
             className="drawer-link"

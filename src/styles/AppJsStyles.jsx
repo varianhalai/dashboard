@@ -1,5 +1,5 @@
-import styled, {createGlobalStyle} from 'styled-components';
-import {fonts} from './appStyles';
+import styled, { createGlobalStyle } from "styled-components";
+import { fonts } from "./appStyles";
 import { reset } from "styled-reset";
 
 export const GlobalStyle = createGlobalStyle`
@@ -90,7 +90,6 @@ div[data-name="row"] {
 }
 `;
 
-
 export const Topbar = styled.div`
   display: flex;
   justify-content: space-between;
@@ -106,14 +105,14 @@ export const Topbar = styled.div`
       cursor: pointer;
       top: 0.2rem;
     }
-    @media(max-width: 1160px) {
-        display: none;
+    @media (max-width: 1160px) {
+      display: none;
     }
   }
   .fa-bars {
     color: ${(props) => props.theme.style.brandTextColor};
     font-size: 2.5rem;
-    
+
     padding-right: 1rem;
     position: relative;
 
@@ -122,10 +121,9 @@ export const Topbar = styled.div`
       top: 0.2rem;
     }
 
-    @media(min-width: 1160px) {
-        display: none;
+    @media (min-width: 1160px) {
+      display: none;
     }
-
   }
 `;
 
@@ -155,8 +153,6 @@ export const Brand = styled.div`
     margin: 3rem 0;
   }
 `;
-
-
 
 export const Panel = styled.div`
   position: relative;
