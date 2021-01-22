@@ -6,7 +6,6 @@ import {
   PanelTabContainerLeft,
 } from "./TabContainerStyles";
 
-import AnalyticsModal from "./analyticsModal/AnalyticsModal";
 import AnalyticsTabs from './analyticsTabs/AnalyticsTabs';
 
 const TabContainer = () => {

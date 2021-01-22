@@ -86,7 +86,7 @@ const columns = [
 ];
 
 const AssetTable = () => {
-  const { state, setState } = useContext(HarvestContext);
+  const { state } = useContext(HarvestContext);
 
   return (
     <ThemeProvider theme={state.theme === "dark" ? darkTheme : lightTheme}>

@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { darkTheme, lightTheme, fonts} from '../../styles/appStyles';
+import { fonts} from '../../styles/appStyles';
 
 
 export const TableContainer = styled.div`
