@@ -6,7 +6,6 @@ import { darkTheme, lightTheme } from "../../styles/appStyles";
 import FarmCard from "./FarmCard";
 import {
   FarmGroupContainerWrapper,
-  StakedAssetsTitle,
   NoFarmSummariesFound,
   PanelTab,
   Tabs,
