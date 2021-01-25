@@ -1,6 +1,6 @@
 import React from "react";
 import styled, { ThemeProvider } from "styled-components";
-import { darkTheme, lightTheme } from "../../styles/appStyles";
+import { darkTheme, lightTheme } from "../../../styles/appStyles";
 
 const SkeletonPanel = styled.div`
   display: flex;
