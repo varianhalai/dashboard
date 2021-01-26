@@ -169,6 +169,26 @@ const FarmingTable = ({ showAsCards }) => {
   const getThisReward = (reward) => {
     setState({ ...state, minimumHarvestAmount: reward });
   };
+  const [sortedSummary, setSortedSummary] = useState([]);
+  const [sortDirection, setSortDirection] = useState(1);
+  const _sortSummary = (col, index) => {
+    //earnedRewards, stakedBalance, percentOfPool, usdValueOf, unstakedBalance
+    const filteredArray = sortedSummary;
+    if (index >= 2 && index <= 6) {
+      filteredArray.sort((a, b) => {
+        const first = index === 2 ? a.earnedRewards : index === 3 ? a.stakedBalance : index === 4 ? a.percentOfPool.substr(0, a.percentOfPool.length - 1) : index === 5 ? a.usdValueOf : index === 6 ? a.unstakedBalance : 0;
+        const second = index === 2 ? b.earnedRewards : index === 3 ? b.stakedBalance : index === 4 ? b.percentOfPool.substr(0, b.percentOfPool.length - 1) : index === 5 ? b.usdValueOf : index === 6 ? b.unstakedBalance : 0;
+        return parseFloat(first) >= parseFloat(second) ? sortDirection : -sortDirection;
+      });
+    }
+    else if (index === 1) {
+      filteredArray.sort((a, b) => {
+        return (a.isActive | 0) >= (b.isActive | 0) ? sortDirection : -sortDirection;
+      });
+    }
+    setSortedSummary([...filteredArray]);
+    setSortDirection(-sortDirection);
+  }
 
   const getTotalFarmEarned = () => {
     let total = 0;
@@ -187,6 +207,8 @@ const FarmingTable = ({ showAsCards }) => {
     if (state.totalFarmEarned === 0) {
       getTotalFarmEarned();
     }
+    const array = state.summaries.map(utils.prettyPosition);
+    setSortedSummary(array);
   }, [state.summaries]);
 
   useEffect(() => {
@@ -195,8 +217,6 @@ const FarmingTable = ({ showAsCards }) => {
     }, 60000);
     return () => clearTimeout(timer);
   });
-
-
 
   const handleRefresh = () => {
 
@@ -228,7 +248,7 @@ const FarmingTable = ({ showAsCards }) => {
       ) : null}
       {state.display ? (
         <TableContainer>
-          {state.summaries.length === 0 ? (
+          {sortedSummary.length === 0 ? (
             <NoAssetTable>
               <div className="header">
                 <p>You currently are not staking any assets</p>
@@ -245,14 +265,13 @@ const FarmingTable = ({ showAsCards }) => {
                 <MainTableHeader>
                   {columns.map((col, i) => {
                     return (
-                      <p className={col.name} key={i}>
+                      <p className={`${col.name} table-header`} key={i} onClick={() => _sortSummary(col, i)}>
                         {col.name}
                       </p>
                     );
                   })}
                 </MainTableHeader>
-                {state.summaries
-                  .map(utils.prettyPosition)
+                {sortedSummary
                   .map((summary, index) => (
                     <MainTableRow key={summary.address}>
                       <div className="name">{summary.name}</div>
