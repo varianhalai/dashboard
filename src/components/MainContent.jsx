@@ -4,21 +4,17 @@ import { Row, Col } from "styled-bootstrap-grid";
 import styled from "styled-components";
 import { fonts } from "../styles/appStyles";
 import Harvest from "../components/harvest/Harvest.jsx";
-import TotalFarmEarned from "../components/totalFarmEarned/TotalFarmEarned.jsx";
-import Balance from "../components/balance/Balance.jsx";
-import APY from "../components/apy/APY.jsx";
-import FarmPrice from "../components/farmPrice/FarmPrice";
 import AddTokens from "../components/addTokens/AddTokens";
 import Wallet from "../components/Wallet";
 import FarmCardContainer from "../components/farmCards/FarmCardGroupContainer";
 import FarmingTable from '../components/farmingTable/FarmingTable';
+import FarmInfo from './farmInfo/FarmInfo';
 import AssetTable from './assetTable/AssetTable'
+import TotalFarmEarned from './farmInfo/totalFarmEarned/TotalFarmEarned'
 
 const MainContent = ({
-  state,
   setState,
   openModal,
-  checkBalances,
   setAddressToCheck,
 }) => {
   const {
@@ -26,6 +22,7 @@ const MainContent = ({
     isCheckingBalance,
     setCheckingBalance,
     disconnect,
+    state
   } = useContext(HarvestContext);
 
   const clear = () => {
@@ -71,16 +68,12 @@ const MainContent = ({
           </Col>
         </Row>
       )}
-      <div className="farm-info">
-        <Balance state={state} />
-        <APY apy={state.apy} display={state.display} theme={state.theme} />
-        <FarmPrice
-          price={state.farmPrice}
-          display={state.display}
-          theme={state.theme}
-        />
-        <TotalFarmEarned />
-      </div>
+      <Row>
+        <Col>
+        <FarmInfo />
+        </Col>
+      </Row>
+      
       {isCheckingBalance ? (
         ""
       ) : (
@@ -142,7 +135,11 @@ export default MainContent;
 
 const Main = styled.div`
   .farm-info {
+   width: 100%;
     display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+    
   }
 
   @media (max-width: 1107px) {

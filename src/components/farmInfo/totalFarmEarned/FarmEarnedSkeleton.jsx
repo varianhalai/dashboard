@@ -1,6 +1,6 @@
 import React from "react";
 import styled, { ThemeProvider } from "styled-components";
-import { darkTheme, lightTheme } from "../../styles/appStyles";
+import { darkTheme, lightTheme } from "../../../styles/appStyles";
 
 const SkeletonPanel = styled.div`
   display: flex;
@@ -8,8 +8,6 @@ const SkeletonPanel = styled.div`
   align-items: center;
   width: 100%;
   height: 10rem;
-  margin-right: 1rem;
-  margin-left: 1rem;
   background: none;
   border: ${(props) => props.theme.style.mainBorder};
   box-shadow: ${(props) => props.theme.style.panelBoxShadow};
@@ -50,11 +48,10 @@ const SkeletonPanel = styled.div`
 
   @media (max-width: 1107px) {
     height: 10rem;
-    margin: 1rem 0 1rem;
   }
 `;
 
-const APYSkeleton = ({ theme }) => {
+const FarmEarnedSkeleton = ({ theme }) => {
   return (
     <ThemeProvider theme={theme === "dark" ? darkTheme : lightTheme}>
       <SkeletonPanel></SkeletonPanel>
@@ -62,4 +59,4 @@ const APYSkeleton = ({ theme }) => {
   );
 };
 
-export default APYSkeleton;
+export default FarmEarnedSkeleton;

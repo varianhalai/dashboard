@@ -1,4 +1,4 @@
-import React, { useState, useContext, useEffect } from "react";
+import React, { useState, useContext } from "react";
 import styled, { ThemeProvider } from "styled-components";
 import { Row, Col } from "styled-bootstrap-grid";
 import { darkTheme, lightTheme, fonts } from "../../styles/appStyles";
@@ -226,9 +226,6 @@ const Panel = styled.div`
   .clear {
     position: relative;
     z-index: 400;
-  }
-  @media(max-width: 1105px) {
-    margin-bottom: 1.5rem;
   }
 `;
 const ValidationMessage = styled.div`

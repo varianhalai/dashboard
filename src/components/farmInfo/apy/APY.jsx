@@ -1,12 +1,13 @@
-import React from "react";
+import React,{useContext} from "react";
+import HarvestContext from '../../../Context/HarvestContext';
 import styled, { ThemeProvider } from "styled-components";
-import { darkTheme, lightTheme, fonts } from "../../styles/appStyles";
+import { darkTheme, lightTheme, fonts } from "../../../styles/appStyles";
 
 import APYSkeleton from "./APYSkeleton";
 
 const BluePanel = styled.div`
   display: flex;
-  height: 100%;
+  width: 100%;
   flex-direction: column;
   justify-content: center;
   align-items: center;
@@ -15,8 +16,6 @@ const BluePanel = styled.div`
   color: ${(props) => props.theme.style.primaryFontColor};
   font-family: ${fonts.headerFont};
   padding: 2.5rem 0.7rem 2rem 0.7rem;
-  margin-right: 1rem;
-  margin-left: 1rem;
   border: ${(props) => props.theme.style.mainBorder};
   border-radius: 0.5rem;
   box-sizing: border-box;
@@ -26,6 +25,7 @@ const BluePanel = styled.div`
   align-items: center;
   justify-content: center;
   flex-direction: column;
+  margin-left 1rem;
   h1 {
     font-size: 2.4rem;
     margin-bottom: 0.5rem;
@@ -35,7 +35,7 @@ const BluePanel = styled.div`
   }
   @media (max-width: 1107px) {
     padding: 1.5rem 0.7rem 4rem 1.5rem;
-    margin: 1rem 0rem 1rem;
+    margin: 1rem 0rem;
     h1 {
       font-size: 2.2rem;
       position: relative;
@@ -49,16 +49,17 @@ const BluePanel = styled.div`
   }
 `;
 
-const APY = ({ apy, display, theme }) => {
+const APY = () => {
+  const {state} =  useContext(HarvestContext)
   return (
-    <ThemeProvider theme={theme === "dark" ? darkTheme : lightTheme}>
-      {display ? (
+    <ThemeProvider theme={state.theme === "dark" ? darkTheme : lightTheme}>
+      {state.display ? (
         <BluePanel>
-          <h1>{apy} %</h1>
+          <h1>{state.apy} %</h1>
           <span>Profit Share APY</span>
         </BluePanel>
       ) : (
-        <APYSkeleton theme={theme} />
+        <APYSkeleton theme={state.theme} />
       )}
     </ThemeProvider>
   );

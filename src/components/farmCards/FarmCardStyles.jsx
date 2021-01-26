@@ -2,16 +2,18 @@ import styled from "styled-components";
 import { fonts, screen } from "../../styles/appStyles";
 
 export const FarmCardContainer = styled.div`
-  width: 33%;
+  width: 32%;
   border: ${(props) => props.theme.style.mainBorder};
-  border-radius: 25px;
-  padding: 20px;
+  box-shadow: ${(props) => props.theme.style.innerBoxShadow};
+  border-radius: .5rem;
+  padding: 20px 15px;
   color: ${(props) => props.theme.style.primaryFontColor};
   background-color: ${(props) => props.theme.style.lightBackground};
   display: -ms-grid;
   display: grid;
+  grid-gap: 5px;
   font-family: ${fonts.contentFont};
-  margin: 10px 0;
+  margin: 10px 5px;
 
   @media (max-width: ${screen.lg}px) {
     width: 49%;
@@ -75,7 +77,7 @@ export const FarmCardContainer = styled.div`
 export const CardInputContainer = styled.div`
   display: flex;
   gap: 10px;
-  width: 100%;
+  width: 90%;
   .card_amount_input {
     width: 100%;
     height: 30px;
@@ -108,32 +110,137 @@ export const FarmCardButtonsContainer = styled.div`
   .farm_card_button {
     width: 49%;
     background-color: ${(props) => props.theme.style.highlight};
-    border-radius: 8px;
+    border-radius: 5px;
   }
 `;
 
 export const UnderlyingBalanceContainer = styled.div`
-  text-align: left;
+  text-align: center;
+  width: 90%;
   margin: 10px 0;
   .underlying_balance_label {
     font-size: 16px;
     font-weight: bold;
+    margin: 10px 0;
+
   }
   .underlying_balance_value {
     font-size: 16px;
+
+    .underlying_profits{
+      color: green;
+      font-weight: bold;
+      margin-top: 10px;
+    }
   }
 `;
 
 export const FarmGroupContainerWrapper = styled.div`
   width: 100%;
   display: flex;
+  position: relative;
+  z-index: 50;
   flex-wrap: wrap;
   -webkit-box-pack: justify;
-  justify-content: space-between;
+  justify-content: space-evenly;
   -ms-flex-pack: justify;
-
+  border: ${(props) => props.theme.style.mainBorder};
+  box-shadow: ${(props) => props.theme.style.panelBoxShadow};
+  background-color: ${(props) => props.theme.style.lightBackground};
+  border-radius: .5rem;
   @media (max-width: ${screen.md}px) {
     flex-direction: column;
+  }
+`;
+
+export const Tabs = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+`;
+
+export const PanelTabContainerLeft = styled.div`
+  display: flex;
+  justify-content: flex-start;
+`;
+export const PanelTabContainerRight = styled.div`
+  display: flex;
+  justify-content: flex-end;
+`;
+
+export const PanelTab = styled.div`
+  margin-right: 0.75rem;
+  border-radius: 1.2rem;
+  border-top: ${(props) => props.theme.style.mainBorder};
+  border-left: ${(props) => props.theme.style.mainBorder};
+  border-right: ${(props) => props.theme.style.mainBorder};
+  padding: 0.75rem 2rem 2rem 2rem;
+  background-color: ${(props) => props.theme.style.highlight};
+  box-shadow: ${(props) => props.theme.style.panelTabBoxShadow};
+  position: relative;
+  top: 1.2rem;
+  color: ${(props) => props.theme.style.buttonFontColor};
+
+  p {
+    color: ${(props) => props.theme.style.panelTabLinkColor};
+    text-decoration: none;
+    font-family: ${fonts.contentFont};
+    font-size: 2rem;
+    position: relative;
+    top: 0.1rem;
+    @media (max-width: 500px) {
+      font-size: 1.5rem;
+      top: 0.3rem;
+    }
+  }
+  &.refresh-button {
+    cursor: pointer;
+    top: 1.7rem;
+    .fas {
+      font-size: 1.7rem;
+    }
+    &:hover {
+      top: 1.9rem;
+    }
+    &:active {
+      color: ${(props) => props.theme.style.blueBackground};
+      transform: scale(1.1);
+      transition: all 0.1s ease;
+    }
+  }
+  &.refresh-disabled {
+    cursor: none;
+    pointer-events: none;
+    top: 1.7rem;
+    .fas {
+      font-size: 1.7rem;
+    }
+    
+  }
+
+  
+ 
+  @media (max-width: 605px) {
+    font-size: 1.9rem;
+    padding: 0.75rem 1rem 2.2rem 1rem;
+    position: relative;
+    top: 1rem;
+  }
+  @media (max-width: 550px) {
+    margin-right: 0.5rem;
+  }
+  @media (max-width: 380px) {
+    font-size: 1.5rem;
+    padding: 0.75rem 0.75rem 2rem 0.75rem;
+    position: relative;
+    margin-right: 0.5rem;
+    top: 0.5rem;
+    p {
+      top: 0.4rem;
+    }
+  }
+  @media (max-width: 333px) {
+    margin-right: 0.3rem;
   }
 `;
 
@@ -142,10 +249,8 @@ export const StakedAssetsTitle = styled.div`
   align-items: center;
   justify-content: space-between;
   border: ${(props) => props.theme.style.mainBorder};
-  box-shadow: ${(props) => props.theme.style.panelBoxShadow};
   padding: 10px;
   margin-top: 25px;
-  background-color: ${(props) => props.theme.style.highlight};
   .fas {
     font-size: 1.7rem;
     position: relative;
@@ -167,9 +272,13 @@ export const StakedAssetsTitle = styled.div`
 `;
 
 export const NoFarmSummariesFound = styled.div`
+  position: relative;
+  z-index: 50;
   font-family: ${fonts.headerFont};
   font-size: 18px;
   border: ${(props) => props.theme.style.mainBorder};
+  border-radius: .5rem;
+  background-color: ${(props) => props.theme.style.lightBackground};
   padding: 10px;
   text-align: center;
 `;

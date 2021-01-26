@@ -6,24 +6,28 @@ import { darkTheme, lightTheme } from "../../styles/appStyles";
 import FarmCard from "./FarmCard";
 import {
   FarmGroupContainerWrapper,
-  StakedAssetsTitle,
   NoFarmSummariesFound,
+  PanelTab,
+  Tabs,
+  PanelTabContainerLeft,
+  PanelTabContainerRight
 } from "./FarmCardStyles";
+import {  } from "../farmingTable/FarmingTableStyles";
 const { utils } = harvest;
 
 function FarmCardGroupContainer({ showAsTables }) {
-  const { state, setState } = useContext(HarvestContext);
+  const { state, setState, isRefreshing, isCheckingBalance, refresh } = useContext(HarvestContext);
 
   function getTotalFarmEarned() {
     let total = 0;
     if (state.summaries.length) {
+      // eslint-disable-next-line 
       state.summaries.map(utils.prettyPosition).map((summary) => {
         total += parseFloat(summary.historicalRewards);
         setState({
           ...state,
           totalFarmEarned: (state.totalFarmEarned = total),
         });
-        return;
       });
     }
   }
@@ -33,6 +37,7 @@ function FarmCardGroupContainer({ showAsTables }) {
       getTotalFarmEarned();
     }
     return;
+    // eslint-disable-next-line 
   }, [state.summaries]);
 
   useEffect(() => {
@@ -44,10 +49,25 @@ function FarmCardGroupContainer({ showAsTables }) {
 
   return (
     <ThemeProvider theme={state.theme === "dark" ? darkTheme : lightTheme}>
-      <StakedAssetsTitle>
-        <h2>Your Staked Assets</h2>
-        <i className="fas fa-table" onClick={showAsTables}></i>
-      </StakedAssetsTitle>
+        <Tabs>
+          <PanelTabContainerLeft>
+          <PanelTab>
+              <p>your staked assets</p>
+          </PanelTab>
+          </PanelTabContainerLeft>
+          <PanelTabContainerRight>
+            <PanelTab className={isRefreshing ? "refresh-disabled" : "refresh-button"} onClick={showAsTables}>
+              <i className="fas fa-table"></i>
+            </PanelTab>
+            {isCheckingBalance ? "" : <PanelTab className={isRefreshing ? "refresh-disabled" : "refresh-button"} onClick={refresh}>
+              <i className="fas fa-sync-alt"></i>
+            </PanelTab>}
+
+          </PanelTabContainerRight>
+
+        </Tabs>
+        
+     
       {state.summaries.length ? (
         <FarmGroupContainerWrapper>
           {state.summaries.map(utils.prettyPosition).map((summary) => {
@@ -58,7 +78,7 @@ function FarmCardGroupContainer({ showAsTables }) {
         </FarmGroupContainerWrapper>
       ) : (
           <NoFarmSummariesFound>
-            You currently are not staking any assets 🏜️
+            You currently are not staking any assets <span role="img" aria-label="desert emoji">🏜️</span>
           </NoFarmSummariesFound>
         )}
     </ThemeProvider>

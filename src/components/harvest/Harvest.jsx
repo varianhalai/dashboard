@@ -3,7 +3,7 @@ import HarvestContext from "../../Context/HarvestContext";
 import styled, { ThemeProvider } from "styled-components";
 import { darkTheme, lightTheme, fonts } from "../../styles/appStyles";
 import harvest from "../../lib/index.js";
-const { utils, ethers } = harvest;
+const { ethers } = harvest;
 
 const Harvest = () => {
   const {

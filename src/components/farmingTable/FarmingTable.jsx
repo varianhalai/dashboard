@@ -10,8 +10,6 @@ import FarmTableSkeleton from "./FarmTableSkeleton";
 
 const { utils } = harvest;
 
-
-
 const columns = [
   {
     name: "Rewards Pool",
@@ -193,12 +191,14 @@ const FarmingTable = ({ showAsCards }) => {
   const getTotalFarmEarned = () => {
     let total = 0;
     if (state.summaries.length !== 0) {
+      // eslint-disable-next-line 
       state.summaries.map(utils.prettyPosition).map((summary, index) => {
         total += parseFloat(summary.historicalRewards);
         setState({
           ...state,
           totalFarmEarned: (state.totalFarmEarned = total),
         });
+
       });
     }
   };
@@ -214,10 +214,10 @@ const FarmingTable = ({ showAsCards }) => {
   useEffect(() => {
     const timer = setTimeout(() => {
       getTotalFarmEarned();
+
     }, 60000);
     return () => clearTimeout(timer);
   });
-
   const handleRefresh = () => {
 
   }
