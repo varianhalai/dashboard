@@ -129,6 +129,9 @@ export const MainTableHeader = styled.div`
     text-align: center;
     width: 100%;
   }
+  .table-header {
+    cursor: pointer;
+  }
 `;
 
 export const PanelTabContainerLeft = styled.div`
