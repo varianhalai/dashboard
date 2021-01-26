@@ -50,7 +50,7 @@ const StakeContainer = ({ data }) => {
         .then(async (res) => {
           setHarvestAndStakeMessage({
             ...harvestAndStakeMessage,
-            first: `Staking your ${data.pool.name} tokens`,
+            first: `Staking your ${data.name} tokens`,
             second: "",
           });
           await res.wait().then(() => {
@@ -59,7 +59,7 @@ const StakeContainer = ({ data }) => {
             setHarvestAndStakeMessage({
               ...harvestAndStakeMessage,
               first: `Success!`,
-              second: `${amount} tokens has been staked on ${data.pool.name} pool!`,
+              second: `${amount} tokens has been staked on ${data.name} pool!`,
             });
             const timer = setTimeout(() => {
               setHarvestAndStakeMessage({
@@ -80,7 +80,7 @@ const StakeContainer = ({ data }) => {
               second: "",
             });
             console.log(
-              `You don't have enough ${amount} token to stake on ${data.pool.name} pool`,
+              `You don't have enough ${amount} token to stake on ${data.name} pool`,
             );
           }
         });
@@ -109,7 +109,7 @@ const StakeContainer = ({ data }) => {
         .then(async (res) => {
           setHarvestAndStakeMessage({
             ...harvestAndStakeMessage,
-            first: `Withdrawing your ${data.pool.name} tokens`,
+            first: `Withdrawing your ${data.name} tokens`,
             second: "",
           });
           await res.wait().then(() => {
@@ -118,7 +118,7 @@ const StakeContainer = ({ data }) => {
             setHarvestAndStakeMessage({
               ...harvestAndStakeMessage,
               first: `Success!`,
-              second: `${amount} tokens has been withdrawn on ${data.pool.name} pool!`,
+              second: `${amount} tokens has been withdrawn on ${data.name} pool!`,
             });
             const timer = setTimeout(() => {
               setHarvestAndStakeMessage({
@@ -139,7 +139,7 @@ const StakeContainer = ({ data }) => {
               second: "",
             });
             console.log(
-              `You do not have enough ${amount} tokens to withdraw on ${data.pool.name} pool`,
+              `You do not have enough ${amount} tokens to withdraw on ${data.name} pool`,
             );
           }
         });
@@ -288,7 +288,7 @@ const FarmingTable = ({ showAsCards }) => {
                       <div className="pool">{summary.percentOfPool}</div>
                       <div className="value">{prettyBalance(summary.usdValueOf * currentExchangeRate)}</div>
                       <div className="unstaked">
-                        {parseFloat(summary.unstakedBalance).toFixed(6)}
+                        {Math.floor(parseFloat(summary.unstakedBalance)).toFixed(6)}
                       </div>
                       <StakeContainer data={summary} />
                     </MainTableRow>
