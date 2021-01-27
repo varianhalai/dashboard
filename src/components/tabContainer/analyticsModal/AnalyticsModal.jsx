@@ -33,7 +33,7 @@ const AnalyticsModal = ({ showAnalytics, setShowAnalytics }) => {
         target="_blank"
         rel="noopener noreferrer"
       >
-        Profit calulator
+        Profit calculator
       </a>
 
       {state.address ? <a
