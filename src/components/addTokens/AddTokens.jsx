@@ -3,6 +3,7 @@ import HarvestContext from "../../Context/HarvestContext";
 import styled, { ThemeProvider } from "styled-components";
 import { darkTheme, lightTheme, fonts } from "../../styles/appStyles";
 import { tokens, tokens2 } from "./AvailableTokens";
+import { Contract, providers } from "ethers";
 
 const Panel = styled.div`
   display: flex;
@@ -12,42 +13,37 @@ const Panel = styled.div`
   color: ${(props) => props.theme.style.primaryFontColor};
   font-size: 1.7rem;
   font-family: ${fonts.contentFont};
-  padding:  1rem 1.5rem 0rem 1.5rem;
+  padding: 1rem 1.5rem 0rem 1.5rem;
   border: ${(props) => props.theme.style.mainBorder};
   border-radius: 0.5rem;
   box-sizing: border-box;
   box-shadow: ${(props) => props.theme.style.panelBoxShadow};
- 
-  
 
   .inner {
-    
     overflow-x: scroll;
     height: 16rem;
-    scrollbar-color: ${(props) => props.theme.style.scrollBarColor} ${(props) =>
-  props.theme.style.lightBackground} ;
+    scrollbar-color: ${(props) => props.theme.style.scrollBarColor}
+      ${(props) => props.theme.style.lightBackground};
     scrollbar-width: thin;
 
     ::-webkit-scrollbar {
       width: 100%;
-      height: .8rem;
-      margin-top: -1.8rem
-      
+      height: 0.8rem;
+      margin-top: -1.8rem;
     }
-    ::-webkit-scrollbar-track:no-button { 
+    ::-webkit-scrollbar-track:no-button {
       width: 100%;
-      border-radius: .5rem;
+      border-radius: 0.5rem;
       background-color: ${(props) => props.theme.style.lightBackground};
     }
     ::-webkit-scrollbar-button {
       color: ${(props) => props.theme.style.primaryFontColor};
-      
     }
     ::-webkit-scrollbar-thumb {
       border-radius: 10px;
       background-color: black;
       background-color: ${(props) => props.theme.style.scrollBarColor};
-   }
+    }
 
     .token-container {
       display: flex;
@@ -57,16 +53,13 @@ const Panel = styled.div`
       &.first {
         margin-bottom: 2rem;
       }
-      
-     
-      @media(max-width: 1105px) {
+
+      @media (max-width: 1105px) {
         width: 90rem;
         margin: 0 auto;
       }
-    
     }
   }
-    
 
   h1 {
     font-family: ${fonts.headerFont};
@@ -76,12 +69,10 @@ const Panel = styled.div`
     position: relative;
   }
 
-  @media(max-width: 1105px) {
+  @media (max-width: 1105px) {
     margin-bottom: 1.5rem;
     height: 32rem;
   }
- 
-  
 `;
 
 const StyledToken = styled.div`
@@ -127,11 +118,43 @@ const AddTokens = (props) => {
     // eslint-disable-next-line
   }, [tokenAddedMessage]);
 
+  const checkForToken = async (t) => {
+    // The minimum ABI to get ERC20 Token balance
+    let minABI = [
+      // balanceOf
+      {
+        constant: true,
+        inputs: [{ name: "_owner", type: "address" }],
+        name: "balanceOf",
+        outputs: [{ name: "balance", type: "uint256" }],
+        type: "function",
+      },
+      // decimals
+      {
+        constant: true,
+        inputs: [],
+        name: "decimals",
+        outputs: [{ name: "", type: "uint8" }],
+        type: "function",
+      },
+    ];
+    // Get ERC20 Token contract instance
+    let contract = new Contract(
+      t.address,
+      minABI,
+      providers.getDefaultProvider(),
+    );
+    // calculate a balance
+    const balance = await contract.balanceOf(props.state.address);
+    console.log(parseInt(balance) > 0);
+    return parseInt(balance);
+  };
+
   const addTokenToWallet = (t) => {
     setTokenAddedMessage("");
 
-    props.state.provider.sendAsync(
-      {
+    window.ethereum
+      .request({
         method: "metamask_watchAsset",
         params: {
           type: "ERC20",
@@ -142,22 +165,19 @@ const AddTokens = (props) => {
             image: t.tokenImage,
           },
         },
-        id: Math.round(Math.random() * 100000),
-      },
-      (err, result) => {
-        if (err) {
-          setTokenAddedMessage(
-            `An error has occurred, ${t.name} could not be added.`,
-          );
-        } else {
-          if (result.result) {
-            setTokenAddedMessage(`${t.name} was added to wallet!`);
-          } else {
-            setTokenAddedMessage(`${t.name} has not been added to wallet.`);
-          }
+        // id: Math.round(Math.random() * 100000),
+      })
+      .then(async (response) => {
+        // console.log(await checkForToken(t))
+        if ((await checkForToken(t)) > 0 && response) {
+          setTokenAddedMessage(`${t.name} is already in your wallet.`);
+        } else if (response) {
+          setTokenAddedMessage(`${t.name} was added to your wallet.`);
+        } else{
+          setTokenAddedMessage(`${t.name} was not added to your wallet.`);
         }
-      },
-    );
+      })
+      .catch(console.error);
   };
 
   return (
