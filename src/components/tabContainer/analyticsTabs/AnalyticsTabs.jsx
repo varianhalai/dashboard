@@ -52,7 +52,7 @@ const AnalyticsTabs = ({ showAnalytics, setShowAnalytics }) => {
           target="_blank"
           rel="noopener noreferrer"
         >
-          Profit calulator
+          Profit calculator
         </a>
       </PanelTab>
       {state.address ? <PanelTab
