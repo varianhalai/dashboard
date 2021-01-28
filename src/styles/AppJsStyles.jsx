@@ -255,7 +255,9 @@ export const Container = styled.div`
   width: 100%;
   max-width: 1200px;
   margin: 0 auto;
+  padding-bottom: 15rem;
   @media (max-width: 1140px) {
     width: 95%;
+    
   }
 `;

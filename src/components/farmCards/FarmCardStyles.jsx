@@ -24,9 +24,9 @@ export const FarmCardContainer = styled.div`
   }
 
   .farm_card_title {
-    font-size: 18px;
+    font-size: 1.7rem;
     font-weight: bold;
-    text-align: left;
+  
     margin-bottom: 20px;
   }
 
@@ -40,15 +40,15 @@ export const FarmCardContainer = styled.div`
       "claimable pool value";
 
     .card_property_section {
-      text-align: left;
-      padding: 20px;
+      
+      padding: 20px 0;
 
       .card_property_title {
         font-weight: bold;
-        font-size: 16px;
+        font-size: 1.7rem;
       }
       .card_property_value {
-        font-size: 14px;
+        font-size: 1.7rem;
         margin-top: 10px;
       }
     }
@@ -119,13 +119,23 @@ export const UnderlyingBalanceContainer = styled.div`
   width: 90%;
   margin: 10px 0;
   .underlying_balance_label {
-    font-size: 16px;
+    font-size: 1.7rem;
     font-weight: bold;
     margin: 10px 0;
 
   }
+  .farm_underlying {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.7rem;
+    img {
+      width: 9%;
+    }
+  }
   .underlying_balance_value {
-    font-size: 16px;
+    font-size: 1.7rem;
 
     .underlying_profits{
       color: green;
@@ -275,7 +285,7 @@ export const NoFarmSummariesFound = styled.div`
   position: relative;
   z-index: 50;
   font-family: ${fonts.headerFont};
-  font-size: 18px;
+  font-size: 1.7rem;
   border: ${(props) => props.theme.style.mainBorder};
   border-radius: .5rem;
   background-color: ${(props) => props.theme.style.lightBackground};
