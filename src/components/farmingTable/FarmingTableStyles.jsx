@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { darkTheme, lightTheme, fonts } from '../../styles/appStyles';
+import { fonts } from '../../styles/appStyles';
 
 export const TableContainer = styled.div`
   display: flex;
@@ -128,6 +128,9 @@ export const MainTableHeader = styled.div`
   p {
     text-align: center;
     width: 100%;
+  }
+  .table-header {
+    cursor: pointer;
   }
 `;
 

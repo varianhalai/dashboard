@@ -6,13 +6,17 @@ import { darkTheme, lightTheme } from "../../styles/appStyles";
 import FarmCard from "./FarmCard";
 import {
   FarmGroupContainerWrapper,
-  StakedAssetsTitle,
   NoFarmSummariesFound,
+  PanelTab,
+  Tabs,
+  PanelTabContainerLeft,
+  PanelTabContainerRight
 } from "./FarmCardStyles";
+import {  } from "../farmingTable/FarmingTableStyles";
 const { utils } = harvest;
 
 function FarmCardGroupContainer({ showAsTables }) {
-  const { state, setState } = useContext(HarvestContext);
+  const { state, setState, isRefreshing, isCheckingBalance, refresh } = useContext(HarvestContext);
 
   function getTotalFarmEarned() {
     let total = 0;
@@ -45,10 +49,25 @@ function FarmCardGroupContainer({ showAsTables }) {
 
   return (
     <ThemeProvider theme={state.theme === "dark" ? darkTheme : lightTheme}>
-      <StakedAssetsTitle>
-        <h2>Your Staked Assets</h2>
-        <i className="fas fa-table" onClick={showAsTables}></i>
-      </StakedAssetsTitle>
+        <Tabs>
+          <PanelTabContainerLeft>
+          <PanelTab>
+              <p>your staked assets</p>
+          </PanelTab>
+          </PanelTabContainerLeft>
+          <PanelTabContainerRight>
+            <PanelTab className={isRefreshing ? "refresh-disabled" : "refresh-button"} onClick={showAsTables}>
+              <i className="fas fa-table"></i>
+            </PanelTab>
+            {isCheckingBalance ? "" : <PanelTab className={isRefreshing ? "refresh-disabled" : "refresh-button"} onClick={refresh}>
+              <i className="fas fa-sync-alt"></i>
+            </PanelTab>}
+
+          </PanelTabContainerRight>
+
+        </Tabs>
+        
+     
       {state.summaries.length ? (
         <FarmGroupContainerWrapper>
           {state.summaries.map(utils.prettyPosition).map((summary) => {

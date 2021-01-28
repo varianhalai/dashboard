@@ -5,14 +5,14 @@ import ethers from 'ethers';
 import { FarmCardContainer, UnderlyingBalanceContainer, CardInputContainer } from "./FarmCardStyles";
 
 export default function FarmCard({ summary_information }) {
-  const { state, prettyBalance, currentExchangeRate, isCheckingBalance, harvestAndStakeMessage, setHarvestAndStakeMessage, convertStandardNumber} = useContext(HarvestContext)
+  const { state, prettyBalance, currentExchangeRate, isCheckingBalance, harvestAndStakeMessage, setHarvestAndStakeMessage, convertStandardNumber } = useContext(HarvestContext)
   const [amount, setAmount] = useState(summary_information.unstakedBalance);
   const [isStaking, setStaking] = useState(false);
   const [isWithdrawing, setWithdrawing] = useState(false);
   const isProfitShareCard = summary_information.name === "FARM Profit Sharing";
 
-  const pool = () =>{
-    if(!isCheckingBalance){
+  const pool = () => {
+    if (!isCheckingBalance) {
       return state.manager.pools.find((pool) => {
         return pool.address === summary_information.address;
       });
@@ -27,7 +27,7 @@ export default function FarmCard({ summary_information }) {
         .then(async (res) => {
           setHarvestAndStakeMessage({
             ...harvestAndStakeMessage,
-            first: `Staking your ${pool.name} tokens`,
+            first: `Staking your ${summary_information.name} tokens`,
             second: "",
           });
           await res.wait().then(() => {
@@ -36,7 +36,7 @@ export default function FarmCard({ summary_information }) {
             setHarvestAndStakeMessage({
               ...harvestAndStakeMessage,
               first: `Success!`,
-              second: `${amount} tokens has been staked on ${pool.name} pool!`,
+              second: `${amount} tokens has been staked on ${summary_information.name} pool!`,
             });
             const timer = setTimeout(() => {
               setHarvestAndStakeMessage({
@@ -57,7 +57,7 @@ export default function FarmCard({ summary_information }) {
               second: "",
             });
             console.log(
-              `You don't have enough ${amount} token to stake on ${pool.name} pool`,
+              `You don't have enough ${amount} token to stake on ${summary_information.name} pool`,
             );
           }
         });
@@ -86,7 +86,7 @@ export default function FarmCard({ summary_information }) {
         .then(async (res) => {
           setHarvestAndStakeMessage({
             ...harvestAndStakeMessage,
-            first: `Withdrawing your ${summary_information.pool.name} tokens`,
+            first: `Withdrawing your ${summary_information.name} tokens`,
             second: "",
           });
           await res.wait().then(() => {
@@ -95,7 +95,7 @@ export default function FarmCard({ summary_information }) {
             setHarvestAndStakeMessage({
               ...harvestAndStakeMessage,
               first: `Success!`,
-              second: `${amount} tokens has been withdrawn on ${summary_information.pool.name} pool!`,
+              second: `${amount} tokens has been withdrawn on ${summary_information.name} pool!`,
             });
             const timer = setTimeout(() => {
               setHarvestAndStakeMessage({
@@ -116,7 +116,7 @@ export default function FarmCard({ summary_information }) {
               second: "",
             });
             console.log(
-              `You do not have enough ${amount} tokens to withdraw on ${summary_information.pool.name} pool`,
+              `You do not have enough ${amount} tokens to withdraw on ${summary_information.name} pool`,
             );
           }
         });
@@ -144,7 +144,7 @@ export default function FarmCard({ summary_information }) {
         </div>
         <div className="card_property_section farm_unstaked">
           <label className="card_property_title">Unstaked</label>
-          <p className="card_property_value">{parseFloat(summary_information.unstakedBalance).toFixed(6)}</p>
+          <p className="card_property_value">{Math.floor(parseFloat(summary_information.unstakedBalance)).toFixed(6)}</p>
         </div>
         <div className="card_property_section farm_pool_percentage">
           <label className="card_property_title">% of Pool</label>
