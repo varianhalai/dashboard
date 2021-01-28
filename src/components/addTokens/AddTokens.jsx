@@ -170,15 +170,11 @@ const AddTokens = (props) => {
       .then(async (response) => {
         // console.log(await checkForToken(t))
         if ((await checkForToken(t)) > 0 && response) {
-          console.log(`${t.name} is already in your wallet.`);
-          console.log(response);
+          setTokenAddedMessage(`${t.name} is already in your wallet.`);
         } else if (response) {
-          console.log(`${t.name} was added to your wallet.`);
-          console.log(response);
-        } else if (!response) {
-          console.log(`${t.name} was not added to your wallet.`);
-        } else {
-          throw new Error(`${t.name} was not added to your wallet.`);
+          setTokenAddedMessage(`${t.name} was added to your wallet.`);
+        } else{
+          setTokenAddedMessage(`${t.name} was not added to your wallet.`);
         }
       })
       .catch(console.error);
