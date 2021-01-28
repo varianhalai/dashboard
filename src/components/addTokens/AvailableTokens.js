@@ -30,8 +30,8 @@ export const tokens = [
     symbol: "fUSDC",
     url: "https://harvestfi.github.io/add-fusdc/",
     image: usdcIcon,
-    address: "0xf0358e8c3cd5fa238a29301d0bea3d63a17bedbe",
-    decimals: 18,
+    address: "0xf0358e8c3CD5Fa238a29301d0bEa3D63A17bEdBE",
+    decimals: 6,
     tokenImage:
       "https://s2.coinmarketcap.com/static/img/coins/200x200/3408.png",
   },
