@@ -3,7 +3,7 @@ import HarvestContext from '../../Context/HarvestContext';
 import ethers from 'ethers';
 
 import { FarmCardContainer, UnderlyingBalanceContainer, CardInputContainer } from "./FarmCardStyles";
-
+import logo from '../../assets/logo.png'
 export default function FarmCard({ summary_information }) {
   const { state, prettyBalance, currentExchangeRate, isCheckingBalance, harvestAndStakeMessage, setHarvestAndStakeMessage, convertStandardNumber } = useContext(HarvestContext)
   const [amount, setAmount] = useState(summary_information.unstakedBalance);
@@ -162,7 +162,10 @@ export default function FarmCard({ summary_information }) {
         </div>
         <span className="underlying_balance_value">{
           isProfitShareCard
-            ? "N/A"
+            ? <div className="farm_underlying">
+              N/A
+              <img src={logo} alt="Farm tractor"/>
+            </div>
             : <span>
               {parseFloat(summary_information.underlyingBalance).toFixed(6)}
               <div className="underlying_profits">
@@ -171,7 +174,7 @@ export default function FarmCard({ summary_information }) {
             </span>}
         </span>
       </UnderlyingBalanceContainer>
-      {summary_information.name !== "FARM Profit Sharing" &&
+      
         <div className="card_input_area">
           {!isCheckingBalance &&
             (<CardInputContainer>
@@ -181,7 +184,7 @@ export default function FarmCard({ summary_information }) {
             </CardInputContainer>)
           }
         </div>
-      }
+      
     </FarmCardContainer >
   )
 }
