@@ -42,7 +42,7 @@ const CheckBalance = (props) => {
           return underlying.toList().filter((u) => !u.balance.isZero());
         })
         .then((underlyings) => {
-          setState({ ...state, underlyings: underlyings });
+          setState((state) => ({ ...state, underlyings: underlyings }));
         })
         .catch((err) => {
           console.log(err);
@@ -82,7 +82,7 @@ const CheckBalance = (props) => {
 
   const setCheck = (address) => {
     if (address && validateAddress(address)) {
-      setState({ ...state, address: addressToCheck });
+      setState((state) => ({ ...state, address: addressToCheck }));
       setCheckingBalance(true);
       checkBalances(address);
 
