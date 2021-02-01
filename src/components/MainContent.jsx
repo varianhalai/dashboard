@@ -109,15 +109,6 @@ const MainContent = ({
 
       {showTables ? <AssetTable state={state} /> : ""}
 
-      {!isCheckingBalance ? (
-        <div className="button-div">
-          <button onClick={disconnect} className="clear button">
-            Disconnect
-          </button>
-        </div>
-      ) : (
-        ""
-      )}
       {isCheckingBalance ? (
         <div className="button-div">
           <button onClick={clear} className="clear button">
