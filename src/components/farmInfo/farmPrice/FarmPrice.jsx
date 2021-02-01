@@ -54,7 +54,7 @@ const FarmPrice = () => {
     <ThemeProvider theme={state.theme === "dark" ? darkTheme : lightTheme}>
       {state.display ? (
         <BluePanel>
-          <h1>{convertStandardNumber(state.farmPrice * currentExchangeRate) || '$0.00'}</h1>
+          <h1>{convertStandardNumber(state.farmPrice * currentExchangeRate)}</h1>
           <span>FARM price</span>
         </BluePanel>
       ) : (
