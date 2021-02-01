@@ -272,6 +272,7 @@ function App() {
         tokenAddedMessage,
         setTokenAddedMessage,
         isRefreshing,
+        isConnecting,
         setIsConnecting,
         isCheckingBalance,
         setCheckingBalance,

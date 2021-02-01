@@ -81,7 +81,7 @@ const WelcomeText = ({
   openModal,
   state,
 }) => {
-  const { setIsConnecting, setCheckingBalance, web3Modal } = useContext(HarvestContext);
+  const { setIsConnecting, setCheckingBalance, web3Modal, isConnecting } = useContext(HarvestContext);
 
   const connectMetamask = useCallback(() => {
     setIsConnecting(true);
@@ -145,12 +145,15 @@ const WelcomeText = ({
     <WelcomeTextPanel>
       <h1>Harvest Finance Dashboard</h1>
       <h4>Connect a wallet to get started</h4>
-      <button
-        className="button"
-        onClick={() => connectMetamask()}
-      >
-        Connect Wallet
-      </button>
+      {
+        !isConnecting &&
+        <button
+          className="button"
+          onClick={() => connectMetamask()}
+        >
+          Connect Wallet
+        </button>
+      }
       <h6 className="foot-note">
         You will need a web3 wallet such as metamask to access this application.
       </h6>
