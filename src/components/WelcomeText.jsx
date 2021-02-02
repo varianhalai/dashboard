@@ -1,26 +1,10 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect, useCallback } from "react";
 import HarvestContext from "../Context/HarvestContext";
 import styled from "styled-components";
 import { fonts } from "../styles/appStyles";
 import harvest from "../lib/index";
-import Web3Modal from "web3modal";
-import WalletConnectProvider from "@walletconnect/web3-provider";
 
 const { ethers } = harvest;
-
-const web3Modal = new Web3Modal({
-  network: "mainnet", // optional
-  cacheProvider: false, // optional
-  providerOptions: {
-    walletconnect: {
-      package: WalletConnectProvider, // required
-      options: {
-        infuraId: `${process.env.REACT_APP_INFURA_KEY}`, // required
-      },
-    },
-  },
-  
-});
 
 const WelcomeTextPanel = styled.div`
   width: 98%;
@@ -97,8 +81,9 @@ const WelcomeText = ({
   openModal,
   state,
 }) => {
-  const { setIsConnecting, setCheckingBalance } = useContext(HarvestContext);
-  const connectMetamask = () => {
+  const { setIsConnecting, setCheckingBalance, web3Modal, isConnecting } = useContext(HarvestContext);
+
+  const connectMetamask = useCallback(() => {
     setIsConnecting(true);
     setCheckingBalance(false);
     web3Modal
@@ -124,7 +109,12 @@ const WelcomeText = ({
       .catch((err) => {
         console.log(err);
       });
-  };
+  });
+
+  useEffect(() => {
+    if (web3Modal.cachedProvider) 
+      connectMetamask();
+  }, [connectMetamask, web3Modal.cachedProvider]);
 
   const setProvider = async (provider) => {
     const ethersProvider = new ethers.providers.Web3Provider(provider);
@@ -155,12 +145,15 @@ const WelcomeText = ({
     <WelcomeTextPanel>
       <h1>Harvest Finance Dashboard</h1>
       <h4>Connect a wallet to get started</h4>
-      <button
-        className="button"
-        onClick={() => connectMetamask(state.provider)}
-      >
-        Connect Wallet
-      </button>
+      {
+        !isConnecting &&
+        <button
+          className="button"
+          onClick={() => connectMetamask()}
+        >
+          Connect Wallet
+        </button>
+      }
       <h6 className="foot-note">
         You will need a web3 wallet such as metamask to access this application.
       </h6>

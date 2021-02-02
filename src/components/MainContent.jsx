@@ -18,19 +18,9 @@ const MainContent = ({
   setAddressToCheck,
 }) => {
   const {
-    setRadio,
     isCheckingBalance,
-    setCheckingBalance,
-    disconnect,
     state
   } = useContext(HarvestContext);
-
-  const clear = () => {
-    setRadio(false);
-    setCheckingBalance(false);
-    setAddressToCheck("");
-    disconnect();
-  };
 
   const [showTables, setShowTables] = useState(false);
   const showAsTables = () => {
@@ -108,25 +98,6 @@ const MainContent = ({
       )}
 
       {showTables ? <AssetTable state={state} /> : ""}
-
-      {!isCheckingBalance ? (
-        <div className="button-div">
-          <button onClick={disconnect} className="clear button">
-            Disconnect
-          </button>
-        </div>
-      ) : (
-        ""
-      )}
-      {isCheckingBalance ? (
-        <div className="button-div">
-          <button onClick={clear} className="clear button">
-            Clear
-          </button>
-        </div>
-      ) : (
-        ""
-      )}
     </Main>
   );
 };

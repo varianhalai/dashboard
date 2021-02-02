@@ -123,6 +123,13 @@ export function prettyUnderlying(u) {
   };
 }
 
+export const prettyEthAddress = (address) => {
+  if (address && address.length === 42) {
+    address = `${address.substring(0, 6)}...${address.substring(42, 38)}`;
+  }
+  return address;
+}
+
 export default {
   prettyUnderlying,
   prettyPosition,
