@@ -64,6 +64,7 @@ function App() {
     first: "",
     second: "",
   });
+  const [addressToCheck, setAddressToCheck] = useState("");
   const [state, setState] = useState({
     provider: undefined,
     signer: undefined,
@@ -293,7 +294,9 @@ function App() {
         toggleUserSettings,
         openDrawer,
         toggleSideDrawer,
-        web3Modal
+        web3Modal,
+        addressToCheck,
+        setAddressToCheck
       }}
     >
       <ThemeProvider theme={state.theme === "dark" ? darkTheme : lightTheme}>

@@ -22,9 +22,10 @@ const CheckBalance = (props) => {
     setConnection,
     isCheckingBalance,
     setCheckingBalance,
+    addressToCheck,
+    setAddressToCheck
   } = useContext(HarvestContext);
   const [validationMessage, setValidationMessage] = useState("");
-  const [addressToCheck, setAddressToCheck] = useState("");
 
   const checkBalances = async (address) => {
     if (validateAddress(addressToCheck)) {

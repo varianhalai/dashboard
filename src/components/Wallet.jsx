@@ -108,7 +108,17 @@ const Wallet = ({ theme, address, provider }) => {
   const {
     isCheckingBalance,
     disconnect,
+    setRadio,
+    setCheckingBalance,
+    setAddressToCheck
   } = useContext(HarvestContext);
+
+  const clear = () => {
+    setRadio(false);
+    setCheckingBalance(false);
+    setAddressToCheck("");
+    disconnect();
+  };
 
   const renderConnectStatus = (provider, address) => {
    
@@ -128,6 +138,14 @@ const Wallet = ({ theme, address, provider }) => {
           <div className="button-div">
             <button onClick={disconnect} className="clear button">
               Disconnect
+            </button>
+          </div>
+        )}
+
+        {isCheckingBalance && (
+          <div className="button-div">
+            <button onClick={clear} className="clear button">
+              Clear
             </button>
           </div>
         )}
