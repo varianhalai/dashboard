@@ -23,11 +23,24 @@ import CheckBalance from "./components/checkBalance/CheckBalance";
 import TokenMessage from "./components/statusMessages/TokenMessage";
 import HarvestAndStakeMessage from "./components/statusMessages/HarvestAndStakeMessage";
 import Sidedrawer from './components/userSettings/sidedrawer/Sidedrawer';
+import Web3Modal from "web3modal";
+import WalletConnectProvider from "@walletconnect/web3-provider";
 
 const { ethers,utils } = harvest;
 
-
-
+const web3Modal = new Web3Modal({
+  network: "mainnet", // optional
+  cacheProvider: true, // optional
+  providerOptions: {
+    walletconnect: {
+      package: WalletConnectProvider, // required
+      options: {
+        infuraId: `${process.env.REACT_APP_INFURA_KEY}`, // required
+      },
+    },
+  },
+  
+});
 
 const ErrorModal = Loadable({
   loader: () => import("./components/ErrorModal"),
@@ -52,6 +65,7 @@ function App() {
     first: "",
     second: "",
   });
+  const [addressToCheck, setAddressToCheck] = useState("");
   const [state, setState] = useState({
     provider: undefined,
     signer: undefined,
@@ -78,7 +92,7 @@ function App() {
         let currentAPY = res.data[0].rewardAPY;
         let currentPrice = res.data[0].lpTokenData.price;
 
-        setState({ ...state, apy: currentAPY, farmPrice: currentPrice });
+        setState((state) => ({ ...state, apy: currentAPY, farmPrice: currentPrice }));
       })
       .catch((err) => {
         console.log(err);
@@ -113,7 +127,7 @@ function App() {
   }, [state.address]);
   useEffect(() => {
     if (state.usdValue) {
-      setState({ ...state, display: true });
+      setState((state) => ({ ...state, display: true }));
     }
     // eslint-disable-next-line
   }, [state.usdValue]);
@@ -184,7 +198,7 @@ function App() {
 // previous earned rewards you can easily calculate with SharePrice
 
   const disconnect = () => {
-    setState({
+    setState((state) => ({
       provider: undefined,
       signer: undefined,
       manager: undefined,
@@ -195,22 +209,23 @@ function App() {
       apy: 0,
       error: { message: null, type: null, display: false },
       theme: window.localStorage.getItem("HarvestFinance:Theme"),
-    });
+    }));
     setIsConnecting(false);
+    web3Modal.clearCachedProvider();
   };
 
   const closeErrorModal = () => {
-    setState({
+    setState((state) => ({
       ...state,
       error: { message: null, type: null, display: false },
-    });
+    }));
   };
 
   const openModal = (message, type) => {
-    setState({
+    setState((state) => ({
       ...state,
       error: { message: message, type: type, display: true },
-    });
+    }));
   };
 
   const toggleUserSettings = () => {
@@ -222,12 +237,12 @@ function App() {
   
 
   const setConnection = (provider, signer, manager) => {
-    setState({
+    setState((state) => ({
       ...state,
       provider: provider,
       signer: signer,
       manager: manager,
-    });
+    }));
   };
 
   const setAddress = (address) => {
@@ -243,7 +258,7 @@ function App() {
         return underlying.toList().filter((u) => !u.balance.isZero());
       })
       .then((underlyings) => {
-        setState({ ...state, underlyings: underlyings });
+        setState((state) => ({ ...state, underlyings: underlyings }));
       })
       .catch((err) => {
         console.log(err);
@@ -301,7 +316,7 @@ function App() {
     return currencyFormatter.format(balance / 1000000);
   };
   const convertStandardNumber = (num) => {
-    return currencyFormatter.format(num)
+    return num ? currencyFormatter.format(num) : '$0.00'
   }
 
   return (
@@ -315,6 +330,7 @@ function App() {
         tokenAddedMessage,
         setTokenAddedMessage,
         isRefreshing,
+        isConnecting,
         setIsConnecting,
         isCheckingBalance,
         setCheckingBalance,
@@ -334,8 +350,10 @@ function App() {
         settingsOpen,
         toggleUserSettings,
         openDrawer,
-        toggleSideDrawer
-        
+        toggleSideDrawer,
+        web3Modal,
+        addressToCheck,
+        setAddressToCheck
       }}
     >
       <ThemeProvider theme={state.theme === "dark" ? darkTheme : lightTheme}>

@@ -1,6 +1,8 @@
-import React from "react";
+import React, { useContext } from "react";
+import HarvestContext from "../Context/HarvestContext";
 import styled, { ThemeProvider } from "styled-components";
 import { darkTheme, lightTheme, fonts } from "../styles/appStyles";
+import { prettyEthAddress } from "../lib/utils"
 
 const WalletConnection = styled.div`
   border: ${(props) => props.theme.style.mainBorder};
@@ -9,6 +11,7 @@ const WalletConnection = styled.div`
   display: flex;
   justify-content: flex-end;
   padding: 0.5rem;
+  padding-bottom: 0.7rem;
   background-color: ${(props) => props.theme.style.lightBackground};
   font-size: 2rem;
   @media (max-width: 610px) {
@@ -61,6 +64,23 @@ const WalletConnection = styled.div`
       font-size: 1.8rem;
     }
   }
+
+  .connect-status-container {
+    display: flex;
+    align-items: center;
+
+    a {
+      margin-right: 10px;
+    }
+
+    .button-div {
+      .clear {
+        margin: 0px;
+        font-size: 13px;
+        padding: 3px 5px;
+      }
+    }
+  }
 `;
 const WalletContainer = styled.div`
   display: flex;
@@ -85,20 +105,51 @@ const WalletTab = styled.div`
   font-size: 2rem;
 `;
 const Wallet = ({ theme, address, provider }) => {
+  const {
+    isCheckingBalance,
+    disconnect,
+    setRadio,
+    setCheckingBalance,
+    setAddressToCheck
+  } = useContext(HarvestContext);
+
+  const clear = () => {
+    setRadio(false);
+    setCheckingBalance(false);
+    setAddressToCheck("");
+    disconnect();
+  };
+
   const renderConnectStatus = (provider, address) => {
    
     return (
-      <p>
+      <span className="connect-status-container">
         <span id="address">
           <a
             target="_blank"
-          rel="noopener noreferrer"
+            rel="noopener noreferrer"
             href={address ? "https://etherscan.io/address/" + address : "#"}
           >
-            {address || "not connected"}
+            {prettyEthAddress(address) || ""}
           </a>
         </span>
-      </p>
+
+        {!isCheckingBalance && (
+          <div className="button-div">
+            <button onClick={disconnect} className="clear button">
+              Disconnect
+            </button>
+          </div>
+        )}
+
+        {isCheckingBalance && (
+          <div className="button-div">
+            <button onClick={clear} className="clear button">
+              Clear
+            </button>
+          </div>
+        )}
+      </span>
     );
   };
 
@@ -106,9 +157,12 @@ const Wallet = ({ theme, address, provider }) => {
     <ThemeProvider theme={theme === "dark" ? darkTheme : lightTheme}>
       <WalletContainer>
         <WalletTab>wallet</WalletTab>
-        <WalletConnection>
-          {renderConnectStatus(provider, address)}
-        </WalletConnection>
+        {
+          address &&
+          <WalletConnection>
+            {renderConnectStatus(provider, address)}
+          </WalletConnection>
+        }
       </WalletContainer>
     </ThemeProvider>
   );
