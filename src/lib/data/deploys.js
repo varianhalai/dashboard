@@ -150,6 +150,26 @@ const assets = [
     address: "0x514910771AF9Ca656af840dff83E8264EcF986CA",
   },
   {
+    name: "MAAPL",
+    decimals: 18,
+    address: "0xd36932143F6eBDEDD872D5Fb0651f4B72Fd15a84",
+  },
+  {
+    name: "MAMZN",
+    decimals: 18,
+    address: "0x0cae9e4d663793c2a2A0b211c1Cf4bBca2B9cAa7",
+  },
+  {
+    name: "MGOOGL",
+    decimals: 18,
+    address: "0x59A921Db27Dd6d4d974745B7FfC5c33932653442",
+  },
+  {
+    name: "MTSLA",
+    decimals: 18,
+    address: "0x21cA39943E91d704678F5D00b6616650F066fD63",
+  },
+  {
     name: "MIC",
     decimals: 18,
     address: "0x368B3a58B5f49392e5C9E4C998cb0bB966752E51",
@@ -546,25 +566,25 @@ const assets = [
   },
   {
     name: "UNI_MTSLA-UST_LP",
-    //type: "uniswap", // disable until it's in Coingecko
+    type: "uniswap",
     decimals: 18,
     address: "0x5233349957586A8207c52693A959483F9aeAA50C",
   },
   {
     name: "UNI_MGOOGL-UST_LP",
-    //type: "uniswap", // disable until it's in Coingecko
+    type: "uniswap",
     decimals: 18,
     address: "0x4b70ccD1Cf9905BE1FaEd025EADbD3Ab124efe9a",
   },
   {
     name: "UNI_MAMZN-UST_LP",
-    //type: "uniswap", // disable until it's in Coingecko
+    type: "uniswap",
     decimals: 18,
     address: "0x0Ae8cB1f57e3b1b7f4f5048743710084AA69E796",
   },
   {
     name: "UNI_UST-MAAPL_LP",
-    //type: "uniswap", // disable until it's in Coingecko
+    type: "uniswap",
     decimals: 18,
     address: "0xB022e08aDc8bA2dE6bA4fECb59C6D502f66e953B",
   },
