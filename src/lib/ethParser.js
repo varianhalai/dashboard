@@ -110,7 +110,7 @@ const EthParser = (function () {
     }
 
     function fromUrl(url) {
-      url = url ? url : 'https://ethparser.herokuapp.com/price/token';
+      url = url ? url : process.env.REACT_APP_ETH_PARSER_URL;
       if (!instances[url]) {
           instances[url] = createInstance(url);
       }
