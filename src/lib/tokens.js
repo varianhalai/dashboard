@@ -1,7 +1,7 @@
 import {ERC20_ABI, UNISWAP_PAIR_ABI, BALANCER_ABI, CURVE_ABI, FTOKEN_ABI} from './data/ABIs.js';
 import ethers from 'ethers';
 import data from './data/deploys.js';
-import Gecko from './gecko.js';
+import EthParser from './ethParser.js';
 
 /**
  * UnderlyingBalances
@@ -120,9 +120,10 @@ export class Token extends ERC20Extended {
    */
   async usdValueOf(amount) {
     if (amount.isZero()) return ethers.BigNumber.from(0);
-    const gecko = Gecko.coingecko();
-    const value = await gecko.getPrice(this.address);
+    const priceParser = EthParser.parser();
+    const value = await priceParser.getPrice(this.address);
     const unit = ethers.BigNumber.from(10).pow(this.tokenDecimals);
+    
     return amount.mul(value).div(unit);
   }
 

@@ -1,19 +1,16 @@
 import axios from 'axios';
 import ethers from 'ethers';
 
-/**
- * Memoizing coin gecko api
- */
-class GeckoApi {
-  /**
-   * @param {String} url the api url
-   */
-  constructor(url) {
-    this.url = url;
-    this._memos = {};
-  }
+class EthParserApi {
+    /**
+     * @param {String} url the api url
+     */
+    constructor(url) {
+        this.url = url;
+        this._memos ={};
+    }
 
-  /**
+    /**
    * @param {String} address token address
    * @param {Number} time current time
    * @return {Number} price
@@ -63,13 +60,12 @@ class GeckoApi {
       .join(',');
 
     if (s) {
-      
-      const url = `${this.url}?contract_addresses=${s}&vs_currencies=USD`;
+      const url = `${this.url}/${s}`;
       const response = await axios.get(url);
-      console.log(response)
-      Object.entries(response.data).forEach(([address, {usd}]) => {
-        result[address.toLowerCase()] = this.memoize(address, usd, time + 5 * 60 * 1000);
-      });
+      
+      const usd = parseInt(response.data.data)
+   
+      result[s.toLowerCase()] = this.memoize(s, usd, time + 5 * 60 * 1000);
 
       // account for unknown addresses that return nothing
       const unknown = addresses
@@ -79,7 +75,7 @@ class GeckoApi {
         result[address] = this.memoize(address, '0x0', time + 5 * 60 * 1000);
       });
     }
-    console.log(result)
+   
     return result;
   }
 
@@ -102,30 +98,33 @@ class GeckoApi {
   }
 }
 
-const Gecko = (function () {
+  
+
+
+const EthParser = (function () {
     const instances = {};
 
     function createInstance(url) {
-        var object = new GeckoApi(url);
+        var object = new EthParserApi(url);
         return object;
     }
 
     function fromUrl(url) {
-      url = url ? url : 'https://api.coingecko.com/api/v3/simple/token_price/ethereum';
+      url = url ? url : 'https://ethparser.herokuapp.com/price/token';
       if (!instances[url]) {
           instances[url] = createInstance(url);
       }
       return instances[url];
     }
 
-    function coingecko() {
+    function parser() {
       return fromUrl();
     }
 
     return {
-        coingecko,
+        parser,
         fromUrl
     };
 })();
 
-export default Gecko;
+export default EthParser;
