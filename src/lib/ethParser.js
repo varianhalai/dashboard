@@ -60,7 +60,7 @@ class EthParserApi {
       .join(',');
 
     if (s) {
-      const url = `${this.url}/${s}`;
+      const url = `${this.url}/price/token/${s}`;
       const response = await axios.get(url);
       
       const usd = parseInt(response.data.data)
