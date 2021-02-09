@@ -89,13 +89,21 @@ function App() {
       )
       .then((res) => {
         let currentAPY = res.data[0].rewardAPY;
-        let currentPrice = res.data[0].lpTokenData.price;
+       
 
-        setState((state) => ({ ...state, apy: currentAPY, farmPrice: currentPrice }));
+        setState((state) => ({ ...state, apy: currentAPY}));
       })
       .catch((err) => {
         console.log(err);
       });
+      axios
+      .get(`${ process.env.REACT_APP_ETH_PARSER_URL}/price/token/0xa0246c9032bC3A600820415aE600c6388619A14D`)
+      .then(res => {
+        console.log(res.data.data)
+        let farmPrice = res.data.data;
+        setState((state) => ({ ...state, farmPrice: farmPrice}));
+
+      })
   };
 
   useEffect(() => {
