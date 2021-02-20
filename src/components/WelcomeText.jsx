@@ -82,7 +82,7 @@ const WelcomeText = ({
   state,
 }) => {
   const { setIsConnecting, setCheckingBalance, web3Modal, isConnecting } = useContext(HarvestContext);
-
+  // eslint-disable-next-line
   const connectMetamask = useCallback(() => {
     setIsConnecting(true);
     setCheckingBalance(false);
@@ -112,7 +112,7 @@ const WelcomeText = ({
   });
 
   useEffect(() => {
-    if (web3Modal.cachedProvider) 
+    if (web3Modal.cachedProvider)
       connectMetamask();
   }, [connectMetamask, web3Modal.cachedProvider]);
 
